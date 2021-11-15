@@ -51,12 +51,9 @@ public class TestJoueur {
 		joueur.ajouterQuartierDansCite(quartier2);
 		joueur.ajouterQuartierDansCite(quartier3);
 		Test.test(joueur.nbQuartiersDansCite() == 3,"test de l'ajout de trois quartiers");
-		
-		System.out.println(joueur.quartierPresentDansCite("temple"));
-
-		Test.test(joueur.quartierPresentDansCite("temple"), "test de présence d'un quartier");
+		Test.test(joueur.quartierPresentDansCite("temple") == true, "test de présence d'un quartier");
 		Quartier retour = joueur.retirerQuartierDansCite("prison");
-		Test.test(joueur.nbQuartiersDansCite() == 2 && retour==quartier2, 
+		Test.test(joueur.nbQuartiersDansCite() == 2 && retour == quartier2, 
 				"test de retrait d'un quartier");
 		Test.test(!joueur.quartierPresentDansCite("marché"), "test de non présence d'un quartier");
 	}

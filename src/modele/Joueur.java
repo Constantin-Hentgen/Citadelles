@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Joueur {
 	private String nom;
-	private int nbQuartiers, nbPieces;
+	private int nbPieces;
 	private int tresor = 10;
 	private Quartier[] cite = new Quartier[8];
 	private boolean possedeCouronne;
@@ -13,7 +13,6 @@ public class Joueur {
 	public Joueur(String nom){
 		this.nom = nom;
 		this.nbPieces = 0;
-		this.nbQuartiers = 0;
 		this.possedeCouronne = false;
 		this.main = new ArrayList<Quartier>();
 		this.cite = new Quartier[8];
@@ -83,8 +82,14 @@ public class Joueur {
 	public boolean quartierPresentDansCite(String nomQuartier){
 		boolean test = false;
 		for (Quartier element : this.cite){
-			if (element.getNom() == nomQuartier){
-				test = true;
+			try {
+				if (element.getNom() == nomQuartier){
+					test = true;
+					break;
+				}
+			} 
+			catch (NullPointerException npe) {
+				test = false;
 			}
 		}
 		return test;
