@@ -16,12 +16,12 @@ public class TestJoueur {
 	public void test1(){
 		System.out.println("TEST DU CONSTRUCTEUR");
 		Joueur joueur = new Joueur("Billy");
-		Test.test(joueur.getNom().equals("Billy"),"1/4 test du nom du joueur");
-		Test.test(joueur.nbPieces() == 0,"2/4 test du trésor initial du joueur");
+		Test.test(joueur.getNom().equals("Billy"),"test du nom du joueur");
+		Test.test(joueur.nbPieces() == 0,"test du trésor initial du joueur");
 		Test.test(joueur.nbQuartiersDansCite()== 0,
-				"3/4 test de nombre de quartiers dans la cite");
+				"test de nombre de quartiers dans la cite");
 		Test.test(joueur.nbQuartiersDansMain()== 0,
-				"4/4 test du nombre de quartiers dans la main du joueur");
+				"test du nombre de quartiers dans la main du joueur");
 	}
 
 	public void test2() {
@@ -52,7 +52,16 @@ public class TestJoueur {
 		joueur.ajouterQuartierDansCite(quartier3);
 		Test.test(joueur.nbQuartiersDansCite() == 3,"test de l'ajout de trois quartiers");
 		Test.test(joueur.quartierPresentDansCite("temple") == true, "test de présence d'un quartier");
+
 		Quartier retour = joueur.retirerQuartierDansCite("prison");
+
+		// System.out.println(joueur.nbQuartiersDansCite());
+		// System.out.println(retour);
+		
+		// // for (int i = 0; i<8;i++){
+		// 	// 	System.out.println(joueur.getCite()[i].getNom());
+		// 	// }
+			
 		Test.test(joueur.nbQuartiersDansCite() == 2 && retour == quartier2, 
 				"test de retrait d'un quartier");
 		Test.test(!joueur.quartierPresentDansCite("marché"), "test de non présence d'un quartier");
