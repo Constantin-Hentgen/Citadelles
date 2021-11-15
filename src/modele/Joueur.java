@@ -83,7 +83,7 @@ public class Joueur {
 	public boolean quartierPresentDansCite(String nomQuartier){
 		boolean test = false;
 		for (Quartier element : this.cite){
-			if (this.cite[i].getNom() == nomQuartier){
+			if (element.getNom() == nomQuartier){
 				test = true;
 			}
 		}
