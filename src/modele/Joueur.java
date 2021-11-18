@@ -4,15 +4,15 @@ import java.util.Random;
 
 public class Joueur {
 	private String nom;
-	private int nbPieces;
-	private int tresor = 10;
+	private int tresor;
+	private int tresorJeu = 10;
 	private Quartier[] cite = new Quartier[8];
 	private boolean possedeCouronne;
 	private ArrayList<Quartier> main;
 
 	public Joueur(String nom){
 		this.nom = nom;
-		this.nbPieces = 0;
+		this.tresor = 0;
 		this.possedeCouronne = false;
 		this.main = new ArrayList<Quartier>();
 		this.cite = new Quartier[8];
@@ -22,8 +22,8 @@ public class Joueur {
 		return this.nom;
 	}
 
-	public int nbPieces(){
-		return this.nbPieces;
+	public int tresor(){
+		return this.tresor;
 	}
 
 	public int nbQuartiersDansCite(){
@@ -59,15 +59,15 @@ public class Joueur {
 	}
 
 	public void ajouterPieces(int montant){
-		if (montant > 0 && this.tresor >= montant){
-			this.nbPieces += montant;
-			this.tresor -= montant;
+		if (montant > 0 && this.tresorJeu >= montant){
+			this.tresor += montant;
+			this.tresorJeu -= montant;
 		}
 	}
 
 	public void retirerPieces(int montant){
-		if (montant > 0 && this.nbPieces >= montant){
-			this.nbPieces -= montant;
+		if (montant > 0 && this.tresor >= montant){
+			this.tresor -= montant;
 		}
 	}
 
@@ -145,7 +145,7 @@ public class Joueur {
 	}
 
 	void reinitialiser(){
-		this.nbPieces = 0;
+		this.tresor = 0;
 
 		while (nbQuartiersDansMain() > 0){
 			retirerQuartierDansMain();

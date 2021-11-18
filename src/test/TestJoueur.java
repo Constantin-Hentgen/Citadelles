@@ -6,8 +6,8 @@ import modele.Joueur;
 public class TestJoueur {
 	public static void main(String[] args){
 		TestJoueur testJoueur = new TestJoueur();
-		// testJoueur.test1();
-		// testJoueur.test2();
+		testJoueur.test1();
+		testJoueur.test2();
 		testJoueur.test3();
 		//testJoueur.test4();
 		//testJoueur.test5();
@@ -53,15 +53,7 @@ public class TestJoueur {
 		Test.test(joueur.nbQuartiersDansCite() == 3,"test de l'ajout de trois quartiers");
 		Test.test(joueur.quartierPresentDansCite("temple") == true, "test de présence d'un quartier");
 
-		Quartier retour = joueur.retirerQuartierDansCite("prison");
-
-		// System.out.println(joueur.nbQuartiersDansCite());
-		// System.out.println(retour);
-		
-		// // for (int i = 0; i<8;i++){
-		// 	// 	System.out.println(joueur.getCite()[i].getNom());
-		// 	// }
-			
+		Quartier retour = joueur.retirerQuartierDansCite("prison");			
 		Test.test(joueur.nbQuartiersDansCite() == 2 && retour == quartier2, 
 				"test de retrait d'un quartier");
 		Test.test(!joueur.quartierPresentDansCite("marché"), "test de non présence d'un quartier");
