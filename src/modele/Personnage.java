@@ -5,6 +5,7 @@ public abstract class Personnage {
 	protected int rang;
 	protected Joueur joueur;
 	protected boolean vole, assassine;
+	protected PlateauDeJeu plateau;
 
 	public Personnage(String nom, String caracteristiques, int rang){
 		this.nom = nom;
@@ -21,6 +22,14 @@ public abstract class Personnage {
 
 	public int getRang(){
 		return this.rang;
+	}
+
+	public PlateauDeJeu getPlateau(){
+		return this.plateau;
+	}
+
+	public void setPlateau(PlateauDeJeu unPlateau){
+		this.plateau = unPlateau;
 	}
 
 	public String getCaracteristiques(){
