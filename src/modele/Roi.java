@@ -12,14 +12,13 @@ public class Roi extends Personnage {
 
 	public void percevoirRessourcesSpecifiques(){
 		int compteur = 0;
-		if (this.joueur != null && this.assassine == false){
+		if (this.joueur != null && this.assassine != true){
 			for (Quartier unQuartier : joueur.getCite()){
-				if (unQuartier.getType() != null && unQuartier.getType() == "NOBLE"){
+				if (unQuartier != null && unQuartier.getType() == "NOBLE"){
 					compteur ++;
 				}
 			}
-			joueur.ajouterPieces(compteur);
-			System.out.println(compteur + " quartiers nobles ont été trouvés dans la cité du joueur.");
+			this.joueur.ajouterPieces(compteur);
 		}
 	}
 }
