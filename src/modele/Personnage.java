@@ -47,11 +47,11 @@ public abstract class Personnage {
 		this.vole = true;
 	}
 
-	public void setassassine(){
+	public void setAssassine(){
 		this.assassine = true;
 	}
 
-	void ajouterPieces(){
+	public void ajouterPieces(){
 		if (this.joueur != null && this.assassine == false){
 			this.joueur.ajouterPieces(2);
 		}
