@@ -7,7 +7,7 @@ public class Joueur {
 	private int tresor;
 	private int tresorJeu = 10;
 	private Quartier[] cite = new Quartier[8];
-	private boolean possedeCouronne;
+	public boolean possedeCouronne;
 	private ArrayList<Quartier> main;
 
 	public Joueur(String nom){
