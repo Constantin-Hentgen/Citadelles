@@ -1,10 +1,10 @@
 package modele;
 
 public abstract class Personnage {
-	private String nom, caracteristiques;
-	private int rang;
-	private Joueur joueur;
-	private boolean vole, assassine;
+	protected String nom, caracteristiques;
+	protected int rang;
+	protected Joueur joueur;
+	protected boolean vole, assassine;
 
 	public Personnage(String nom, String caracteristiques, int rang){
 		this.nom = nom;
