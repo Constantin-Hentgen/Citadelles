@@ -2,7 +2,7 @@ package modele;
 
 public class PlateauDeJeu {
 	private Personnage[] listePersonnages;
-	private Joueur[] listeJoueurs;
+	public Joueur[] listeJoueurs;
 	private Pioche pioche;
 	private int nombrePersonnages, nombreJoueurs;
 
@@ -54,25 +54,20 @@ public class PlateauDeJeu {
 		}
 	}
 
-	void ajouterPersonnage(Personnage persoAjout){
-		if (persoAjout != null){
-			for (Personnage perso : this.listePersonnages){
-				if (perso == null){
-					// Personnage.plateau.setPlateau(new PlateauDeJeu());
-					perso = persoAjout;
-					break;
-				}
+	public void ajouterPersonnage(Personnage persoAjout){
+		for (int i = 0; i < this.listePersonnages.length; i++){
+			if (this.listePersonnages[i] == null){
+				this.listePersonnages[i] = persoAjout;
+				break;
 			}
 		}
 	}	
 	
-	void ajouterJoueur(Joueur joueurAjout){
-		if (joueurAjout != null){
-			for (Joueur perso : this.listeJoueurs){
-				if (perso == null){
-					perso = joueurAjout;
-					break;
-				}
+	public void ajouterJoueur(Joueur joueurAjout){
+		for (int i = 0; i < this.listeJoueurs.length; i++){
+			if (this.listeJoueurs[i] == null){
+				this.listeJoueurs[i] = joueurAjout;
+				break;
 			}
 		}
 	}
