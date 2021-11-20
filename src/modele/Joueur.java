@@ -71,6 +71,10 @@ public class Joueur {
 		}
 	}
 
+	public int nbPieces(){
+		return this.tresor;
+	}
+
 	public void ajouterQuartierDansCite(Quartier nomQuartier){
 		for (int i = 0; i < 8; i ++){
 			if (this.cite[i] == null){
@@ -104,19 +108,10 @@ public class Joueur {
 					if (this.cite[i].getNom() == nomQuartier){
 						element = this.cite[i];
 						this.cite[i] = new Quartier();
-						// if (i != 7){ // si on veut supprimer un élément non-dernier
 							for (int k = i; k < this.cite.length - 1; k++) {
 								this.cite[k] = this.cite[k + 1];
 								// TOUS STACK AU DÉBUT et les derniers à NULL
 							}
-						// } else {
-						// 	Quartier[] temp = new Quartier[8];
-						// 	for (int l = 0; l < 7; l ++){
-						// 		temp[l] = this.cite[l];
-						// 	}
-						// 	this.cite = temp;
-						// 	// mettre le dernier élément à NULL
-						// }
 					}
 				}
 			}

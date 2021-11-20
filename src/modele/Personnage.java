@@ -31,7 +31,7 @@ public abstract class Personnage {
 		return this.joueur;
 	}
 	
-	public boolean getassassine(){
+	public boolean getAssassine(){
 		return this.assassine;
 	}
 
