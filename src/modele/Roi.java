@@ -5,9 +5,11 @@ public class Roi extends Personnage {
 		super("Roi",Caracteristiques.ROI,4);
 	}
 
-	void utiliserPouvoir(){
-		System.out.println("Je prends la couronne.");
-		joueur.setPossedeCouronne(true);
+	public void utiliserPouvoir(){
+		if (this.joueur != null && this.assassine != true){
+			System.out.println("Je prends la couronne.");
+			joueur.setPossedeCouronne(true);
+		}
 	}
 
 	public void percevoirRessourcesSpecifiques(){
