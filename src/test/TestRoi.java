@@ -13,10 +13,10 @@ public class TestRoi {
 		// testRoi.test2();
 		// testRoi.test3();
 		// testRoi.test4();
-		testRoi.test5();
-		//testRoi.test6();
-		//testRoi.test7();
-		//testRoi.test8();
+		// testRoi.test5();
+		// testRoi.test6();
+		// testRoi.test7();
+		testRoi.test8();
 		//testRoi.test9();
 		//testRoi.test10();
 	}
@@ -56,16 +56,16 @@ public class TestRoi {
 	// 	Test.test(roi.getVole() == true,"test du vol");
 	// }
 
-	public void test5(){
-		System.out.println("TEST DE LA PERCEPTION DE PIECES D'OR");
-		Joueur joueur = new Joueur("Billy");
-		Roi roi = new Roi();
-		roi.ajouterPieces();
-		Test.test(roi.getJoueur() == null,"test alors que le joueur n'est pas attribué");
-		roi.setJoueur(joueur);
-		roi.ajouterPieces();
-		Test.test(roi.getJoueur().nbPieces() == 2,"vérification du nombre de piéces d'or");
-	}
+	// public void test5(){
+	// 	System.out.println("TEST DE LA PERCEPTION DE PIECES D'OR");
+	// 	Joueur joueur = new Joueur("Billy");
+	// 	Roi roi = new Roi();
+	// 	roi.ajouterPieces();
+	// 	Test.test(roi.getJoueur() == null,"test alors que le joueur n'est pas attribué");
+	// 	roi.setJoueur(joueur);
+	// 	roi.ajouterPieces();
+	// 	Test.test(roi.getJoueur().nbPieces() == 2,"vérification du nombre de piéces d'or");
+	// }
 
 	// public void test6(){
 	// 	System.out.println("TEST DE L'AJOUT DE QUARTIER DANS LA MAIN DU JOUEUR");
@@ -82,6 +82,7 @@ public class TestRoi {
 	// 	roi.ajouterQuartier(quartier3);
 	// 	Test.test(roi.getJoueur().nbQuartiersDansMain() == 3,"test du nombre de quartiers aprés ajout");
 	// }
+
 	// public void test7(){
 	// 	System.out.println("TEST DE LA CONSTRUCTION D'UN QUARTIER DANS LA CITE DU JOUEUR");
 	// 	Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
@@ -101,30 +102,34 @@ public class TestRoi {
 	// 	Test.test(roi.getJoueur().quartierPresentDansCite("prison"),
 	// 			"test de la présence de la prison dans la cité");
 	// }
-	// public void test8(){
-	// 	System.out.println("TEST DE LA PERCEPTION DE RESSOURCES SPECIFIQUES");
-	// 	Joueur joueur = new Joueur("Billy");
-	// 	Roi roi = new Roi();
-	// 	Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
-	// 	Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
-	// 	Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
-	// 	roi.percevoirRessourcesSpecifiques();
-	// 	Test.test(roi.getJoueur() == null,
-	// 		"test alors que le joueur n'est pas attribué");
-	// 	roi.setJoueur(joueur);
-	// 	roi.ajouterPieces();
-	// 	Test.test(roi.getJoueur().nbPieces() == 2,
-	// 		"test du nombre de piéces d'or avant perception");
-	// 	roi.percevoirRessourcesSpecifiques();
-	// 	Test.test(roi.getJoueur().nbPieces() == 2,
-	// 		"test alors qu'il n'y a pas de quartiers nobles");
-	// 	roi.construire(quartier1);
-	// 	roi.construire(quartier2);
-	// 	roi.construire(quartier3);		
-	// 	roi.percevoirRessourcesSpecifiques();
-	// 	Test.test(roi.getJoueur().nbPieces() == 3,
-	// 		"test du nombre de piéces d'or aprés perception de ressources spécifiques avec 1 quartier noble");
-	// }
+
+	public void test8(){
+		System.out.println("TEST DE LA PERCEPTION DE RESSOURCES SPECIFIQUES");
+		Joueur joueur = new Joueur("Billy");
+		Roi roi = new Roi();
+		Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
+		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
+		Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
+		roi.percevoirRessourcesSpecifiques();
+		Test.test(roi.getJoueur() == null,
+			"test alors que le joueur n'est pas attribué");
+		roi.setJoueur(joueur);
+		roi.ajouterPieces();
+		Test.test(roi.getJoueur().nbPieces() == 2,
+			"test du nombre de pièces d'or avant perception");
+
+		roi.percevoirRessourcesSpecifiques();
+
+		Test.test(roi.getJoueur().nbPieces() == 2,
+			"test alors qu'il n'y a pas de quartiers nobles");
+		roi.construire(quartier1);
+		roi.construire(quartier2);
+		roi.construire(quartier3);		
+		roi.percevoirRessourcesSpecifiques();
+		Test.test(roi.getJoueur().nbPieces() == 3,
+			"test du nombre de piéces d'or aprés perception de ressources spécifiques avec 1 quartier noble");
+	}
+
 	// public void test9(){
 	// 	System.out.println("TEST DE L'UTILISATION DU POUVOIR DU ROI");
 	// 	Joueur joueur = new Joueur("Billy");
@@ -137,6 +142,7 @@ public class TestRoi {
 	// 	roi.utiliserPouvoir();
 	// 	Test.test(roi.getJoueur().getPossedeCouronne() == true, "test aprés utilisation");
 	// }
+
 	// public void test10(){
 	// 	System.out.println("TEST DE LA REINITIALISATION");
 	// 	Joueur joueur = new Joueur("Billy");
