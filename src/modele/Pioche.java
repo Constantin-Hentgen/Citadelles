@@ -10,8 +10,11 @@ public class Pioche {
 	}
 
 	public Quartier piocher(){
+		Quartier temp;
 		if (liste.size() >= 1){
-			return this.liste.get(0);
+			temp = liste.get(0);
+			liste.remove(0);
+			return temp;
 		} else {
 			return null;
 		}
@@ -25,7 +28,7 @@ public class Pioche {
 		return this.liste.size();
 	}
 
-	void melanger(){
+	public void melanger(){
 		Collections.shuffle(liste);
 	}
 }
