@@ -57,13 +57,13 @@ public abstract class Personnage {
 		}
 	}
 
-	void ajouterQuartier(Quartier nouveauQuartier){
+	public void ajouterQuartier(Quartier nouveauQuartier){
 		if (this.joueur != null && this.assassine == false){
 			this.joueur.ajouterQuartierDansMain(nouveauQuartier);
 		}
 	}
 
-	void construire(Quartier nouveauQuartier){
+	public void construire(Quartier nouveauQuartier){
 		if (this.joueur != null && this.assassine == false){
 			this.joueur.ajouterQuartierDansCite(nouveauQuartier);
 		}
@@ -77,7 +77,7 @@ public abstract class Personnage {
 
 	abstract void utiliserPouvoir();
 
-	void reinitialiser(){
+	public void reinitialiser(){
 		this.joueur = null;
 		this.vole =  false;
 		this.assassine = false;

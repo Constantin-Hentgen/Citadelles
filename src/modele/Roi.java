@@ -10,11 +10,11 @@ public class Roi extends Personnage {
 		joueur.setPossedeCouronne(true);
 	}
 
-	void percevoirRessourcesSpecifiques(){
+	public void percevoirRessourcesSpecifiques(){
 		int compteur = 0;
 		if (this.joueur != null && this.assassine == false){
 			for (Quartier unQuartier : joueur.getCite()){
-				if (unQuartier.getType() == "NOBLE"){
+				if (unQuartier.getType() != null && unQuartier.getType() == "NOBLE"){
 					compteur ++;
 				}
 			}
