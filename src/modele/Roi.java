@@ -18,7 +18,8 @@ public class Roi extends Personnage {
 					compteur ++;
 				}
 			}
-			System.out.println(compteur + " quartiers nobles ont été trouvés dans la cité du joueur.")
+			joueur.ajouterPieces(compteur);
+			System.out.println(compteur + " quartiers nobles ont été trouvés dans la cité du joueur.");
 		}
 	}
 }
