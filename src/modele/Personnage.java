@@ -5,7 +5,7 @@ public abstract class Personnage {
 	protected int rang;
 	protected Joueur joueur;
 	protected boolean vole, assassine;
-	protected PlateauDeJeu plateau;
+	public PlateauDeJeu plateau;
 
 	public Personnage(String nom, String caracteristiques, int rang){
 		this.nom = nom;
@@ -16,20 +16,25 @@ public abstract class Personnage {
 		this.assassine = false;
 	}
 
+	public void setPlateau(PlateauDeJeu unPlateau){
+		this.plateau = unPlateau;
+	}
+
+	public PlateauDeJeu getPlateau(){
+		this.plateau = new PlateauDeJeu();
+		for (int i = 0; i < 8; i++){
+			this.plateau.ajouterPersonnage(PlateauDeJeu.getPersonnage(i));
+			this.plateau.ajouterJoueur(PlateauDeJeu.getJoueur(i));
+		}
+		return this.plateau;
+	}
+
 	public String getNom(){
 		return this.nom;
 	}
 
 	public int getRang(){
 		return this.rang;
-	}
-
-	public PlateauDeJeu getPlateau(){
-		return this.plateau;
-	}
-
-	public void setPlateau(PlateauDeJeu unPlateau){
-		this.plateau = unPlateau;
 	}
 
 	public String getCaracteristiques(){
