@@ -21,11 +21,6 @@ public abstract class Personnage {
 	}
 
 	public PlateauDeJeu getPlateau(){
-		this.plateau = new PlateauDeJeu();
-		for (int i = 0; i < 8; i++){
-			this.plateau.ajouterPersonnage(PlateauDeJeu.getPersonnage(i));
-			this.plateau.ajouterJoueur(PlateauDeJeu.getJoueur(i));
-		}
 		return this.plateau;
 	}
 

@@ -55,11 +55,10 @@ public class PlateauDeJeu {
 	}
 
 	public void ajouterPersonnage(Personnage persoAjout){
-		for (int i = 0; i < this.listePersonnages.length; i++){
-			if (this.listePersonnages[i] == null){
-				this.listePersonnages[i] = persoAjout;
-				break;
-			}
+		if (persoAjout != null && this.getNombrePersonnages() != this.listePersonnages.length){
+			this.listePersonnages[this.getNombrePersonnages()] = persoAjout;
+			persoAjout.setPlateau(this);
+			this.nombrePersonnages ++;
 		}
 	}	
 	

@@ -12,7 +12,7 @@ public class TestPlateauDeJeu {
 		TestPlateauDeJeu testPlateau = new TestPlateauDeJeu();
 		// testPlateau.test1();
 		// testPlateau.test2();
-		// testPlateau.test3();
+		testPlateau.test3();
 		testPlateau.test4();
 	}
 	
@@ -41,35 +41,21 @@ public class TestPlateauDeJeu {
 	// 			"récupération de ce joueur depuis le tableau");
 	// }
 
-	// public void test3() {
-	// 	System.out.println("TEST DE L'AJOUT D'UN PERSONNAGE");
-	// 	PlateauDeJeu plateau = new PlateauDeJeu();
-	// 	Roi roi = new Roi();
-	// 	plateau.ajouterPersonnage(roi);
-	// 	Test.test(plateau.getNombrePersonnages()== 1,"nombre de joueurs");
-	// 	Test.test(plateau.getPersonnage(0)== roi,
-	// 			"récupération du personnage depuis le tableau");
-	// }
+	public void test3() {
+		System.out.println("TEST DE L'AJOUT D'UN PERSONNAGE");
+		PlateauDeJeu plateau = new PlateauDeJeu();
+		Roi roi = new Roi();
+		plateau.ajouterPersonnage(roi);
+		Test.test(plateau.getNombrePersonnages()== 1,"nombre de joueurs");
+		Test.test(plateau.getPersonnage(0)== roi,
+				"récupération du personnage depuis le tableau");
+	}
 
 	public void test4() {
 		System.out.println("TEST DE L'ASSOCIATION DU PLATEAU AU PERSONNAGE");
 		PlateauDeJeu plateau = new PlateauDeJeu();
 		Roi roi = new Roi();
-
-			System.out.println(roi.getNom());
-			// renvoie "roi"
-
 		plateau.ajouterPersonnage(roi);
-
-			System.out.println(plateau.getPersonnage(0).getRang());
-			// jusqu'ici c'est ok
-
-			System.out.println(roi.getPlateau());
-			// renvoie null ici
-
-			System.out.println(plateau.getPersonnage(0).getNom());
-			// renvoie "roi"
-
 		Test.test(roi.getPlateau() == plateau,
 				"association du plateau au personnage");
 	}
