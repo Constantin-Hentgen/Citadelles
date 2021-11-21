@@ -38,17 +38,17 @@ public class PlateauDeJeu {
 		return this.pioche;
 	}
 
-	public Personnage getPersonnage(int rang){
-		if (rang >= 0 && rang <= this.listePersonnages.length){
-			return this.listePersonnages[rang];
+	public Personnage getPersonnage(int rangDansLaListe){
+		if (rangDansLaListe >= 0 && rangDansLaListe <= this.listePersonnages.length){
+			return this.listePersonnages[rangDansLaListe];
 		} else {
 			return null;
 		}
 	}
 
-	public Joueur getJoueur(int rang){
-		if ( rang >= 0 && rang <= this.listeJoueurs.length){
-			return this.listeJoueurs[rang];
+	public Joueur getJoueur(int rangDansLaListe){
+		if ( rangDansLaListe >= 0 && rangDansLaListe <= this.listeJoueurs.length){
+			return this.listeJoueurs[rangDansLaListe];
 		} else {
 			return null;
 		}

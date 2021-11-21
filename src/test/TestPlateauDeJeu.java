@@ -1,8 +1,5 @@
 package test;
 
-import javax.print.event.PrintEvent;
-import javax.print.event.PrintJobListener;
-
 import modele.Caracteristiques;
 import modele.Joueur;
 import modele.PlateauDeJeu;
@@ -58,8 +55,22 @@ public class TestPlateauDeJeu {
 		System.out.println("TEST DE L'ASSOCIATION DU PLATEAU AU PERSONNAGE");
 		PlateauDeJeu plateau = new PlateauDeJeu();
 		Roi roi = new Roi();
+
+			System.out.println(roi.getNom());
+			// renvoie "roi"
+
 		plateau.ajouterPersonnage(roi);
-		Test.test(roi.getPlateau()==plateau,
+
+			System.out.println(plateau.getPersonnage(0).getRang());
+			// jusqu'ici c'est ok
+
+			System.out.println(roi.getPlateau());
+			// renvoie null ici
+
+			System.out.println(plateau.getPersonnage(0).getNom());
+			// renvoie "roi"
+
+		Test.test(roi.getPlateau() == plateau,
 				"association du plateau au personnage");
 	}
 }
