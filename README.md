@@ -1,18 +1,4 @@
-## Getting Started
+## Citadelles
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Citadelles est un jeu de plateau codé en orienté objet en équipe.
+Ce projet s'est déroulé dans le cadre du cours de _Programmation Orientée Objet_ au sein de l'ESAIP, école d'ingénieurs. L'équipe propriétaire de ce code est constituée de Constantin HENTGEN, Mathieu GUIGNARD, Alan GRILLO et Rémi GUÉRIN.
