@@ -5,7 +5,6 @@ import java.util.Random;
 public class Joueur {
 	private String nom;
 	private int tresor;
-	private int tresorJeu = 10;
 	private Quartier[] cite = new Quartier[8];
 	public boolean possedeCouronne;
 	private ArrayList<Quartier> main;
@@ -59,9 +58,8 @@ public class Joueur {
 	}
 
 	public void ajouterPieces(int montant){
-		if (montant > 0 && this.tresorJeu >= montant){
+		if (montant > 0){
 			this.tresor += montant;
-			this.tresorJeu -= montant;
 		}
 	}
 
@@ -87,14 +85,8 @@ public class Joueur {
 	public boolean quartierPresentDansCite(String nomQuartier){
 		boolean test = false;
 		for (Quartier element : this.cite){
-			try {
-				if (element.getNom() == nomQuartier){
-					test = true;
-					break;
-				}
-			} 
-			catch (NullPointerException npe) {
-				test = false;
+			if (element != null && element.getNom().equals(nomQuartier)){
+				return true;
 			}
 		}
 		return test;
@@ -102,44 +94,41 @@ public class Joueur {
 
 	public Quartier retirerQuartierDansCite(String nomQuartier){
 		Quartier element = new Quartier();
-		if (quartierPresentDansCite(nomQuartier)){
-			try{
-				for (int i = 0; i < 8; i ++){
-					if (this.cite[i].getNom() == nomQuartier){
-						element = this.cite[i];
-						this.cite[i] = new Quartier();
-							for (int k = i; k < this.cite.length - 1; k++) {
-								this.cite[k] = this.cite[k + 1];
-								// TOUS STACK AU DÉBUT et les derniers à NULL
-							}
-					}
+
+		if (quartierPresentDansCite(nomQuartier)) {
+			for (int i = 0; i < nbQuartiersDansCite(); i ++){
+				if (this.cite[i].getNom().equals(nomQuartier)){
+					element = this.cite[i];   // je sauve le quartier avant de remettre en forme l'array
+					this.cite[i] = this.cite[nbQuartiersDansCite()-1];
+					this.cite[nbQuartiersDansCite()-1] = null;
 				}
 			}
-			catch (NullPointerException npe) {
-			}
 			return element;
-		} else {
+		}
+		else {
 			return null;
-		}		
+		}
 	}
 
-	void ajouterQuartierDansMain(Quartier monQuartier){
+	public void ajouterQuartierDansMain(Quartier monQuartier){
 		this.main.add(monQuartier);
 	}
 
-	public String retirerQuartierDansMain(){
+	public Quartier retirerQuartierDansMain(){
+		Quartier temp;
 		if (nbQuartiersDansMain() > 0){
 			Random generateur = new Random();
 			int numeroHasard = generateur.nextInt(this.nbQuartiersDansMain());
+			temp = this.main.get(numeroHasard);
 			this.main.remove(numeroHasard);
-			return "OK";
+			return temp;
 		}
 		else{
 			return null;
 		}
 	}
 
-	void reinitialiser(){
+	public void reinitialiser(){
 		this.tresor = 0;
 
 		while (nbQuartiersDansMain() > 0){

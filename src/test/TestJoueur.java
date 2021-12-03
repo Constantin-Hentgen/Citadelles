@@ -6,11 +6,11 @@ import modele.Joueur;
 public class TestJoueur {
 	public static void main(String[] args){
 		TestJoueur testJoueur = new TestJoueur();
-		testJoueur.test1();
-		testJoueur.test2();
+		// testJoueur.test1();
+		// testJoueur.test2();
 		testJoueur.test3();
-		//testJoueur.test4();
-		//testJoueur.test5();
+		// testJoueur.test4();
+		// testJoueur.test5();
 	}
 	
 	public void test1(){
@@ -40,6 +40,11 @@ public class TestJoueur {
 		joueur.retirerPieces(1);
 		Test.test(joueur.nbPieces() == 0,"test de retrait d'un nombre de pièces");
 	}
+
+
+
+
+
 	
 	public void test3() {
 		System.out.println("TEST DE LA CITE DU JOUEUR");
@@ -58,37 +63,42 @@ public class TestJoueur {
 				"test de retrait d'un quartier");
 		Test.test(!joueur.quartierPresentDansCite("marché"), "test de non présence d'un quartier");
 	}
+
+
+
+
+
 	
-	// public void test4() {
-	// 	System.out.println("TEST DE LA MAIN DU JOUEUR");
-	// 	Joueur joueur = new Joueur("Billy");
-	// 	Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
-	// 	Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
-	// 	Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
+	public void test4() {
+		System.out.println("TEST DE LA MAIN DU JOUEUR");
+		Joueur joueur = new Joueur("Billy");
+		Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
+		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
+		Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
 		
-	// 	joueur.ajouterQuartierDansMain(quartier1);
-	// 	joueur.ajouterQuartierDansMain(quartier2);
-	// 	joueur.ajouterQuartierDansMain(quartier3);
-	// 	Test.test(joueur.nbQuartiersDansMain() == 3,"test de l'ajout de trois quartiers");
-	// 	Quartier retour = joueur.retirerQuartierDansMain();
-	// 	Test.test(joueur.nbQuartiersDansMain() == 2 && 
-	// 			(retour==quartier1 || retour==quartier2 || retour==quartier3), 
-	// 			"test de retrait d'un quartier");		
-	// }
+		joueur.ajouterQuartierDansMain(quartier1);
+		joueur.ajouterQuartierDansMain(quartier2);
+		joueur.ajouterQuartierDansMain(quartier3);
+		Test.test(joueur.nbQuartiersDansMain() == 3,"test de l'ajout de trois quartiers");
+		Quartier retour = joueur.retirerQuartierDansMain();
+		Test.test(joueur.nbQuartiersDansMain() == 2 && 
+				(retour==quartier1 || retour==quartier2 || retour==quartier3), 
+				"test de retrait d'un quartier");		
+	}
 	
-	// public void test5() {
-	// 	System.out.println("TEST DE LA REINITIALISATION DU JOUEUR");
-	// 	Joueur joueur = new Joueur("Billy");
-	// 	Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
-	// 	Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
-	// 	Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
-	// 	joueur.ajouterQuartierDansMain(quartier1);
-	// 	joueur.ajouterQuartierDansMain(quartier2);
-	// 	joueur.ajouterQuartierDansCite(quartier3);
-	// 	joueur.reinitialiser();
-	// 	joueur.ajouterPieces(2);
-	// 	joueur.reinitialiser();
-	// 	Test.test(joueur.nbQuartiersDansMain()==0 && joueur.nbQuartiersDansCite()==0
-	// 			&& joueur.nbPieces()==0,"test de la réinitialisation");		
-	// }
+	public void test5() {
+		System.out.println("TEST DE LA REINITIALISATION DU JOUEUR");
+		Joueur joueur = new Joueur("Billy");
+		Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
+		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
+		Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
+		joueur.ajouterQuartierDansMain(quartier1);
+		joueur.ajouterQuartierDansMain(quartier2);
+		joueur.ajouterQuartierDansCite(quartier3);
+		joueur.reinitialiser();
+		joueur.ajouterPieces(2);
+		joueur.reinitialiser();
+		Test.test(joueur.nbQuartiersDansMain()==0 && joueur.nbQuartiersDansCite()==0
+				&& joueur.nbPieces()==0,"test de la réinitialisation");		
+	}
 }
