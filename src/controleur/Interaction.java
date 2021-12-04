@@ -1,4 +1,4 @@
-package controler;
+package controleur;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
