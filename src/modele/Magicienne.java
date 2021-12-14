@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Magicienne extends Personnage {
@@ -36,36 +37,44 @@ public class Magicienne extends Personnage {
             System.out.println("Avec quel joueur voulez-vous échanger vos cartes ?");
             int b = sc.nextInt();
             do {
-                try {
-                    for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
-                        listeJoueurs.add(plateau.getJoueur(i));
-                    }
-  
-                    selected = listeJoueurs.get(b);
-                    continu = false;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Merci d'indiquer un joueur parmi ceux affichés");
+                if (plateau.getJoueur(b) == joueur) {
+                    System.out.println("Vous ne pouvez pas échanger des cartes avec vous-mêmes !");
                     sc.next();
-                }                
+                }else{
+                    try {
+                        for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+                            listeJoueurs.add(plateau.getJoueur(i));
+                        }
+    
+                        selected = listeJoueurs.get(b);
+                        continu = false;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Merci d'indiquer un joueur parmi ceux affichés");
+                        sc.next();
+                    }   
+                }             
             } while (continu);
 
             System.out.println("Combien de cartes souhaitez vous échanger ?");
             int c = sc.nextInt();
-            try {
-
-                for (int i = 0; i < c; i++) {
-                    carteRemovedJoueur.add(selected.retirerQuartierDansMain());
-                    carteRemovedMagicienne.add(joueur.retirerQuartierDansMain());
-                }
-                for (int i = 0; i < c; i++) {
-                    selected.ajouterQuartierDansMain(carteRemovedMagicienne.get(i));
-                    joueur.ajouterQuartierDansMain(carteRemovedJoueur.get(i));
-                }
+            do {
+                if (c < selected.getMain().size() && c < joueur.getMain().size()) {                    
                 
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("L'un des joueurs n'a pas assez de cartes dans sa main");
-                sc.next();
-            }
+                    for (int i = 0; i < c; i++) {
+                        carteRemovedJoueur.add(selected.retirerQuartierDansMain());
+                        carteRemovedMagicienne.add(joueur.retirerQuartierDansMain());
+                    }
+                    for (int i = 0; i < c; i++) {
+                        selected.ajouterQuartierDansMain(carteRemovedMagicienne.get(i));
+                        joueur.ajouterQuartierDansMain(carteRemovedJoueur.get(i));
+                    }
+
+                    continu = false;
+                }else{
+                    System.out.println("L'un des joueurs n'a pas assez de cartes dans sa main");
+                    sc.next();                
+                }
+            } while (continu);
         }
     }    
 }
