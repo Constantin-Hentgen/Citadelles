@@ -18,8 +18,7 @@ public class Magicienne extends Personnage {
         Joueur joueur = this.getJoueur();
         ArrayList<Quartier> copieMain = new ArrayList<>(joueur.getMain());
         ArrayList<Joueur> listeJoueurs = new ArrayList<>();
-        ArrayList<Quartier> carteRemovedJoueur = new ArrayList<>();
-        ArrayList<Quartier> carteRemovedMagicienne = new ArrayList<>();
+        Quartier q;
 
         Joueur selected = null;
         boolean continu = true;
@@ -35,45 +34,56 @@ public class Magicienne extends Personnage {
             }
 
             System.out.println("Avec quel joueur voulez-vous échanger vos cartes ?");
-            int b = sc.nextInt();
             do {
+                int b = sc.nextInt();
                 if (plateau.getJoueur(b) == joueur) {
                     System.out.println("Vous ne pouvez pas échanger des cartes avec vous-mêmes !");
-                    sc.next();
                 }else{
                     try {
                         for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
                             listeJoueurs.add(plateau.getJoueur(i));
-                        }
-    
+                        }    
                         selected = listeJoueurs.get(b);
+
+                        ArrayList<Quartier> copieMainSelected = new ArrayList<>(selected.getMain());
+
+                        for (int i = 0; i <= selected.getMain().size() + 1; i++) {
+                            selected.retirerQuartierDansMain();
+                        }
+                        for (int i = 0; i <= joueur.getMain().size() + 1; i++) {
+                            joueur.retirerQuartierDansMain();
+                        }
+                        for (int i = 0; i < copieMainSelected.size(); i++) {
+                            joueur.ajouterQuartierDansMain(copieMainSelected.get(i));
+                        }
+                        for (int i = 0; i < copieMain.size(); i++) {
+                            selected.ajouterQuartierDansMain(copieMain.get(i));
+                        }
+
                         continu = false;
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Merci d'indiquer un joueur parmi ceux affichés");
-                        sc.next();
-                    }   
+                     } catch (IndexOutOfBoundsException e) {
+                         System.out.println("Merci d'indiquer un joueur parmi ceux affichés");
+                     }   
                 }             
             } while (continu);
 
-            System.out.println("Combien de cartes souhaitez vous échanger ?");
-            int c = sc.nextInt();
-            do {
-                if (c < selected.getMain().size() && c < joueur.getMain().size()) {                    
-                
-                    for (int i = 0; i < c; i++) {
-                        carteRemovedJoueur.add(selected.retirerQuartierDansMain());
-                        carteRemovedMagicienne.add(joueur.retirerQuartierDansMain());
-                    }
-                    for (int i = 0; i < c; i++) {
-                        selected.ajouterQuartierDansMain(carteRemovedMagicienne.get(i));
-                        joueur.ajouterQuartierDansMain(carteRemovedJoueur.get(i));
-                    }
+        }else if(a.equals("n") || a.equals("non")){
+            System.out.println("Combien de cartes de votre main voulez-vous échanger avec la pioche ?");
+            System.out.println("Taille de votre main : "+joueur.getMain().size());
 
+            do {
+                int c = sc.nextInt();
+                if (c <= joueur.getMain().size()) {
+                    for (int i = 0; i < c; i++) {
+                        joueur.retirerQuartierDansMain();
+                        joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
+                        q = new Quartier();
+                        plateau.getPioche().ajouter(q);
+                    }
                     continu = false;
                 }else{
-                    System.out.println("L'un des joueurs n'a pas assez de cartes dans sa main");
-                    sc.next();                
-                }
+
+                }      
             } while (continu);
         }
     }    
