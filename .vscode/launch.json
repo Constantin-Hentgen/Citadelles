@@ -1,3 +1,12 @@
 {
-	"vmArgs": "--enable-preview"
+	"vmArgs": "--enable-preview",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Launch TestVoleur",
+			"request": "launch",
+			"mainClass": "test.TestVoleur",
+			"projectName": "Citadelles_22729ea5"
+		}
+	]
 }

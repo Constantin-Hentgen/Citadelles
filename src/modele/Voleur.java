@@ -40,9 +40,10 @@ public class Voleur extends Personnage {
 						else if(i == plateau.getPersonnage(j).getRang()){
 							plateau.getPersonnage(j).setVole();
 							// on retire le total de l'argent du joueur volé
-							plateau.getJoueur(j).retirerPieces(plateau.getJoueur(j).nbPieces());
+							int piece_vol = plateau.getJoueur(j).nbPieces(); // ajout d'une varible pour suavegarder le nombre de pièces 
+							plateau.getJoueur(j).retirerPieces(piece_vol); 
 							// ajouter l'or volé au voleur ajouterPieces();
-							
+							this.joueur.ajouterPieces(piece_vol);
 							continu = false;
 							break;
 						}
