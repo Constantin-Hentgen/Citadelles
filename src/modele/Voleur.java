@@ -31,11 +31,13 @@ public class Voleur extends Personnage {
 			}
 	
 			do {
-				for (int j = 0; j < plateau.getNombrePersonnages(); j++) {
-					try {
-						int i = sc.nextInt();
+				
+				try {
+					int i = sc.nextInt();
+					for (int j = 0; j < plateau.getNombrePersonnages(); j++) {
 						if (i == this.getRang()) {
 							System.out.println("Vous ne pouvez pas vous voler !");
+							break;
 						}
 						else if(i == plateau.getPersonnage(j).getRang()){
 							plateau.getPersonnage(j).setVole();
@@ -49,13 +51,15 @@ public class Voleur extends Personnage {
 						}
 						else{
 							System.out.println("Veuillez entrer le rang d'un personnage");
+							break;
 						}
-					} catch (InputMismatchException e) {
+					} 
+					}catch (InputMismatchException e) {
 						System.out.println("Veuillez entrer le rang du personnage");
 						sc.next();
 					}            
-				}
-			} while (continu);
+				
+			 } while (continu);
 		}
 	}
 }
