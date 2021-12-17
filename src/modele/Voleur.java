@@ -27,7 +27,7 @@ public class Voleur extends Personnage {
 	
 			System.out.println("Quel personnage voulez-vous voler ?");
 			for (int i = 0; i < plateau.getNombrePersonnages(); i++) {
-				System.out.println(plateau.getPersonnage(i).getRang()+"   "+plateau.getPersonnage(i).getNom());
+				System.out.println(plateau.getPersonnage(i).getRang() + "   " + plateau.getPersonnage(i).getNom());
 			}
 	
 			do {
@@ -39,6 +39,10 @@ public class Voleur extends Personnage {
 						}
 						else if(i == plateau.getPersonnage(j).getRang()){
 							plateau.getPersonnage(j).setVole();
+							// on retire le total de l'argent du joueur volé
+							plateau.getJoueur(j).retirerPieces(plateau.getJoueur(j).nbPieces());
+							// ajouter l'or volé au voleur ajouterPieces();
+							
 							continu = false;
 							break;
 						}
