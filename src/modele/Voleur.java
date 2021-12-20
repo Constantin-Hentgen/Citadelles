@@ -4,14 +4,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Voleur extends Personnage {
-	Scanner sc = new Scanner(System.in);
-
     public Voleur() {
         super("Voleur", Caracteristiques.VOLEUR, 2);
     };
 
 	@Override
     public void utiliserPouvoir() {
+		Scanner sc = new Scanner(System.in);
 		
 		// affichage des différents personnages volables
 		for (int i = 0; i < plateau.getNombrePersonnages(); i++) {
@@ -23,27 +22,27 @@ public class Voleur extends Personnage {
 		do {
 			System.out.println("Quel personnage voulez-vous voler ?");
 
-			boolean verifEntier;
+			boolean isInteger;
 			do {
 				try {
 					selection = sc.nextInt() - 1;
-					verifEntier = false;
-					System.out.println("VerifEntier = false");
+					isInteger = true;
 				} catch (InputMismatchException e) {
-					verifEntier = true;
-					System.out.println("VerifEntier = true");
+					isInteger = false;
 				}
-			} while (verifEntier == true);
-
+			} while (isInteger == false);
 			
-
 			if (selection + 1 <= plateau.getNombrePersonnages() && plateau.getPersonnage(selection).getNom().equals("Voleur")) {
-				System.out.println("Vous ne pouvez pas vous voler !");
+				System.out.println("On ne peut pas se voler soi-même !");
 			}
 
-			} while (selection + 1 > plateau.getNombrePersonnages() || plateau.getPersonnage(selection).getNom().equals("Voleur") || plateau.getPersonnage(selection).getRang() == 1 || plateau.getPersonnage(selection).getAssassine() == true);
-			// RAJOUTER LA CONDITION SUR L'ENSORCELLEMENT
+			else if (plateau.getPersonnage(selection).getRang() == 1){
+				System.out.println("Vous ne pouvez pas voler un personnage de rang 1...");
+			}
 
+		} while (selection + 1 > plateau.getNombrePersonnages() || plateau.getPersonnage(selection).getNom().equals("Voleur") || plateau.getPersonnage(selection).getRang() == 1 || plateau.getPersonnage(selection).getAssassine() == true);
+		// rajouter la condition de l'ensorcellement si on ajoute la classe
+		
 		System.out.println("Le personnage choisi pour le vol est le " + plateau.getPersonnage(selection).getNom() + " joué par " + plateau.getJoueur(selection).getNom());
 
 		plateau.getPersonnage(selection).setVole();
@@ -53,7 +52,7 @@ public class Voleur extends Personnage {
 		
 		// on retire le total de l'argent du joueur volé
 		plateau.getJoueur(0).retirerPieces(plateau.getJoueur(0).nbPieces());
-
+		
 		// on cherche le voleur dans la liste puis on atteint le joueur correspondant
 		for (int k = 0; k < plateau.getNombrePersonnages(); k++) {
 			if (plateau.getPersonnage(k).getNom().equals("Voleur")) {
@@ -61,5 +60,6 @@ public class Voleur extends Personnage {
 				plateau.getJoueur(k).ajouterPieces(montantVole);
 			}
 		}
+		sc.close();
 	}
 }
