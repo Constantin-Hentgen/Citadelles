@@ -39,21 +39,33 @@ public class Condottiere extends Personnage {
 		// les quartiers détruits sont ajoutés à la fin de la pioche
 		System.out.println("Voici la liste des joueurs et le contenu de leur cités : ");
 		System.out.println("");
+		
+		for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+			Joueur joueur = plateau.getJoueur(i);
+			Quartier[] cite = joueur.getCite();
+			// factorisation du code
 
-		for ( int i = 0; i < plateau.getNombreJoueurs(); i++) {
 			// on affiche tous les joueurs et personnages associés
-			System.out.println((i+1) + " | " + plateau.getJoueur(i).getNom() + " | " + plateau.getPersonnage(i).getNom());
+			System.out.println((i+1) + " | " + joueur.getNom() + " | " + plateau.getPersonnage(i).getNom());
 			
 			// on vient chercher les cités correspondantes et on affiche leurs infos
-			for ( int j = 0; j < plateau.getJoueur(i).nbQuartiersDansCite(); j++) {
-				System.out.println("\t" + (j+1) + " | " + plateau.getJoueur(i).getCite()[j].getNom() + " | coût = " + plateau.getJoueur(i).getCite()[j].getCout());
+			for ( int j = 0; j < joueur.nbQuartiersDansCite(); j++) {
+				System.out.println("\t" + (j+1) + " | " + cite[j].getNom() + " | coût = " + cite[j].getCout());
 			}
 		}
 
-		System.out.println("\nPour information vous avez " + plateau.getJoueur(i).tresor() + " pièces d'or dans votre trésor.");
 		// affichage du tresor du joueur
+		for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+			Personnage personnage = plateau.getPersonnage(i);
+
+			if (personnage.getNom().equals("Condottiere")) {
+				System.out.println("\nPour information vous avez " + joueur.tresor() + " pièces d'or dans votre trésor.");
+			}
+		}
+
 		// demander le joueur à voler avec option 0 pour finalement choisir personne
 		// demander le quartier par numéro
+		
 		// contrôler si il reste de l'or au joueur
 		// faire un feedback sur l'opération : tel quartier a été détruit, il vous reste 1or
 	}
