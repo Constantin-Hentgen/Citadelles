@@ -4,28 +4,30 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Condottiere extends Personnage {
-	
+
 	public Condottiere() {
 		super("Condottiere", Caracteristiques.CONDOTTIERE, 8);
 	}
 
 	public void percevoirRessourcesSpecifiques() {
-		// percevoir ressources : 1 or pour chaque bâtiment militaire
-		System.out.println(plateau.getNombreJoueurs());
+		try {
+			Joueur condottiere = new Joueur("Condottiere");
 
-		// try {
-		// 	Joueur condottiere = new Joueur("Condottiere");
-		// 	System.out.println("plateau.getNombrePersonnages() : " + plateau.getNombrePersonnages());
-		// 	for (int i = 0; i < plateau.getNombreJoueurs(); i++){
-		// 		System.out.println(plateau.getPersonnage(i).getNom());
-		// 		if (plateau.getPersonnage(i).getNom().equals("Condottiere")){
-		// 			System.out.println("CONDOTTIERE TROUVÉ");
-		// 			condottiere = plateau.getJoueur(i);
-		// 		}
-		// 	}
-		// } catch (NullPointerException npe) {
-		// 	System.out.println("ça pointe vers du NULL");
-		// }
+			// on va chercher le condottiere et on le stocke
+			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+				if (plateau.getPersonnage(i).getNom().equals("Condottiere")) {
+					condottiere = plateau.getJoueur(i);
+				}
+			}
+
+			// on ajoute une pièce pour chaque quartier militaire
+			for (int j = 0; j < condottiere.nbQuartiersDansCite() - 1; j++) {
+				String nomQuartier = condottiere.getCite()[j].getNom();
+				if (nomQuartier.equals("prison") || nomQuartier.equals("tour de guet") || nomQuartier.equals("caserne") || nomQuartier.equals("forteresse")) {
+					condottiere.ajouterPieces(1);
+				}
+			}
+		} catch (NullPointerException npe) {}
 	}
 
 	@Override
@@ -91,7 +93,7 @@ public class Condottiere extends Personnage {
 		} while (choixPersonnage < 0 || choixPersonnage > plateau.getNombreJoueurs());
 
 		int choixQuartier = 0;
-			
+		
 		// on demande le quartier à détruire
 		// on s'assure que l'entrée est bien un entier et qu'il est logique
 		if (choixPersonnage > 0) {

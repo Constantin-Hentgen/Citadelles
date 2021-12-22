@@ -13,7 +13,7 @@ import modele.Quartier;
 public class TestCondottiere {
 	public static void main(String[] args) {
 		TestCondottiere test = new TestCondottiere();
-		// test.test1();
+		test.test1();
 		// test.test2();
 		test.test3();
 	}
@@ -124,8 +124,11 @@ public class TestCondottiere {
 	
 	public void test3() {
 		System.out.println("TEST DES RESSOURCES SPECIFIQUES DU CONDOTTIERE");
+		PlateauDeJeu plateau = new PlateauDeJeu();
 		Joueur joueur = new Joueur("Billy");
+		plateau.ajouterJoueur(joueur);
 		Condottiere condottiere = new Condottiere();
+		plateau.ajouterPersonnage(condottiere);
 		Quartier quartier1 = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
 		Quartier quartier2 = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
 		Quartier quartier3 = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
