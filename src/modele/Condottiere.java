@@ -58,11 +58,14 @@ public class Condottiere extends Personnage {
 				}
 			}
 
+			Joueur condottiere = new Joueur("condottiere");
+
 			// affichage du tresor du joueur
 			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 				Personnage personnage = plateau.getPersonnage(i);
 	
 				if (personnage.getNom().equals("Condottiere")) {
+					condottiere = plateau.getJoueur(i);
 					System.out.println("\nPour information vous avez " + joueur.tresor() + " pièces d'or dans votre trésor.");
 				}
 			}
@@ -102,13 +105,13 @@ public class Condottiere extends Personnage {
 				} while (isInteger == false);
 			} while (choixQuartier < 0 || choixQuartier > plateau.getNombreJoueurs());
 			
-			
+			int prixAPayer = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1;
 			// contrôler si il reste de l'or au joueur
 			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 				Personnage personnage = plateau.getPersonnage(i);
 				
 				if (personnage.getNom().equals("Condottiere")) {
-					if (joueur.tresor() < plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1) {
+					if (joueur.tresor() < prixAPayer) {
 						System.out.println("Votre capital ne vous permet pas de détruire ce quartier.");
 					} else {
 						System.out.println("Félicitation ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
@@ -151,34 +154,15 @@ public class Condottiere extends Personnage {
 				System.out.println("Cité complète : impossible de détruire un quartier");
 			} else {
 				// DESTRUCTION
-
-
 				plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
-
-				// System.out.println("AVANT QUE JE TOUCHE À SA CITÉ");
-
-				// for (int i = 0; i < tailleCite; i++) {
-				// 	try{
-				// 		System.out.println(plateau.getJoueur(choixPersonnage-1).getCite()[i].getNom());
-				// 	} catch (NullPointerException npe) {}
-				// }
-
-				// System.out.println("APRÈS QUE J'AI TOUT CASSÉ");
-
-
 				plateau.getJoueur(choixPersonnage-1).retirerQuartierDansCite(nomQuartierADetruire);
 
-				for (int i = 0; i < tailleCite; i++) {
-					try{
-						System.out.println(plateau.getJoueur(choixPersonnage-1).getCite()[i].getNom());
-					} catch (NullPointerException npe) {}
-				}
+				System.out.println("trésor du condottiere AVANT : " + condottiere.tresor());
+				System.out.println("prix à payer : " + prixAPayer);
+				condottiere.retirerPieces(prixAPayer);
+				System.out.println("TRÉSOR APRÈS :" + condottiere.tresor());
 
-				// stocker le quartier concerné
-				// placer le dernier quartier de la cité à la place du quartier détruit
-				// mettre le dernier élément à null
 				// mettre le quartier à la fin de la pioche = défausse
-				// retirer COUT-1 au condottiere
 			}
 		}
 		sc.close();
