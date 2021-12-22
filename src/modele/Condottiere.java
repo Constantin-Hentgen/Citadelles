@@ -58,6 +58,7 @@ public class Condottiere extends Personnage {
 					System.out.println("\t" + (j+1) + " | " + cite[j].getNom() + " | coût = " + cite[j].getCout());
 				}
 			}
+		}
 
 			Joueur condottiere = new Joueur("condottiere");
 
@@ -93,80 +94,79 @@ public class Condottiere extends Personnage {
 			
 			// on demande le quartier à détruire
 			// on s'assure que l'entrée est bien un entier et qu'il est logique
-			do {
+			if (choixPersonnage > 0) {
 				do {
-					try {
-						System.out.print("\nQuel quartier choisissez vous ? (0 pour ne rien faire) ");
-						sc = new Scanner(System.in);
-						choixQuartier = sc.nextInt();
-						isInteger = true;
-					} catch (InputMismatchException e) {
-						isInteger = false;
-					}
-				} while (isInteger == false);
-			} while (choixQuartier < 0 || choixQuartier > plateau.getNombreJoueurs());
-			
-			int prixAPayer = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1;
-			// contrôler si il reste de l'or au joueur
-			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
-				Personnage personnage = plateau.getPersonnage(i);
+					do {
+						try {
+							System.out.print("\nQuel quartier choisissez vous ? (0 pour ne rien faire) ");
+							sc = new Scanner(System.in);
+							choixQuartier = sc.nextInt();
+							isInteger = true;
+						} catch (InputMismatchException e) {
+							isInteger = false;
+						}
+					} while (isInteger == false);
+				} while (choixQuartier <= 0 || choixQuartier > plateau.getNombreJoueurs());
 				
-				if (personnage.getNom().equals("Condottiere")) {
-					if (joueur.tresor() < prixAPayer) {
-						System.out.println("Votre capital ne vous permet pas de détruire ce quartier.");
-					} else {
-						System.out.println("Félicitation ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
+				int prixAPayer = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1;
+				// contrôler si il reste de l'or au joueur
+				for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+					Personnage personnage = plateau.getPersonnage(i);
+					
+					if (personnage.getNom().equals("Condottiere")) {
+						if (joueur.tresor() < prixAPayer) {
+							System.out.println("Votre capital ne vous permet pas de détruire ce quartier.");
+						} else {
+							System.out.println("Félicitation ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
+						}
 					}
 				}
+				
+				String nomQuartierADetruire = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
+				Quartier quartierADetruire = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1];
+	
+				// faire un feedback sur l'opération : tel quartier va être détruit, il vous reste 1or
+				System.out.println(
+					"Le personnage choisit pour la destruction est " +  
+					plateau.getPersonnage(choixPersonnage - 1).getNom() +
+					" joué par " + plateau.getJoueur(choixPersonnage - 1).getNom() +
+					", le quartier à détruire est " +  
+					nomQuartierADetruire + "."
+				);
+				
+				// si le nombre de joueurs est
+				int nb = plateau.getNombreJoueurs();
+				Quartier[] cite = plateau.getJoueur(choixPersonnage-1).getCite();
+				int tailleCite = plateau.getJoueur(choixPersonnage-1).getCite().length;
+	
+				// comptabilise le nombre de quartiers dans la cité concernée
+				int nbQuartier = 0;
+				for (int i = 0; i < tailleCite; i++) {
+					try{
+						if (!cite[i].equals(null)){
+							nbQuartier ++;
+						}
+					} catch (NullPointerException npe) {}
+				}
+				
+				// message d'erreur dans le cas d'une cité complète :
+					// cité de 7 quartiers ou plus pour les parties de 4 à 7 joueurs, 
+					// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
+				if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7))){
+					System.out.println("Cité complète : impossible de détruire un quartier");
+				} else {
+					// destruction
+					plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
+					plateau.getJoueur(choixPersonnage-1).retirerQuartierDansCite(nomQuartierADetruire);
+	
+					System.out.println("Le prix à payer est de " + prixAPayer + " pièces d'or.");
+					condottiere.retirerPieces(prixAPayer);
+					System.out.println("Il vous reste " + condottiere.tresor() + " pièces d'or.");
+	
+					// mettre le quartier à la fin de la pioche = défausse
+					plateau.getPioche().ajouter(quartierADetruire);
+				}
 			}
-			
-			String nomQuartierADetruire = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
-			Quartier quartierADetruire = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1];
-
-			// faire un feedback sur l'opération : tel quartier va être détruit, il vous reste 1or
-			System.out.println(
-				"Le personnage choisit pour la destruction est " +  
-				plateau.getPersonnage(choixPersonnage - 1).getNom() +
-				" joué par " + plateau.getJoueur(choixPersonnage - 1).getNom() +
-				", le quartier à détruire est " +  
-				nomQuartierADetruire + "."
-			);
-			
-			// si le nombre de joueurs est
-			int nb = plateau.getNombreJoueurs();
-			Quartier[] cite = plateau.getJoueur(choixPersonnage-1).getCite();
-			int tailleCite = plateau.getJoueur(choixPersonnage-1).getCite().length;
-
-			// COMPTABILISE LE NOMBRE DE QUARTIERS DANS LA CITÉ CONCERNÉE
-			int nbQuartier = 0;
-			for (int i = 0; i < tailleCite; i++) {
-				try{
-					if (!cite[i].equals(null)){
-						nbQuartier ++;
-					}
-				} catch (NullPointerException npe) {}
-			}
-			
-			// message d'erreur dans le cas d'une cité complète :
-				// cité de 7 quartiers ou plus pour les parties de 4 à 7 joueurs, 
-				// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
-			if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7))){
-				System.out.println("Cité complète : impossible de détruire un quartier");
-			} else {
-				// DESTRUCTION
-				plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
-				plateau.getJoueur(choixPersonnage-1).retirerQuartierDansCite(nomQuartierADetruire);
-
-				System.out.println("Le prix à payer est de " + prixAPayer + " pièces d'or.");
-				condottiere.retirerPieces(prixAPayer);
-				System.out.println("Il vous reste " + condottiere.tresor() + " pièces d'or.");
-
-				// mettre le quartier à la fin de la pioche = défausse
-				plateau.getPioche().ajouter(quartierADetruire);
-
-				// GÉRER LE CAS DU 0 POUR CANCEL
-			}
-		}
 		sc.close();
 	}
 }
