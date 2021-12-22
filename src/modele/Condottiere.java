@@ -56,7 +56,7 @@ public class Condottiere extends Personnage {
 					System.out.println("\t" + (j+1) + " | " + cite[j].getNom() + " | coût = " + cite[j].getCout());
 				}
 			}
-	
+
 			// affichage du tresor du joueur
 			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 				Personnage personnage = plateau.getPersonnage(i);
@@ -66,46 +66,72 @@ public class Condottiere extends Personnage {
 				}
 			}
 
-
-
-
-
 			int choixPersonnage = 0;
 			boolean isInteger;
-
-			System.out.println("\nQuel joueur choisissez vous ? (0 pour ne rien faire) ");
 			
+			// on demande le joueur à choisir
 			// on s'assure que l'entrée est bien un entier et qu'il est logique
 			do {
 				do {
 					try {
+						System.out.print("\nQuel joueur choisissez vous ? (0 pour ne rien faire) ");
 						sc = new Scanner(System.in);
 						choixPersonnage = sc.nextInt();
 						isInteger = true;
 					} catch (InputMismatchException e) {
 						isInteger = false;
-						System.out.println("\nQuel joueur choisissez vous ? (0 pour ne rien faire) ");
 					}
 				} while (isInteger == false);
 			} while (choixPersonnage < 0 || choixPersonnage > plateau.getNombreJoueurs());
 
-
-			// System.out.println("c'est bon c'est contrôlé : " +  choixPersonnage);
-
-			// demander le joueur à voler avec option 0 pour finalement choisir personne
-			// demander le quartier par numéro
-	
+			int choixQuartier = 0;
+			
+			// on demande le quartier à détruire
+			// on s'assure que l'entrée est bien un entier et qu'il est logique
+			do {
+				do {
+					try {
+						System.out.print("\nQuel quartier choisissez vous ? (0 pour ne rien faire) ");
+						sc = new Scanner(System.in);
+						choixQuartier = sc.nextInt();
+						isInteger = true;
+					} catch (InputMismatchException e) {
+						isInteger = false;
+					}
+				} while (isInteger == false);
+			} while (choixQuartier < 0 || choixQuartier > plateau.getNombreJoueurs());
+			
+			
 			// contrôler si il reste de l'or au joueur
+			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+				Personnage personnage = plateau.getPersonnage(i);
+				
+				if (personnage.getNom().equals("Condottiere")) {
+					if (joueur.tresor() < plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getCout() - 1) {
+						System.out.println("Votre capital ne vous permet pas de détruire ce quartier.");
+					} else {
+						System.out.println("Félicitation ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
+					}
+				}
+			}
+			
 			// faire un feedback sur l'opération : tel quartier a été détruit, il vous reste 1or
+			System.out.println(
+				"Le personnage choisit pour la destruction est " +  
+				plateau.getPersonnage(choixPersonnage - 1).getNom() +
+				" joué par " + plateau.getJoueur(choixPersonnage - 1).getNom() +
+				", son quartier à détruire est " +  
+				plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom() + "."
+			);
 
+			// DESTRUCTION
 
-			// je choisis un quartier et je peux le détruire pour COUT - 1
-			// --> les quartiers de coût 1 sont donc gratuits à détruire
-		
-			// si la cité est complète alors je ne peux rien détruire
-			// on peut détruire ses propres quartiers
-		
-			// les quartiers détruits sont ajoutés à la fin de la pioche
+			// CONDITION si la cité du joueur est complète alors je ne peux rien détruire
+			// stocker le quartier concerné
+			// placer le dernier quartier de la cité à la place du quartier détruit
+			// mettre le dernier élément à null
+			// mettre le quartier à la fin de la pioche
+			// retirer COUT-1 au condottiere
 		}
 		sc.close();
 	}
