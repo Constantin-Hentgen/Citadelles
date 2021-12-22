@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -120,6 +121,7 @@ public class Condottiere extends Personnage {
 			}
 			
 			String nomQuartierADetruire = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
+			Quartier quartierADetruire = plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1];
 
 			// faire un feedback sur l'opération : tel quartier va être détruit, il vous reste 1or
 			System.out.println(
@@ -149,20 +151,20 @@ public class Condottiere extends Personnage {
 				// cité de 7 quartiers ou plus pour les parties de 4 à 7 joueurs, 
 				// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
 			if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7))){
-				System.out.println("Nombre de joueurs : " + nb);
-				System.out.println("Nombre de quartiers : " + nbQuartier);
 				System.out.println("Cité complète : impossible de détruire un quartier");
 			} else {
 				// DESTRUCTION
 				plateau.getJoueur(choixPersonnage-1).getCite()[choixQuartier-1].getNom();
 				plateau.getJoueur(choixPersonnage-1).retirerQuartierDansCite(nomQuartierADetruire);
 
-				System.out.println("trésor du condottiere AVANT : " + condottiere.tresor());
-				System.out.println("prix à payer : " + prixAPayer);
+				System.out.println("Le prix à payer est de " + prixAPayer + " pièces d'or.");
 				condottiere.retirerPieces(prixAPayer);
-				System.out.println("TRÉSOR APRÈS :" + condottiere.tresor());
+				System.out.println("Il vous reste " + condottiere.tresor() + " pièces d'or.");
 
 				// mettre le quartier à la fin de la pioche = défausse
+				plateau.getPioche().ajouter(quartierADetruire);
+
+				// GÉRER LE CAS DU 0 POUR CANCEL
 			}
 		}
 		sc.close();
