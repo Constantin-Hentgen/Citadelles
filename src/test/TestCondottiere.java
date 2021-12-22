@@ -14,8 +14,8 @@ public class TestCondottiere {
 	public static void main(String[] args) {
 		TestCondottiere test = new TestCondottiere();
 		// test.test1();
-		test.test2();
-		//test.test3();
+		// test.test2();
+		test.test3();
 	}
 	
 	public void test1() {
@@ -138,6 +138,6 @@ public class TestCondottiere {
 		condottiere.construire(quartier3);		
 		condottiere.percevoirRessourcesSpecifiques();
 		Test.test(condottiere.getJoueur().nbPieces() == 3,
-			"test du nombre de pièces d'or après perception de ressources spècifiques avec 1 quartier militaire");
+			"test du nombre de pièces d'or après perception de ressources spécifiques avec 1 quartier militaire");
 	}
 }

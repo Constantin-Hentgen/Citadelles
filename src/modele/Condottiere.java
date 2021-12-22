@@ -4,26 +4,28 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Condottiere extends Personnage {
-
-	public Condottiere(){
-		super("Condottiere", Caracteristiques.CONDOTTIERE, 8); // checker le rang de condottiere
+	
+	public Condottiere() {
+		super("Condottiere", Caracteristiques.CONDOTTIERE, 8);
 	}
 
-	public void percevoirRessourcesSpecifiques(){
+	public void percevoirRessourcesSpecifiques() {
 		// percevoir ressources : 1 or pour chaque bâtiment militaire
+		System.out.println(plateau.getNombreJoueurs());
 
-		// on vient chercher le condottiere
-		try {
-			System.out.println("plateau.getNombrePersonnages() : " + plateau.getNombrePersonnages());
-			for (int i = 0; i < plateau.getNombreJoueurs(); i++){
-				System.out.println(plateau.getPersonnage(i).getNom());
-				if (plateau.getPersonnage(i).getNom().equals("Condottiere")){
-					System.out.println("CONDOTTIERE TROUVÉ");
-				}
-			}
-		} catch (NullPointerException npe) {
-			System.out.println("ça pointe vers du NULL");
-		}
+		// try {
+		// 	Joueur condottiere = new Joueur("Condottiere");
+		// 	System.out.println("plateau.getNombrePersonnages() : " + plateau.getNombrePersonnages());
+		// 	for (int i = 0; i < plateau.getNombreJoueurs(); i++){
+		// 		System.out.println(plateau.getPersonnage(i).getNom());
+		// 		if (plateau.getPersonnage(i).getNom().equals("Condottiere")){
+		// 			System.out.println("CONDOTTIERE TROUVÉ");
+		// 			condottiere = plateau.getJoueur(i);
+		// 		}
+		// 	}
+		// } catch (NullPointerException npe) {
+		// 	System.out.println("ça pointe vers du NULL");
+		// }
 	}
 
 	@Override
@@ -40,8 +42,7 @@ public class Condottiere extends Personnage {
 			choix = sc.next();
 		} while (!choix.equals("o") && !choix.equals("n"));
 
-
-		if (choix.equals("o")){
+		if (choix.equals("o")) {
 			System.out.println("\nVoici la liste des joueurs et le contenu de leur cités : \n");
 			
 			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
@@ -132,7 +133,6 @@ public class Condottiere extends Personnage {
 							plateau.getPersonnage(choixPersonnage - 1).getNom() + " a été détruit avec succès."
 						);
 							
-						// si le nombre de joueurs est
 						int nb = plateau.getNombreJoueurs();
 						Quartier[] cite = cible.getCite();
 						int tailleCite = cible.getCite().length;
@@ -141,7 +141,7 @@ public class Condottiere extends Personnage {
 						int nbQuartier = 0;
 						for (int j = 0; j < tailleCite; j++) {
 							try{
-								if (!cite[j].equals(null)){
+								if (!cite[j].equals(null)) {
 									nbQuartier ++;
 								}
 							} catch (NullPointerException npe) {}
@@ -150,7 +150,7 @@ public class Condottiere extends Personnage {
 						// message d'erreur dans le cas d'une cité complète :
 							// cité de 7 quartiers ou plus pour les parties de 4 à 7 joueurs, 
 							// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
-						if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7))){
+						if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7))) {
 							System.out.println("\nCité complète : impossible de détruire un quartier");
 						} else {
 							// destruction
