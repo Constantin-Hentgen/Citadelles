@@ -11,10 +11,12 @@ public class Interaction {
 		boolean continu = true;
 		do {
 			try {
-				i = sc.nextInt();
+				do {
+					System.out.print("Veuillez entrer un entier naturel : ");
+					i = sc.nextInt();
+				} while ( i < 0 );
 				continu = false;
 			} catch (InputMismatchException e) {
-				System.out.print("Veuillez rentrer un chiffre : ");
 				sc.next(); // passe l'entier pour éviter de boucler
 			}
 		} while(continu);
@@ -26,7 +28,7 @@ public class Interaction {
 	public static int lireUnEntier(int borneMin, int borneMax) {
 		int i = 0;
 		do{
-			i = sc.nextInt();
+			i = lireUnEntier();
 		} while ( i < borneMin || i >= borneMax);
 		return i;
 	}
@@ -37,6 +39,7 @@ public class Interaction {
 		String valeur;
 
 		do {
+			System.out.print("Entrez o/oui ou n/non : ");
 			valeur = sc.next();
 		} while ( !valeur.equals("oui") && !valeur.equals("non") && !valeur.equals("o") && !valeur.equals("n"));
 		
