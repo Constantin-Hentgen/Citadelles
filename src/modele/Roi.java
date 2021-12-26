@@ -1,22 +1,22 @@
 package modele;
 
 public class Roi extends Personnage {
-	public Roi(){
+	public Roi() {
 		super("Roi",Caracteristiques.ROI,4);
 	}
 
-	public void utiliserPouvoir(){
-		if (this.joueur != null && this.assassine != true){
+	public void utiliserPouvoir() {
+		if (this.joueur != null && this.assassine != true) {
 			System.out.println("Je prends la couronne.");
 			joueur.setPossedeCouronne(true);
 		}
 	}
 
-	public void percevoirRessourcesSpecifiques(){
+	public void percevoirRessourcesSpecifiques() {
 		int compteur = 0;
-		if (this.joueur != null && this.assassine != true){
-			for (Quartier unQuartier : joueur.getCite()){
-				if (unQuartier != null && unQuartier.getType() == "NOBLE"){
+		if (this.joueur != null && this.assassine != true) {
+			for (Quartier unQuartier : joueur.getCite()) {
+				if (unQuartier != null && unQuartier.getType() == "NOBLE") {
 					compteur ++;
 				}
 			}
