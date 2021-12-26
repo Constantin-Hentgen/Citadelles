@@ -5,11 +5,11 @@ import java.util.Collections;
 public class Pioche {
 	private ArrayList<Quartier> liste;
 
-	public Pioche(){
+	public Pioche() {
 		this.liste = new ArrayList<Quartier>();
 	}
 
-	public Quartier piocher(){
+	public Quartier piocher() {
 		Quartier temp;
 		if (liste.size() >= 1){
 			temp = liste.get(0);
@@ -20,15 +20,15 @@ public class Pioche {
 		}
 	}
 
-	public void ajouter(Quartier nouveauQuartier){
+	public void ajouter(Quartier nouveauQuartier) {
 		this.liste.add(nouveauQuartier);
 	}
 
-	public int nombreElements(){
+	public int nombreElements() {
 		return this.liste.size();
 	}
 
-	public void melanger(){
+	public void melanger() {
 		Collections.shuffle(liste);
 	}
 }

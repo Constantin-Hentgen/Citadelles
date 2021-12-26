@@ -1,8 +1,6 @@
 package modele;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
+import controleur.Interaction;
 public class Voleur extends Personnage {
     public Voleur() {
         super("Voleur", Caracteristiques.VOLEUR, 2);
@@ -10,34 +8,24 @@ public class Voleur extends Personnage {
 
 	@Override
     public void utiliserPouvoir() {
-		Scanner sc = new Scanner(System.in);
-		
 		// affichage des différents personnages volables
 		for (int i = 0; i < plateau.getNombrePersonnages(); i++) {
 			System.out.println((i+1) + " | " + plateau.getPersonnage(i).getNom());
 		}
 		
-		int selection = 0; // initialisation de la variable contenant le nombre correspondant au personnage à voler
+		// initialisation de la variable contenant le nombre correspondant au personnage à voler
+		int selection = 0;
 
 		do {
 			System.out.println("Quel personnage voulez-vous voler ?");
-
-			boolean isInteger;
-			do {
-				try {
-					selection = sc.nextInt() - 1;
-					isInteger = true;
-				} catch (InputMismatchException e) {
-					isInteger = false;
-				}
-			} while (isInteger == false);
+			selection = Interaction.lireUnEntier(1, plateau.getNombrePersonnages()+1) - 1;
 			
-			if (selection + 1 <= plateau.getNombrePersonnages() && plateau.getPersonnage(selection).getNom().equals("Voleur")) {
-				System.out.println("On ne peut pas se voler soi-même !");
+			if (plateau.getPersonnage(selection).getNom().equals("Voleur")) {
+				System.out.println("\nOn ne peut pas se voler soi-même !\n");
 			}
 
 			else if (plateau.getPersonnage(selection).getRang() == 1){
-				System.out.println("Vous ne pouvez pas voler un personnage de rang 1...");
+				System.out.println("\nVous ne pouvez pas voler un personnage de rang 1.\n");
 			}
 
 		} while (selection + 1 > plateau.getNombrePersonnages() || plateau.getPersonnage(selection).getNom().equals("Voleur") || plateau.getPersonnage(selection).getRang() == 1 || plateau.getPersonnage(selection).getAssassine() == true);
@@ -60,6 +48,5 @@ public class Voleur extends Personnage {
 				plateau.getJoueur(k).ajouterPieces(montantVole);
 			}
 		}
-		sc.close();
 	}
 }
