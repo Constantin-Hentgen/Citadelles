@@ -13,9 +13,9 @@ import modele.Quartier;
 public class TestCondottiere {
 	public static void main(String[] args) {
 		TestCondottiere test = new TestCondottiere();
-		test.test1();
-		// test.test2();
-		test.test3();
+		// test.test1();
+		test.test2();
+		// test.test3();
 	}
 	
 	public void test1() {
