@@ -128,8 +128,7 @@ public class Joueur {
 			temp = this.main.get(numeroHasard);
 			this.main.remove(numeroHasard);
 			return temp;
-		}
-		else{
+		} else {
 			return null;
 		}
 	}

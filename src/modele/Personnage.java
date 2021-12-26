@@ -7,7 +7,7 @@ public abstract class Personnage {
 	protected boolean vole, assassine;
 	public PlateauDeJeu plateau;
 
-	public Personnage(String nom, String caracteristiques, int rang){
+	public Personnage(String nom, String caracteristiques, int rang) {
 		this.nom = nom;
 		this.caracteristiques = caracteristiques;
 		this.rang = rang;
@@ -16,78 +16,78 @@ public abstract class Personnage {
 		this.assassine = false;
 	}
 
-	public void setPlateau(PlateauDeJeu unPlateau){
+	public void setPlateau(PlateauDeJeu unPlateau) {
 		this.plateau = unPlateau;
 	}
 
-	public PlateauDeJeu getPlateau(){
+	public PlateauDeJeu getPlateau() {
 		return this.plateau;
 	}
 
-	public String getNom(){
+	public String getNom() {
 		return this.nom;
 	}
 
-	public int getRang(){
+	public int getRang() {
 		return this.rang;
 	}
 
-	public String getCaracteristiques(){
+	public String getCaracteristiques() {
 		return this.caracteristiques;
 	}
 
-	public Joueur getJoueur(){
+	public Joueur getJoueur() {
 		return this.joueur;
 	}
 	
-	public boolean getAssassine(){
+	public boolean getAssassine() {
 		return this.assassine;
 	}
 
-	public boolean getVole(){
+	public boolean getVole() {
 		return this.vole;
 	}
 
-	public void setJoueur(Joueur j){
+	public void setJoueur(Joueur j) {
 		this.joueur = j;
 		this.joueur.monPersonnage = this;
 	}
 
-	public void setVole(){
+	public void setVole() {
 		this.vole = true;
 	}
 
-	public void setAssassine(){
+	public void setAssassine() {
 		this.assassine = true;
 	}
 
-	public void ajouterPieces(){
-		if (this.joueur != null && this.assassine == false){
+	public void ajouterPieces() {
+		if (this.joueur != null && this.assassine == false) {
 			this.joueur.ajouterPieces(2);
 		}
 	}
 
-	public void ajouterQuartier(Quartier nouveauQuartier){
-		if (this.joueur != null && this.assassine == false){
+	public void ajouterQuartier(Quartier nouveauQuartier) {
+		if (this.joueur != null && this.assassine == false) {
 			this.joueur.ajouterQuartierDansMain(nouveauQuartier);
 		}
 	}
 
-	public void construire(Quartier nouveauQuartier){
-		if (this.joueur != null && this.assassine == false){
+	public void construire(Quartier nouveauQuartier) {
+		if (this.joueur != null && this.assassine == false) {
 			this.joueur.ajouterQuartierDansCite(nouveauQuartier);
 		}
 	}
 
-	void percevoirRessourcesSpecifiques(){
-		if (this.joueur != null && this.assassine == false){
+	void percevoirRessourcesSpecifiques() {
+		if (this.joueur != null && this.assassine == false) {
 			System.out.println("Aucune ressource spécifique.");
 		}
 	}
 
 	abstract void utiliserPouvoir();
 
-	public void reinitialiser(){
+	public void reinitialiser() {
 		this.joueur = null;
 		this.vole =  false;
 		this.assassine = false;

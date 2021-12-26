@@ -18,12 +18,11 @@ public class Marchande extends Personnage{
        
     }
 
-    public void percevoirRessourcesSpecifiques(){
+    public void percevoirRessourcesSpecifiques() {
 
         int recevoir = 0;
         
-        if (!assassine) {
-            
+        if (!assassine) {            
             for (int i = 0; i < joueur.nbQuartiersDansCite(); i++) {
                 if (this.joueur.getCite()[i].getType().equals(Quartier.TYPE_QUARTIERS[3])) {
                     recevoir++;
@@ -32,7 +31,6 @@ public class Marchande extends Personnage{
 
             joueur.ajouterPieces(recevoir);
             System.out.println(recevoir+" pièces données au joueur");
-
         } else {
             System.out.println("Le joueur a été assassiné");
         }
