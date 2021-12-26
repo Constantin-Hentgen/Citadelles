@@ -1,7 +1,6 @@
 package modele;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import controleur.Interaction;
 
 public class Assassin extends Personnage {
     
@@ -9,37 +8,24 @@ public class Assassin extends Personnage {
         super("Assassin", Caracteristiques.ASSASSIN, 1);
     }
 
-    Scanner sc = new Scanner(System.in);
-
     @Override
-    public void utiliserPouvoir() {
-        boolean continu = true;
-
+    public void utiliserPouvoir() {		
+		// affichage de tous les personnages
         System.out.println("Quel personnage voulez-vous assassiner ?");
         for (int i = 0; i < plateau.getNombrePersonnages(); i++) {
-            System.out.println(plateau.getPersonnage(i).getRang()+"   "+plateau.getPersonnage(i).getNom());
+			System.out.println((i+1)+"   "+plateau.getPersonnage(i).getNom());
         }
+		
+		int rangPersonnageATuer = 0;
 
         do {
-            for (int j = 0; j < plateau.getNombrePersonnages(); j++) {
-                try {
-                    int i = sc.nextInt();
-                    if (i == this.getRang()) {
-                        System.out.println("Vous ne pouvez pas vous assassiner !");
-                    }
-                    else if(i == plateau.getPersonnage(j).getRang()){
-                        plateau.getPersonnage(j).setAssassine();
-                        continu = false;
-                        break;
-                    }
-                    else{
-                        System.out.println("Veuillez entrer le rang d'un personnage");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Veuillez entrer le rang du personnage");
-                    sc.next();
-                }            
+			rangPersonnageATuer = Interaction.lireUnEntier(1, plateau.getNombrePersonnages()+1)-1;
+
+            if (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin")) {
+                System.out.println("\nVous ne pouvez pas vous assassiner !");
             }
-        } while (continu);
+        } while (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin"));
+
+		plateau.getPersonnage(rangPersonnageATuer).setAssassine();
     }
 }
