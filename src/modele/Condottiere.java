@@ -71,36 +71,36 @@ public class Condottiere extends Personnage {
 			do {
 				System.out.println("Quel joueur choisissez vous ? (0 pour ne rien faire) ");
 				choixPersonnage = Interaction.lireUnEntier(0, plateau.getNombrePersonnages()+1);
-		} while (choixPersonnage == -1);
-		// si 0 est choisi alors on stoppe le jeu
+			} while (choixPersonnage == -1);
+			// si 0 est choisi alors on stoppe le jeu
 		
-		int choixQuartier = 0;
+			int choixQuartier = 0;
 		
-		if (choixPersonnage > 0) {
-			choixPersonnage--;
-			Joueur cible = plateau.getJoueur(choixPersonnage);
+			if (choixPersonnage > 0) {
+				choixPersonnage--;
+				Joueur cible = plateau.getJoueur(choixPersonnage);
 			
-			// on demande le quartier à détruire
-			System.out.println("\nQuel quartier choisissez vous ?");
-			choixQuartier = Interaction.lireUnEntier(1, cible.nbQuartiersDansCite()+1) - 1;
+				// on demande le quartier à détruire
+				System.out.println("\nQuel quartier choisissez vous ?");
+				choixQuartier = Interaction.lireUnEntier(1, cible.nbQuartiersDansCite()+1) - 1;
 			
-			System.out.println("_____________________________________________________________");
+				System.out.println("_____________________________________________________________");
 			
-			int prixAPayer = cible.getCite()[choixQuartier].getCout() - 1;
+				int prixAPayer = cible.getCite()[choixQuartier].getCout() - 1;
 
-			// contrôler s'il reste de l'or au joueur
-			for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
-				Personnage personnage = plateau.getPersonnage(i);
+				// contrôler s'il reste de l'or au joueur
+				for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+					Personnage personnage = plateau.getPersonnage(i);
 				
-				if (personnage.getNom().equals("Condottiere")) {
-					if (joueur.tresor() < prixAPayer) {
-						System.out.println("\n\t- Votre capital ne vous permet pas de détruire ce quartier.\n");
-					} else {
-						System.out.println("\n\t- Félicitations ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
-						Quartier quartierADetruire = cible.getCite()[choixQuartier];
-						String nomQuartierADetruire = quartierADetruire.getNom();
-						
-						System.out.println(
+					if (personnage.getNom().equals("Condottiere")) {
+						if (joueur.tresor() < prixAPayer) {
+							System.out.println("\n\t- Votre capital ne vous permet pas de détruire ce quartier.\n");
+						} else {
+							System.out.println("\n\t- Félicitations ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
+							Quartier quartierADetruire = cible.getCite()[choixQuartier];
+							String nomQuartierADetruire = quartierADetruire.getNom();
+
+							System.out.println(
 							"\n\t- Le quartier " +  
 							nomQuartierADetruire +
 							" possédé par " +  

@@ -13,7 +13,8 @@ public class Voleur extends Personnage {
 			System.out.println((i+1) + " | " + plateau.getPersonnage(i).getNom());
 		}
 		
-		int selection = 0; // initialisation de la variable contenant le nombre correspondant au personnage à voler
+		// initialisation de la variable contenant le nombre correspondant au personnage à voler
+		int selection = 0;
 
 		do {
 			System.out.println("Quel personnage voulez-vous voler ?");

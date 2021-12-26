@@ -5,7 +5,7 @@ import controleur.Interaction;
 
 public class Magicienne extends Personnage {
 
-    public Magicienne(){
+    public Magicienne() {
         super("Magicienne", Caracteristiques.MAGICIENNE, 3);
     }
 

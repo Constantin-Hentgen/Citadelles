@@ -5,7 +5,7 @@ import java.util.Collections;
 public class Pioche {
 	private ArrayList<Quartier> liste;
 
-	public Pioche(){
+	public Pioche() {
 		this.liste = new ArrayList<Quartier>();
 	}
 
