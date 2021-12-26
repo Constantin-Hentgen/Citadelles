@@ -12,7 +12,7 @@ public class Interaction {
 		do {
 			try {
 				do {
-					System.out.print("Veuillez entrer un entier naturel : ");
+					System.out.print("Entrez un entier naturel : ");
 					i = sc.nextInt();
 				} while ( i < 0 );
 				continu = false;
@@ -28,6 +28,7 @@ public class Interaction {
 	public static int lireUnEntier(int borneMin, int borneMax) {
 		int i = 0;
 		do{
+			System.out.println("\nCet entier naturel doit être compris entre " + borneMin + " et " + (borneMax-1) + ".\n");
 			i = lireUnEntier();
 		} while ( i < borneMin || i >= borneMax);
 		return i;
@@ -38,7 +39,7 @@ public class Interaction {
 		boolean retour = true;
 		String valeur;
 
-		do {
+		do {			
 			System.out.print("Entrez o/oui ou n/non : ");
 			valeur = sc.next();
 		} while ( !valeur.equals("oui") && !valeur.equals("non") && !valeur.equals("o") && !valeur.equals("n"));
