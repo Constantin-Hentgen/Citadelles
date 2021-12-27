@@ -9,8 +9,6 @@ public class Configuration {
 	// private static PlateauDeJeu plateau;
 	// private static Pioche p = plateau.getPioche();
 
-	private static Hashtable<Quartier, Integer> configDeBase = new Hashtable<Quartier, Integer>();
-
 	// Quartiers Religieux
 	private static Quartier temple = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
 	private static Quartier eglise = new Quartier("eglise",Quartier.TYPE_QUARTIERS[0],2);
@@ -37,30 +35,42 @@ public class Configuration {
 	private static Quartier hotelDeVille = new Quartier("hotel de ville",Quartier.TYPE_QUARTIERS[3],5);
 	
 	public static Pioche nouvellePioche(Pioche p) {
-		configDeBase.put(temple,3);
-		configDeBase.put(eglise,3);
-		configDeBase.put(monastere,3);
-		configDeBase.put(cathedrale,3);
-		configDeBase.put(tourDeGuet,3);
-		configDeBase.put(prison,3);
-		configDeBase.put(caserne,3);
-		configDeBase.put(forteresse,2);
-		configDeBase.put(manoir,5);
-		configDeBase.put(chateau,4);
-		configDeBase.put(palais,3);
-		configDeBase.put(taverne,5);
-		configDeBase.put(echoppe,3);
-		configDeBase.put(marche,4);
-		configDeBase.put(comptoir,3);
-		configDeBase.put(port,3);
-		configDeBase.put(hotelDeVille,2);
-		// fill la database
-
-		// boucler dans la hashtable pour ajouter les éléments
-		for (int i = 0; i < 54; i++) {
-			p.ajouter(temple);
-			// faire en sorte que l'ajout se fasse de manière aléatoire
+		// Ajout des différents quartiers selon la répartition voulue par la configuration
+	
+		// Ajout des quartiers en quantité 2
+		for (int i = 0; i < 1; i++) {
+			p.ajouter(cathedrale);
+			p.ajouter(forteresse);
+			p.ajouter(hotelDeVille);
 		}
+
+		// Ajout des quartiers en quantité 3
+		for (int i = 0; i < 2; i++) {
+			p.ajouter(temple);
+			p.ajouter(eglise);
+			p.ajouter(monastere);
+			p.ajouter(tourDeGuet);
+			p.ajouter(prison);
+			p.ajouter(caserne);
+			p.ajouter(palais);
+			p.ajouter(echoppe);
+			p.ajouter(comptoir);
+			p.ajouter(port);
+		}
+
+		// Ajout des quartiers en quantité 4
+		for (int i = 0; i < 3; i++) {
+			p.ajouter(chateau);
+			p.ajouter(marche);
+		}
+
+		// Ajout des quartiers en quantité 5
+		for (int i = 0; i < 4; i++) {
+			p.ajouter(manoir);
+			p.ajouter(taverne);
+		}
+
+		p.melanger();
 		return p;
 	}
 
