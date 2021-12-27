@@ -82,7 +82,7 @@ public class Configuration {
 		return p;
 	}
 	
-	static PlateauDeJeu configurationDeBase(Pioche p) {
+	public static PlateauDeJeu configurationDeBase(Pioche p) {
 		PlateauDeJeu plateau = new PlateauDeJeu();
 
 		// Ajout des 4 joueurs
@@ -144,9 +144,3 @@ public class Configuration {
 		return plateau;
 	}
 }
-
-// Implémentez la méthode statique configurationDeBase(Pioche p) qui renvoie un
-// nouveau plateau de jeu comportant les 8 personnages et 4 joueurs de la configura-
-// tion de base décrite dans la partie 3.1 du document présentation du jeu Citadelles.
-// Cette méthode ajoutera à la pioche passée en paramètre, les 14 quartiers Merveille
-// que l’on doit utiliser dans cette configuration de base.
