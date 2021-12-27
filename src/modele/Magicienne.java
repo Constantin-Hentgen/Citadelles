@@ -9,7 +9,7 @@ public class Magicienne extends Personnage {
         super("Magicienne", Caracteristiques.MAGICIENNE, 3);
     }
 
-    public void utiliserPouvoir() {        
+    public void utiliserPouvoir() {
         Joueur joueur = this.getJoueur();
         ArrayList<Quartier> copieMain = new ArrayList<>(joueur.getMain());
         ArrayList<Joueur> listeJoueurs = new ArrayList<>();
@@ -60,7 +60,6 @@ public class Magicienne extends Personnage {
 					continu = false;
                 }             
             } while (continu);
-
         } else {
             System.out.println("Combien de cartes de votre main voulez-vous échanger avec la pioche ?");
             System.out.println("Taille de votre main : "+joueur.getMain().size());
@@ -90,22 +89,12 @@ public class Magicienne extends Personnage {
         Joueur selected = null;
         boolean continu = true;
 
-        System.out.println("\nVoulez-vous échanger des cartes ?\n");
-        Boolean a = Interaction.lireOuiOuNon();
+        Boolean a = Interaction.randomizerBoolean();
 
         if (a) {
-			System.out.println();
-
-            for (int i = 0; i < plateau.getNombreJoueurs(); i++) {                
-                System.out.println(i+" : "+plateau.getJoueur(i).getNom()+" --  Nombre de cartes : "+plateau.getJoueur(i).nbQuartiersDansMain());
-            }
-
-            System.out.println("\nAvec quel joueur voulez-vous échanger vos cartes ?");
             do {
-                int b = Interaction.lireUnEntier(0,plateau.getNombreJoueurs());
-                if (plateau.getJoueur(b) == joueur) {
-                    System.out.println("\nVous ne pouvez pas échanger des cartes avec vous-mêmes !");
-                } else {
+                int b = Interaction.randomizer(plateau.getNombreJoueurs());
+                if (plateau.getJoueur(b) != joueur) {
                     for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
                         listeJoueurs.add(plateau.getJoueur(i));
                     }
@@ -134,11 +123,8 @@ public class Magicienne extends Personnage {
             } while (continu);
 
         } else {
-            System.out.println("Combien de cartes de votre main voulez-vous échanger avec la pioche ?");
-            System.out.println("Taille de votre main : "+joueur.getMain().size());
-
             do {
-                int c = Interaction.lireUnEntier();
+                int c = Interaction.randomizer();
 
                 if (c <= joueur.getMain().size()) {
                     for (int i = 0; i < c; i++) {

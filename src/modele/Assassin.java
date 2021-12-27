@@ -1,9 +1,6 @@
 package modele;
 
-import java.util.Random;
-
 import controleur.Interaction;
-
 public class Assassin extends Personnage {
 
     public Assassin() {
@@ -32,11 +29,10 @@ public class Assassin extends Personnage {
     }
 
     public void utiliserPouvoirAvatar() {
-		Random generateur = new Random();
 		int rangPersonnageATuer;
 
 		do {
-			rangPersonnageATuer = generateur.nextInt(plateau.getNombrePersonnages());
+			rangPersonnageATuer = Interaction.randomizer(plateau.getNombrePersonnages());
         } while (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin"));
 
 		plateau.getPersonnage(rangPersonnageATuer).setAssassine();
