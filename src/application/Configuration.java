@@ -28,6 +28,22 @@ public class Configuration {
 	private static Quartier port = new Quartier("port",Quartier.TYPE_QUARTIERS[3],4);
 	private static Quartier hotelDeVille = new Quartier("hotel de ville",Quartier.TYPE_QUARTIERS[3],5);
 	
+	// Merveilles
+	private static Quartier bibliotheque = new Quartier("bibliotheque",Quartier.TYPE_QUARTIERS[4],6);
+	private static Quartier forge = new Quartier("forge",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier carriere = new Quartier("carriere",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier laboratoire = new Quartier("laboratoire",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier courDesMiracles = new Quartier("courDesMiracles",Quartier.TYPE_QUARTIERS[4],2);
+	private static Quartier manufacture = new Quartier("manufacture",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier donjon = new Quartier("donjon",Quartier.TYPE_QUARTIERS[4],3);
+	private static Quartier salleDesCartes = new Quartier("salleDesCartes",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier dracoport = new Quartier("dracoport",Quartier.TYPE_QUARTIERS[4],6);
+	private static Quartier statueEquestre = new Quartier("statueEquestre",Quartier.TYPE_QUARTIERS[4],3);
+	private static Quartier ecoleDeMagie = new Quartier("ecoleDeMagie",Quartier.TYPE_QUARTIERS[4],6);
+	private static Quartier tresorImperial = new Quartier("tresorImperial",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier fontaineAuxSouhaits = new Quartier("fontaineAuxSouhaits",Quartier.TYPE_QUARTIERS[4],5);
+	private static Quartier tripot = new Quartier("tripot",Quartier.TYPE_QUARTIERS[4],6);
+
 	public static Pioche nouvellePioche(Pioche p) {
 		// Ajout des quartiers en quantité 2
 		for (int i = 0; i < 2; i++) {
@@ -108,6 +124,22 @@ public class Configuration {
 		plateau.ajouterPersonnage(condottiere);
 
 		// on ajoute les 14 quartiers merveille à la pioche
+		
+		// Bibliothèque 6
+		// Forge 5
+		// Carrière 5
+		// Laboratoire 5
+		// Cour des Miracles 2
+		// Manufacture 5
+		// Donjon 3
+		// Salle des Cartes 5
+		// Dracoport 6
+		// Statue Équestre 3
+		// École de Magie 6
+		// Trésor Impérial 5
+		// Fontaine aux Souhaits 5
+		// Tripot 6
+
 		// on remélange la pioche
 		
 		return plateau;
