@@ -123,24 +123,23 @@ public class Configuration {
 		Condottiere condottiere = new Condottiere();
 		plateau.ajouterPersonnage(condottiere);
 
-		// on ajoute les 14 quartiers merveille à la pioche
-		
-		// Bibliothèque 6
-		// Forge 5
-		// Carrière 5
-		// Laboratoire 5
-		// Cour des Miracles 2
-		// Manufacture 5
-		// Donjon 3
-		// Salle des Cartes 5
-		// Dracoport 6
-		// Statue Équestre 3
-		// École de Magie 6
-		// Trésor Impérial 5
-		// Fontaine aux Souhaits 5
-		// Tripot 6
+		// Ajout des 14 quartiers merveille à la pioche		
+		p.ajouter(bibliotheque);
+		p.ajouter(forge);
+		p.ajouter(carriere);
+		p.ajouter(laboratoire);
+		p.ajouter(courDesMiracles);
+		p.ajouter(manufacture);
+		p.ajouter(donjon);
+		p.ajouter(salleDesCartes);
+		p.ajouter(dracoport);
+		p.ajouter(statueEquestre);
+		p.ajouter(ecoleDeMagie);
+		p.ajouter(tresorImperial);
+		p.ajouter(fontaineAuxSouhaits);
+		p.ajouter(tripot);
 
-		// on remélange la pioche
+		p.melanger();
 		
 		return plateau;
 	}
