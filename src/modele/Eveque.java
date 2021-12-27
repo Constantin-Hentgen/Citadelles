@@ -23,4 +23,8 @@ public class Eveque extends Personnage {
     public void utiliserPouvoir() {
         System.out.println("Le joueur est protégé contre les attaques des personnages de rang 8");
     }
+
+    public void utiliserPouvoirAvatar() {
+        System.out.println("Le joueur est protégé contre les attaques des personnages de rang 8");
+    }
 }

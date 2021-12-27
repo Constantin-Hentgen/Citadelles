@@ -1,4 +1,6 @@
 package modele;
+import java.util.Random;
+
 import controleur.Interaction;
 public class Condottiere extends Personnage {
 
@@ -27,7 +29,6 @@ public class Condottiere extends Personnage {
 		} catch (NullPointerException npe) {}
 	}
 
-	@Override
 	public void utiliserPouvoir() {
 		Boolean choix;
 
@@ -134,6 +135,83 @@ public class Condottiere extends Personnage {
 								
 								condottiere.retirerPieces(prixAPayer);
 								System.out.println("\n\t- Il vous reste " + condottiere.tresor() + " pièces d'or.\n");
+								
+								// mettre le quartier à la fin de la pioche = défausse
+								plateau.getPioche().ajouter(quartierADetruire);
+							}
+						}
+					}
+				}				
+			}
+		}
+	}
+
+	public void utiliserPouvoirAvatar() {
+		Random generateur = new Random();
+		Boolean choix;
+		
+		int numeroHasard = generateur.nextInt(1);
+
+		if (numeroHasard == 0) {
+			choix = false;
+		} else {
+			choix = true;
+		}
+
+		if (choix) {			
+			Joueur condottiere = new Joueur("condottiere");
+						
+			int choixPersonnage = generateur.nextInt(plateau.getNombrePersonnages()+1);
+					
+			int choixQuartier = 0;
+		
+			if (choixPersonnage > 0) {
+				choixPersonnage--;
+				Joueur cible = plateau.getJoueur(choixPersonnage);
+				choixQuartier = generateur.nextInt(cible.nbQuartiersDansCite());
+			
+				int prixAPayer = cible.getCite()[choixQuartier].getCout() - 1;
+
+				// contrôler s'il reste de l'or au joueur
+				for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+					Personnage personnage = plateau.getPersonnage(i);
+				
+					if (personnage.getNom().equals("Condottiere")) {
+						if (joueur.tresor() >= prixAPayer) {
+							Quartier quartierADetruire = cible.getCite()[choixQuartier];
+							String nomQuartierADetruire = quartierADetruire.getNom();
+
+							System.out.println(
+							"\n\t- Le quartier " +  
+							nomQuartierADetruire +
+							" possédé par " +  
+							plateau.getJoueur(choixPersonnage).getNom() + " aka " +
+							plateau.getPersonnage(choixPersonnage).getNom() + " a été détruit avec succès."
+							);
+							
+							int nb = plateau.getNombreJoueurs();
+							Quartier[] cite = cible.getCite();
+							int tailleCite = cible.getCite().length;
+							
+							// comptabilise le nombre de quartiers dans la cité concernée
+							int nbQuartier = 0;
+							for (int j = 0; j < tailleCite; j++) {
+								try{
+									if (!cite[j].equals(null)) {
+										nbQuartier ++;
+									}
+								} catch (NullPointerException npe) {}
+							}
+							
+							// message d'erreur dans le cas d'une cité complète :
+							// cité de 7 quartiers ou plus pour les parties de 4 à 7 joueurs, 
+							// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
+							if (!(((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)))) {
+								// destruction
+								cible.getCite()[choixQuartier-1].getNom();
+								cible.retirerQuartierDansCite(nomQuartierADetruire);
+								
+								condottiere.retirerPieces(prixAPayer);
 								
 								// mettre le quartier à la fin de la pioche = défausse
 								plateau.getPioche().ajouter(quartierADetruire);
