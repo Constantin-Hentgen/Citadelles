@@ -14,7 +14,7 @@ public class TestConfiguration {
 		Pioche pioche = plateau.getPioche();
 
 		pioche = Configuration.nouvellePioche(pioche);
-		
+
 		Test.test(pioche.nombreElements() == 54, "test du nombre d'éléments dans la pioche après ajout des quartiers de bases");
 
 		plateau = Configuration.configurationDeBase(pioche);
