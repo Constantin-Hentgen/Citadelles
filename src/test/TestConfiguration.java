@@ -23,6 +23,6 @@ public class TestConfiguration {
 		Test.test(pioche.nombreElements() == 0, "test du nombre d'éléments dans la pioche");
 
 		Hashtable<Quartier, Integer> configDeBase = new Hashtable<Quartier, Integer>();
-		configDeBase.put(q,1);	
+		configDeBase.put(q,1);
 	}
 }
