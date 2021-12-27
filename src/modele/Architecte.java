@@ -11,5 +11,12 @@ public class Architecte extends Personnage {
             Quartier q = this.plateau.getPioche().piocher();
             this.joueur.ajouterQuartierDansMain(q);
         }
-    }    
+    }
+
+	public void utiliserPouvoirAvatar() {
+        for (int i = 0; i < 2; i++) {
+            Quartier q = this.plateau.getPioche().piocher();
+            this.joueur.ajouterQuartierDansMain(q);
+        }
+	}
 }
