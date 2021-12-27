@@ -1,5 +1,4 @@
 package modele;
-import java.util.Random;
 
 import controleur.Interaction;
 public class Condottiere extends Personnage {
@@ -147,28 +146,19 @@ public class Condottiere extends Personnage {
 	}
 
 	public void utiliserPouvoirAvatar() {
-		Random generateur = new Random();
-		Boolean choix;
-		
-		int numeroHasard = generateur.nextInt(1);
-
-		if (numeroHasard == 0) {
-			choix = false;
-		} else {
-			choix = true;
-		}
+		Boolean choix = Interaction.randomizerBoolean();
 
 		if (choix) {			
 			Joueur condottiere = new Joueur("condottiere");
 						
-			int choixPersonnage = generateur.nextInt(plateau.getNombrePersonnages()+1);
+			int choixPersonnage = Interaction.randomizer(plateau.getNombrePersonnages()+1);
 					
 			int choixQuartier = 0;
 		
 			if (choixPersonnage > 0) {
 				choixPersonnage--;
 				Joueur cible = plateau.getJoueur(choixPersonnage);
-				choixQuartier = generateur.nextInt(cible.nbQuartiersDansCite());
+				choixQuartier = Interaction.randomizer(cible.nbQuartiersDansCite());
 			
 				int prixAPayer = cible.getCite()[choixQuartier].getCout() - 1;
 

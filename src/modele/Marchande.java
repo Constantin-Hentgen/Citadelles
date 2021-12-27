@@ -1,25 +1,11 @@
 package modele;
-
-public class Marchande extends Personnage{
+public class Marchande extends Personnage {
     
-    public Marchande(){
+    public Marchande() {
         super("Marchande", Caracteristiques.MARCHANDE, 6);
     }
 
-    @Override
-    public void utiliserPouvoir() {
-        
-        if (!assassine) {
-            joueur.ajouterPieces(1);
-            System.out.println("Une pièces ajoutées au joueur"); 
-        } else {
-            System.out.println("Le joueur a été assassiné");
-        }
-       
-    }
-
     public void percevoirRessourcesSpecifiques() {
-
         int recevoir = 0;
         
         if (!assassine) {            
@@ -31,6 +17,24 @@ public class Marchande extends Personnage{
 
             joueur.ajouterPieces(recevoir);
             System.out.println(recevoir+" pièces données au joueur");
+        } else {
+            System.out.println("Le joueur a été assassiné");
+        }
+    }
+
+    public void utiliserPouvoir() {        
+        if (!assassine) {
+            joueur.ajouterPieces(1);
+            System.out.println("Une pièces ajoutées au joueur"); 
+        } else {
+            System.out.println("Le joueur a été assassiné");
+        }
+    }
+
+	public void utiliserPouvoirAvatar() {        
+        if (!assassine) {
+            joueur.ajouterPieces(1);
+            System.out.println("Une pièces ajoutées au joueur"); 
         } else {
             System.out.println("Le joueur a été assassiné");
         }

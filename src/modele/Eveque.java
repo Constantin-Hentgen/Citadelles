@@ -1,5 +1,4 @@
 package modele;
-
 public class Eveque extends Personnage {
 
     public Eveque() {
