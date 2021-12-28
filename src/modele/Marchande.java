@@ -22,21 +22,21 @@ public class Marchande extends Personnage {
         }
     }
 
-    public void utiliserPouvoir() {        
+    public void utiliserPouvoir() {
         if (!assassine) {
             joueur.ajouterPieces(1);
-            System.out.println("Une pièces ajoutées au joueur"); 
+            System.out.println("La marchande récupère une pièce."); 
         } else {
-            System.out.println("Le joueur a été assassiné");
+            System.out.println("La marchande a été assassinée.");
         }
     }
 
-	public void utiliserPouvoirAvatar() {        
+	public void utiliserPouvoirAvatar() {   
         if (!assassine) {
             joueur.ajouterPieces(1);
-            System.out.println("Une pièces ajoutées au joueur"); 
+            System.out.println("La marchande récupère une pièce."); 
         } else {
-            System.out.println("Le joueur a été assassiné");
+            System.out.println("La marchande a été assassinée.");
         }
     }
 }

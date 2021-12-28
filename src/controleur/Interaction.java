@@ -44,7 +44,7 @@ public class Interaction {
 			System.out.print("Entrez o/oui ou n/non : ");
 			valeur = sc.next();
 		} while ( !valeur.equals("oui") && !valeur.equals("non") && !valeur.equals("o") && !valeur.equals("n"));
-		
+
 		if (valeur.equals("oui") || valeur.equals("o")){
 			retour = true;
 		} else { retour = false; }
