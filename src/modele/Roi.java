@@ -5,13 +5,6 @@ public class Roi extends Personnage {
 		super("Roi",Caracteristiques.ROI,4);
 	}
 
-	public void utiliserPouvoir() {
-		if (this.joueur != null && this.assassine != true) {
-			System.out.println("Je prends la couronne.");
-			joueur.setPossedeCouronne(true);
-		}
-	}
-
 	public void percevoirRessourcesSpecifiques() {
 		int compteur = 0;
 		if (this.joueur != null && this.assassine != true) {
@@ -21,6 +14,20 @@ public class Roi extends Personnage {
 				}
 			}
 			this.joueur.ajouterPieces(compteur);
+		}
+	}
+
+	public void utiliserPouvoir() {
+		if (this.joueur != null && this.assassine != true) {
+			System.out.println("Le joueur prend la couronne.");
+			joueur.setPossedeCouronne(true);
+		}
+	}
+
+	public void utiliserPouvoirAvatar() {
+		if (this.joueur != null && this.assassine != true) {
+			System.out.println("Le joueur prend la couronne.");
+			joueur.setPossedeCouronne(true);
 		}
 	}
 }
