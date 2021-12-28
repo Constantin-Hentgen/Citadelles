@@ -4,8 +4,9 @@ import controleur.*;
 import modele.*;
 
 public class Jeu {
-	PlateauDeJeu plateau;
-	int numeroConfiguration;
+	private PlateauDeJeu plateau;
+	private int numeroConfiguration;
+	private int rangRoi;
 
 	public Jeu(){
 		this.plateau = new PlateauDeJeu();
@@ -16,6 +17,7 @@ public class Jeu {
 	public void jouer() {
 		// affichage du message de bienvenue
 		System.out.println("\n______________________________________________________________________");
+		System.out.println("______________________________________________________________________");
 		System.out.println("\n\t\tBienvenue dans le jeu Citadelles\n");
 
 		// affichage du menu
@@ -73,9 +75,8 @@ public class Jeu {
 		}
 		
 		// donner la couronne à quelqu'un
-		int rangRoi = Interaction.randomizer(3);
+		this.rangRoi = Interaction.randomizer(3);
 		this.plateau.getJoueur(rangRoi).setPossedeCouronne(true);
-		System.out.println("\nLe roi est " + this.plateau.getJoueur(rangRoi).getNom() + ".\n");
 	}
 
 	private void gestionCouronne() {
@@ -108,17 +109,77 @@ public class Jeu {
 		persoAEcarter = this.plateau.getPersonnage(Interaction.randomizer(this.plateau.getNombrePersonnages()));
 		this.plateau.ecarterPersonnage(persoAEcarter);
 
-		// LES PERSONNAGES SUIVANTS ONT ÉTÉ ÉCARTÉS
-		System.out.println("3 cartes personnages dont "+ persoAEcarter.getNom() +" ont été écartées.");
+		System.out.println("\n3 cartes personnages dont "+ persoAEcarter.getNom() +" ont été écartées.\n");
+
+
+
+
+
+
+
 
 		// affichage : untel a la couronne : il commence
 
-		// affichage des choix disponibles
-		System.out.println();
-		for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
-			System.out.println("\t" + this.plateau.getPersonnage(i).getNom());
+		System.out.println("Le roi " + this.plateau.getJoueur(this.rangRoi).getNom() + " choisit en premier.\n");
+
+		// le joueur humain est systématiquement le joueur1
+
+
+		// le roi start puis j'avise
+		int choix;
+		// si le roi c'est moi
+
+
+		if (rangRoi == 0) {
+			System.out.println();
+			for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+				System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
+			}
+			System.out.println();
+
+			choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages())-1;
+			this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
+		} else {
+
+			System.out.println();
+			for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+				System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
+			}
+			System.out.println();
+			// si le roi est un bot
+			choix = Interaction.randomizer(this.plateau.getNombrePersonnages()-1);
+			this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(this.rangRoi));
+			System.out.println("CHOIX RANDOM DU ROI ROBOT : " + choix);
 		}
-		System.out.println();
+		
+		System.out.println(this.plateau.getJoueur(this.rangRoi).getNom() + " joue le personnage " + this.plateau.getJoueur(this.rangRoi).getPersonnage().getNom());
+		persoAEcarter = this.plateau.getPersonnage(choix);
+		this.plateau.ecarterPersonnage(persoAEcarter);
+
+		// on boucle pour le reste des joueurs
+		for (int h = 0; h < this.plateau.getNombreJoueurs(); h++) {
+			// affichage des choix disponibles
+			// si ce n'est pas le roi
+			if (h != this.rangRoi) {
+				for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+					System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
+				}
+				
+				if (h == 0) {
+					choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages())-1;
+					this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
+				} else {
+					choix = Interaction.randomizer(this.plateau.getNombrePersonnages()-1);
+					System.out.println("CHOIX RANDOM DU ROBOT : " + choix);
+					this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(h));
+				}
+
+				persoAEcarter = this.plateau.getPersonnage(choix);
+				this.plateau.ecarterPersonnage(persoAEcarter);
+				
+				System.out.println(this.plateau.getJoueur(h).getNom() + " joue le personnage " + this.plateau.getJoueur(h).getPersonnage().getNom());
+			}
+		}
 
 		// determiner qui est le roi : si c'est le joueur c'est cool
 		// [joueur1, joueur2, roi, joueur3]
