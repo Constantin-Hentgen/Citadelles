@@ -30,7 +30,7 @@ public class Voleur extends Personnage {
 		} while (plateau.getPersonnage(selection).getNom().equals("Voleur") || plateau.getPersonnage(selection).getRang() == 1 || plateau.getPersonnage(selection).getAssassine() == true);
 		// rajouter la condition de l'ensorcellement si on ajoute la classe
 		
-		System.out.println("Le personnage choisi pour le vol est le " + plateau.getPersonnage(selection).getNom() + " joué par " + plateau.getJoueur(selection).getNom());
+		System.out.println("Le personnage " + plateau.getPersonnage(selection).getNom() + " a été volé.");
 
 		plateau.getPersonnage(selection).setVole();
 		
@@ -59,8 +59,8 @@ public class Voleur extends Personnage {
 		} while (plateau.getPersonnage(selection).getNom().equals("Voleur") || plateau.getPersonnage(selection).getRang() == 1 || plateau.getPersonnage(selection).getAssassine() == true);
 		// rajouter la condition de l'ensorcellement si on ajoute la classe
 		
-		System.out.println("Le personnage choisi pour le vol est le " + plateau.getPersonnage(selection).getNom() + " joué par " + plateau.getJoueur(selection).getNom());
-
+		System.out.println("Le personnage " + plateau.getPersonnage(selection).getNom() + " a été volé.");
+		
 		plateau.getPersonnage(selection).setVole();
 		
 		// on stocke la valeur qui va être volée

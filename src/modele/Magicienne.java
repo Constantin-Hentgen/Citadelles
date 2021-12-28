@@ -57,6 +57,7 @@ public class Magicienne extends Personnage {
                         selected.ajouterQuartierDansMain(copieMain.get(i));
                     }
                     
+					System.out.println("Cartes échangées avec le joueur " + plateau.getJoueur(b).getNom() + ".");					
 					continu = false;
                 }             
             } while (continu);
@@ -75,6 +76,7 @@ public class Magicienne extends Personnage {
                         plateau.getPioche().ajouter(q);
                     }
                     continu = false;
+					System.out.println("\t"+c+" cartes échangées avec la pioche.");
                 }
             } while (continu);
         }
@@ -119,9 +121,9 @@ public class Magicienne extends Personnage {
                     }
                     
 					continu = false;
+					System.out.println("Cartes échangées avec le joueur " + plateau.getJoueur(b).getNom() + ".");
                 }             
             } while (continu);
-
         } else {
             do {
                 int c = Interaction.randomizer();
@@ -134,6 +136,7 @@ public class Magicienne extends Personnage {
                         plateau.getPioche().ajouter(q);
                     }
                     continu = false;
+					System.out.println("\t"+c+" cartes échangées avec la pioche.");
                 }
             } while (continu);
         }

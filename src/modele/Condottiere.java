@@ -104,8 +104,7 @@ public class Condottiere extends Personnage {
 							"\n\t- Le quartier " +  
 							nomQuartierADetruire +
 							" possédé par " +  
-							plateau.getJoueur(choixPersonnage).getNom() + " aka " +
-							plateau.getPersonnage(choixPersonnage).getNom() + " a été détruit avec succès."
+							plateau.getJoueur(choixPersonnage).getNom() + " a été détruit."
 							);
 							
 							int nb = plateau.getNombreJoueurs();
@@ -172,11 +171,10 @@ public class Condottiere extends Personnage {
 							String nomQuartierADetruire = quartierADetruire.getNom();
 
 							System.out.println(
-							"\n\t- Le quartier " +  
+							"Le quartier " +  
 							nomQuartierADetruire +
 							" possédé par " +  
-							plateau.getJoueur(choixPersonnage).getNom() + " aka " +
-							plateau.getPersonnage(choixPersonnage).getNom() + " a été détruit avec succès."
+							plateau.getJoueur(choixPersonnage).getNom() + " a été détruit."
 							);
 							
 							int nb = plateau.getNombreJoueurs();
@@ -198,7 +196,7 @@ public class Condottiere extends Personnage {
 							// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
 							if (!(((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)))) {
 								// destruction
-								cible.getCite()[choixQuartier-1].getNom();
+								cible.getCite()[choixQuartier].getNom();
 								cible.retirerQuartierDansCite(nomQuartierADetruire);
 								
 								condottiere.retirerPieces(prixAPayer);
@@ -206,10 +204,14 @@ public class Condottiere extends Personnage {
 								// mettre le quartier à la fin de la pioche = défausse
 								plateau.getPioche().ajouter(quartierADetruire);
 							}
+						} else {
+							System.out.println("Le condottiere n'utilise pas son pouvoir.");
 						}
 					}
 				}				
+			} else {
+				System.out.println("Le condottiere n'utilise pas son pouvoir.");
 			}
-		}
+		} 
 	}
 }
