@@ -9,9 +9,7 @@ public class Magicienne extends Personnage {
         super("Magicienne", Caracteristiques.MAGICIENNE, 3);
     }
 
-    @Override
     public void utiliserPouvoir() {
-        
         Joueur joueur = this.getJoueur();
         ArrayList<Quartier> copieMain = new ArrayList<>(joueur.getMain());
         ArrayList<Joueur> listeJoueurs = new ArrayList<>();
@@ -59,10 +57,10 @@ public class Magicienne extends Personnage {
                         selected.ajouterQuartierDansMain(copieMain.get(i));
                     }
                     
+					System.out.println("Cartes échangées avec le joueur " + plateau.getJoueur(b).getNom() + ".");					
 					continu = false;
                 }             
             } while (continu);
-
         } else {
             System.out.println("Combien de cartes de votre main voulez-vous échanger avec la pioche ?");
             System.out.println("Taille de votre main : "+joueur.getMain().size());
@@ -78,6 +76,67 @@ public class Magicienne extends Personnage {
                         plateau.getPioche().ajouter(q);
                     }
                     continu = false;
+					System.out.println("\t"+c+" cartes échangées avec la pioche.");
+                }
+            } while (continu);
+        }
+    }
+
+	public void utiliserPouvoirAvatar() {        
+        Joueur joueur = this.getJoueur();
+        ArrayList<Quartier> copieMain = new ArrayList<>(joueur.getMain());
+        ArrayList<Joueur> listeJoueurs = new ArrayList<>();
+        Quartier q;
+
+        Joueur selected = null;
+        boolean continu = true;
+
+        Boolean a = Interaction.randomizerBoolean();
+
+        if (a) {
+            do {
+                int b = Interaction.randomizer(plateau.getNombreJoueurs());
+                if (plateau.getJoueur(b) != joueur) {
+                    for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+                        listeJoueurs.add(plateau.getJoueur(i));
+                    }
+
+                    selected = listeJoueurs.get(b);
+                    ArrayList<Quartier> copieMainSelected = new ArrayList<>(selected.getMain());
+
+                    for (int i = 0; i <= selected.getMain().size() + 1; i++) {
+                        selected.retirerQuartierDansMain();
+                    }
+
+                    for (int i = 0; i <= joueur.getMain().size() + 1; i++) {
+                        joueur.retirerQuartierDansMain();
+                    }
+
+                    for (int i = 0; i < copieMainSelected.size(); i++) {
+                        joueur.ajouterQuartierDansMain(copieMainSelected.get(i));
+                    }
+
+                    for (int i = 0; i < copieMain.size(); i++) {
+                        selected.ajouterQuartierDansMain(copieMain.get(i));
+                    }
+                    
+					continu = false;
+					System.out.println("Cartes échangées avec le joueur " + plateau.getJoueur(b).getNom() + ".");
+                }             
+            } while (continu);
+        } else {
+            do {
+                int c = Interaction.randomizer();
+
+                if (c <= joueur.getMain().size()) {
+                    for (int i = 0; i < c; i++) {
+                        joueur.retirerQuartierDansMain();
+                        joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
+                        q = new Quartier();
+                        plateau.getPioche().ajouter(q);
+                    }
+                    continu = false;
+					System.out.println("\t"+c+" cartes échangées avec la pioche.");
                 }
             } while (continu);
         }

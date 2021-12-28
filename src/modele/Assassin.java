@@ -1,17 +1,16 @@
 package modele;
 
 import controleur.Interaction;
-
 public class Assassin extends Personnage {
-    
-    public Assassin(){
+
+    public Assassin() {
         super("Assassin", Caracteristiques.ASSASSIN, 1);
     }
 
-    @Override
-    public void utiliserPouvoir() {		
+    public void utiliserPouvoir() {
 		// affichage de tous les personnages
         System.out.println("Quel personnage voulez-vous assassiner ?");
+
         for (int i = 0; i < plateau.getNombrePersonnages(); i++) {
 			System.out.println((i+1)+"   "+plateau.getPersonnage(i).getNom());
         }
@@ -27,5 +26,17 @@ public class Assassin extends Personnage {
         } while (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin"));
 
 		plateau.getPersonnage(rangPersonnageATuer).setAssassine();
+		System.out.println("Le personnage " + plateau.getPersonnage(rangPersonnageATuer).getNom() + " a été assassiné.");
+    }
+
+    public void utiliserPouvoirAvatar() {
+		int rangPersonnageATuer;
+
+		do {
+			rangPersonnageATuer = Interaction.randomizer(plateau.getNombrePersonnages());
+        } while (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin"));
+
+		plateau.getPersonnage(rangPersonnageATuer).setAssassine();
+		System.out.println("Le personnage " + plateau.getPersonnage(rangPersonnageATuer).getNom() + " a été assassiné.");
     }
 }

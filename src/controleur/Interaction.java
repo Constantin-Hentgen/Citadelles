@@ -1,6 +1,7 @@
 package controleur;
 
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Interaction {
@@ -43,7 +44,7 @@ public class Interaction {
 			System.out.print("Entrez o/oui ou n/non : ");
 			valeur = sc.next();
 		} while ( !valeur.equals("oui") && !valeur.equals("non") && !valeur.equals("o") && !valeur.equals("n"));
-		
+
 		if (valeur.equals("oui") || valeur.equals("o")){
 			retour = true;
 		} else { retour = false; }
@@ -60,5 +61,27 @@ public class Interaction {
 		} while (retour.length() == 0);
 
 		return retour;
-	}	
+	}
+
+	public static int randomizer() {
+		Random generateur = new Random();
+		int numeroHasard = generateur.nextInt();
+		return numeroHasard;
+	}
+
+	public static int randomizer(int borne) {
+		Random generateur = new Random();
+		int numeroHasard = generateur.nextInt(borne);
+		return numeroHasard;
+	}
+
+	public static boolean randomizerBoolean() {
+		Random generateur = new Random();
+		int numeroHasard = generateur.nextInt(1);
+		if (numeroHasard == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
