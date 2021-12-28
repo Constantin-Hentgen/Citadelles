@@ -7,8 +7,8 @@ public class PlateauDeJeu {
 	private int nombrePersonnages, nombreJoueurs;
 
 	public PlateauDeJeu() {
-		this.listePersonnages = new Personnage[9];
-		this.listeJoueurs = new Joueur[9];
+		this.listePersonnages = new Personnage[8];
+		this.listeJoueurs = new Joueur[8];
 		this.pioche = new Pioche(); 
 	}
 
@@ -60,7 +60,27 @@ public class PlateauDeJeu {
 			persoAjout.setPlateau(this);
 			this.nombrePersonnages ++;
 		}
-	}	
+	}
+
+	public void setListePersonnages(Personnage[] p) {
+		this.listePersonnages = p;
+	}
+
+	public void ecarterPersonnage(Personnage persoEcart) {
+		Personnage[] nouvelleListe = new Personnage[8];
+
+		// on remplit la liste nouvelleListe avec tout sauf le perso à écarter
+		int counter = 0;
+		for (int i = 0; i < this.nombrePersonnages; i++) {
+			if (!this.listePersonnages[i].equals(persoEcart)) {
+				nouvelleListe[counter] = this.listePersonnages[i];
+				counter ++;
+			}
+		}
+
+		this.setListePersonnages(nouvelleListe);
+		this.nombrePersonnages --;
+	}
 	
 	public void ajouterJoueur(Joueur joueurAjout) {
 		for (int i = 0; i < this.listeJoueurs.length; i++) {

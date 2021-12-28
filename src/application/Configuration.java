@@ -140,7 +140,7 @@ public class Configuration {
 		p.ajouter(tripot);
 
 		p.melanger();
-		
+
 		return plateau;
 	}
 }
