@@ -133,6 +133,9 @@ public class TestAvatar {
 		joueur8.ajouterQuartierDansCite(pioche.piocher());
 		
 
+		System.out.println("\nRoi :");
+		roi.utiliserPouvoirAvatar();
+
 		System.out.println("\nAssassin :");
 		assassin.utiliserPouvoirAvatar();
 
