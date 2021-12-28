@@ -205,12 +205,12 @@ public class Condottiere extends Personnage {
 								plateau.getPioche().ajouter(quartierADetruire);
 							}
 						} else {
-							System.out.println("Le condottiere n'utilise pas son pouvoir.");
+							System.out.println("Le joueur n'utilise pas son pouvoir.");
 						}
 					}
 				}				
 			} else {
-				System.out.println("Le condottiere n'utilise pas son pouvoir.");
+				System.out.println("Le joueur n'utilise pas son pouvoir.");
 			}
 		} 
 	}

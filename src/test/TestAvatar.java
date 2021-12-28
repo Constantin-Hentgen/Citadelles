@@ -14,10 +14,9 @@ public class TestAvatar {
 		Pioche pioche = plateau.getPioche();
 
 
-		// création de quatre personnages
+		// Initialisation des personnages
 		Roi roi = new Roi();
-		plateau.ajouterPersonnage(roi);
-		
+		plateau.ajouterPersonnage(roi);		
 
 		Assassin assassin = new Assassin();
 		plateau.ajouterPersonnage(assassin);
@@ -31,10 +30,17 @@ public class TestAvatar {
 		Marchande marchande = new Marchande();
 		plateau.ajouterPersonnage(marchande);
 
-		Condottiere condottiere= new Condottiere();
+		Condottiere condottiere = new Condottiere();
 		plateau.ajouterPersonnage(condottiere);
+
+		Architecte architecte = new Architecte();
+		plateau.ajouterPersonnage(architecte);
+
+		Eveque eveque = new Eveque();
+		plateau.ajouterPersonnage(eveque);
 			
-		// création de trois joueurs
+
+		// Initialisation des joueurs
 		Joueur joueur1 = new Joueur("Milou");
 		plateau.ajouterJoueur(joueur1);
 		
@@ -52,6 +58,12 @@ public class TestAvatar {
 
 		Joueur joueur6 = new Joueur("Dupondt");
 		plateau.ajouterJoueur(joueur6);
+
+		Joueur joueur7 = new Joueur("Blake");
+		plateau.ajouterJoueur(joueur7);
+
+		Joueur joueur8 = new Joueur("Mortimer");
+		plateau.ajouterJoueur(joueur8);
 			
 		// on associe les personnages aux joueurs
 		roi.setJoueur(joueur1);
@@ -60,6 +72,8 @@ public class TestAvatar {
 		voleur.setJoueur(joueur4);
 		magicienne.setJoueur(joueur5);
 		marchande.setJoueur(joueur6);
+		architecte.setJoueur(joueur7);
+		eveque.setJoueur(joueur8);
 
 		condottiere.ajouterPieces();
 
@@ -112,7 +126,11 @@ public class TestAvatar {
 		joueur5.ajouterQuartierDansCite(pioche.piocher());
 		joueur6.ajouterQuartierDansCite(pioche.piocher());
 		joueur6.ajouterQuartierDansCite(pioche.piocher());
-		joueur6.ajouterQuartierDansCite(pioche.piocher());
+		joueur7.ajouterQuartierDansCite(pioche.piocher());
+		joueur7.ajouterQuartierDansCite(pioche.piocher());
+		joueur7.ajouterQuartierDansCite(pioche.piocher());
+		joueur8.ajouterQuartierDansCite(pioche.piocher());
+		joueur8.ajouterQuartierDansCite(pioche.piocher());
 		
 
 		System.out.println("\nAssassin :");
@@ -129,6 +147,12 @@ public class TestAvatar {
 
 		System.out.println("\nMarchande :");
 		marchande.utiliserPouvoirAvatar();
+
+		System.out.println("\nArchitecte :");
+		architecte.utiliserPouvoirAvatar();
+
+		System.out.println("\nEveque :");
+		eveque.utiliserPouvoirAvatar();
 
 		System.out.println();
 	}	

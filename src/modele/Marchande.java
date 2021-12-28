@@ -25,7 +25,7 @@ public class Marchande extends Personnage {
     public void utiliserPouvoir() {
         if (!assassine) {
             joueur.ajouterPieces(1);
-            System.out.println("La marchande récupère une pièce."); 
+            System.out.println("Le joueur récupère une pièce."); 
         } else {
             System.out.println("La marchande a été assassinée.");
         }
@@ -34,7 +34,7 @@ public class Marchande extends Personnage {
 	public void utiliserPouvoirAvatar() {   
         if (!assassine) {
             joueur.ajouterPieces(1);
-            System.out.println("La marchande récupère une pièce."); 
+            System.out.println("Le joueur récupère une pièce."); 
         } else {
             System.out.println("La marchande a été assassinée.");
         }

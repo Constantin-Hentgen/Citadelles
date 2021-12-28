@@ -11,6 +11,7 @@ public class Architecte extends Personnage {
             Quartier q = this.plateau.getPioche().piocher();
             this.joueur.ajouterQuartierDansMain(q);
         }
+		System.out.println("Le joueur a pioché 2 cartes.");
     }
 
 	public void utiliserPouvoirAvatar() {
@@ -18,5 +19,6 @@ public class Architecte extends Personnage {
             Quartier q = this.plateau.getPioche().piocher();
             this.joueur.ajouterQuartierDansMain(q);
         }
+		System.out.println("Le joueur a pioché 2 cartes.");
 	}
 }
