@@ -120,7 +120,7 @@ public class Jeu {
 
 		// affichage : untel a la couronne : il commence
 
-		System.out.println("Le roi " + this.plateau.getJoueur(this.rangRoi).getNom() + " choisit en premier.\n");
+		System.out.println("Le roi " + this.plateau.getJoueur(this.rangRoi).getNom() + " choisit en premier.");
 
 		// le joueur humain est systématiquement le joueur1
 
@@ -135,49 +135,44 @@ public class Jeu {
 			for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
 				System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
 			}
-			System.out.println();
 
 			choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages())-1;
 			this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
+			System.out.println("Vous avez choisi de jouer le personnage " + this.plateau.getJoueur(0).getPersonnage().getNom() + ".\n");
 		} else {
-
-			System.out.println();
-			for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
-				System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
-			}
-			System.out.println();
 			// si le roi est un bot
 			choix = Interaction.randomizer(this.plateau.getNombrePersonnages()-1);
 			this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(this.rangRoi));
-			System.out.println("CHOIX RANDOM DU ROI ROBOT : " + choix);
+			System.out.println(this.plateau.getJoueur(this.rangRoi).getNom() + " a choisi son personnage.");
 		}
 		
-		System.out.println(this.plateau.getJoueur(this.rangRoi).getNom() + " joue le personnage " + this.plateau.getJoueur(this.rangRoi).getPersonnage().getNom());
 		persoAEcarter = this.plateau.getPersonnage(choix);
 		this.plateau.ecarterPersonnage(persoAEcarter);
 
 		// on boucle pour le reste des joueurs
 		for (int h = 0; h < this.plateau.getNombreJoueurs(); h++) {
-			// affichage des choix disponibles
 			// si ce n'est pas le roi
 			if (h != this.rangRoi) {
-				for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
-					System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
-				}
 				
 				if (h == 0) {
-					choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages())-1;
+					// affichage des choix disponibles
+					System.out.println("\nC'est à vous de choisir un personnage :\n");
+
+					for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+						System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
+					}
+					
+					choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages()+1)-1;
 					this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
+					System.out.println("Vous avez choisi de jouer le personnage " + this.plateau.getJoueur(0).getPersonnage().getNom() + ".\n");
 				} else {
 					choix = Interaction.randomizer(this.plateau.getNombrePersonnages()-1);
-					System.out.println("CHOIX RANDOM DU ROBOT : " + choix);
 					this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(h));
+					System.out.println(this.plateau.getJoueur(h).getNom() + " a choisi son personnage.");
 				}
 
 				persoAEcarter = this.plateau.getPersonnage(choix);
 				this.plateau.ecarterPersonnage(persoAEcarter);
-				
-				System.out.println(this.plateau.getJoueur(h).getNom() + " joue le personnage " + this.plateau.getJoueur(h).getPersonnage().getNom());
 			}
 		}
 
