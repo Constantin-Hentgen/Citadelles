@@ -17,7 +17,6 @@ public class Jeu {
 	public void jouer() {
 		// affichage du message de bienvenue
 		System.out.println("\n______________________________________________________________________");
-		System.out.println("______________________________________________________________________");
 		System.out.println("\n\t\tBienvenue dans le jeu Citadelles\n");
 
 		// affichage du menu
@@ -39,6 +38,22 @@ public class Jeu {
 	}
 
 	private void afficherLesRegles() {
+		System.out.println(
+			"\nDeux à huit joueurs s'affrontent pour construire le plus rapidement possible la plus prestigieuse cité." + 
+			"\nPour cela, chaque joueur devra construire des quartiers, ayant chacun des coûts différents." + 
+			"\nComme dans un jeu de rôle, chaque joueur doit se mettre dans la peau d'un personnage," + 
+			"\nà ceci près que les joueurs changent de personnage à chaque tour de jeu." + 
+			"\nCes personnages ont chacun des pouvoirs particuliers : la meilleure statégie est de choisir un personnage au bon moment du jeu."
+			);
+
+		System.out.println(
+			"\nLa quatrième édition de Citadelles comportent 84 quartiers, répartis en 5 catégories : religieux, militaires, nobles, commerçants et merveilles. "+
+			"\nLes quartiers sont présents plusieurs fois, à part les	merveilles qui sont uniques. "+
+			"\nUne cité ne doit pas contenir deux quartiers identiques (sauf exception)."+
+			"\nChaque quartier possède un nom et un coût de contruction. "+
+			"\nSeuls les quartiers merveilles	possèdent chacun des effets particuliers liés au coût de construction, "+
+			"\nà la perception des revenus ou encore au calcul des points."
+		);
 
 		// à la fin de la méthode :
 		jouer();
@@ -62,8 +77,6 @@ public class Jeu {
 		Pioche pioche = this.plateau.getPioche();
 		this.plateau = Configuration.configurationDeBase(pioche);
 		Configuration.nouvellePioche(pioche);
-
-		// 4 joueurs dont 3 bots : les bots utilisent utiliserPouvoirAvatar
 
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
 			// 2 pièces d'or
@@ -110,26 +123,13 @@ public class Jeu {
 		this.plateau.ecarterPersonnage(persoAEcarter);
 
 		System.out.println("\n3 cartes personnages dont "+ persoAEcarter.getNom() +" ont été écartées.\n");
-
-
-
-
-
-
-
-
-		// affichage : untel a la couronne : il commence
-
 		System.out.println("Le roi " + this.plateau.getJoueur(this.rangRoi).getNom() + " choisit en premier.");
 
-		// le joueur humain est systématiquement le joueur1
+		// le joueur humain est systèmatiquement le joueur1
 
-
-		// le roi start puis j'avise
 		int choix;
+
 		// si le roi c'est moi
-
-
 		if (rangRoi == 0) {
 			System.out.println();
 			for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
@@ -175,9 +175,6 @@ public class Jeu {
 				this.plateau.ecarterPersonnage(persoAEcarter);
 			}
 		}
-
-		// determiner qui est le roi : si c'est le joueur c'est cool
-		// [joueur1, joueur2, roi, joueur3]
 	}
 
 	private void percevoirRessources() {
