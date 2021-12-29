@@ -11,32 +11,32 @@ public class Assassin extends Personnage {
 		// affichage de tous les personnages
         System.out.println("Quel personnage voulez-vous assassiner ?");
 
-        for (int i = 0; i < plateau.getNombrePersonnages(); i++) {
-			System.out.println((i+1)+"   "+plateau.getPersonnage(i).getNom());
+        for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
+			System.out.println((i+1)+"   "+plateau.getJoueur(i).getPersonnage().getNom());
         }
 		
 		int rangPersonnageATuer = 0;
 
         do {
-			rangPersonnageATuer = Interaction.lireUnEntier(1, plateau.getNombrePersonnages()+1)-1;
+			rangPersonnageATuer = Interaction.lireUnEntier(1, plateau.getNombreJoueurs()+1)-1;
 
-            if (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin")) {
+            if (plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().equals("Assassin")) {
                 System.out.println("\nVous ne pouvez pas vous assassiner !");
             }
-        } while (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin"));
+        } while (plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().equals("Assassin"));
 
-		plateau.getPersonnage(rangPersonnageATuer).setAssassine();
-		System.out.println("Le personnage " + plateau.getPersonnage(rangPersonnageATuer).getNom() + " a été assassiné.");
+		plateau.getJoueur(rangPersonnageATuer).getPersonnage().setAssassine();
+		System.out.println("Le personnage " + plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom() + " a été assassiné.");
     }
 
     public void utiliserPouvoirAvatar() {
 		int rangPersonnageATuer;
 
 		do {
-			rangPersonnageATuer = Interaction.randomizer(plateau.getNombrePersonnages());
-        } while (plateau.getPersonnage(rangPersonnageATuer).getNom().equals("Assassin"));
+			rangPersonnageATuer = Interaction.randomizer(plateau.getNombreJoueurs());
+        } while (plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().equals("Assassin"));
 
-		plateau.getPersonnage(rangPersonnageATuer).setAssassine();
-		System.out.println("Le personnage " + plateau.getPersonnage(rangPersonnageATuer).getNom() + " a été assassiné.");
+		plateau.getJoueur(rangPersonnageATuer).getPersonnage().setAssassine();
+		System.out.println("Le personnage " + plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom() + " a été assassiné.");
     }
 }

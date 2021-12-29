@@ -60,14 +60,18 @@ public class Jeu {
 	}
 
 	private void jouerPartie() {
+		initialisation();
+
 		do {
-			initialisation();
 			tourDeJeu();
 			gestionCouronne();
 			reinitialisationPersonnages();
+
+			// on joue le tour
 		} while (!partieFinie());
-		
-		choixPersonnages();
+
+		calculDesPoints();
+
 		// à la fin de la méthode
 		jouer();
 	}
@@ -106,7 +110,59 @@ public class Jeu {
 	}
 
 	private void tourDeJeu() {
+		// TOUS LES JOUEURS SONT BIEN CRÉÉS : VÉRIFIER QUE LES PERSONNAGES LE SONT BIEN
+		// VERIFIER QUE TOUS LES PERSONNAGES SONT BIEN AFFILIÉS AUX JOUEURS CORRESPONDANTS
 
+		choixPersonnages();
+		
+		System.out.println("_______________________________________________________\n");
+		System.out.println("\nMATCHING LIST");
+		
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			System.out.println(this.plateau.getJoueur(i).getNom() + " joue " + this.plateau.getJoueur(i).getPersonnage().getNom());
+		}
+
+		// appeler les personnages un par un pour les faire jouer
+		for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+			// checker si il est assassiné
+			if (!this.plateau.getPersonnage(i).getAssassine()) {
+				// donner à chacun ses ressources
+				// donner à ceux concernés les ressources spécifiques
+				percevoirRessources();
+
+				// faire un petit affichage récapitulatif ??
+
+				boolean choix;
+				int choixQuartier;
+
+				// Dans le cas où le joueur est humain
+				if (i == 0) {
+					// System.out.println("Vous êtes " + this.plateau.getPersonnage(i).getJoueur().getNom() + " et vous jouez " + this.plateau.getPersonnage(i).getNom());
+					// System.out.println("vous êtes un " + this.plateau.getPersonnage(i).getNom());
+					this.plateau.getJoueur(0).getPersonnage().utiliserPouvoir();
+
+					System.out.println("Voulez-vous construire ?");
+					choix = Interaction.lireOuiOuNon();
+					if (choix) {
+						for (int j = 0; j < this.plateau.getJoueur(i).nbQuartiersDansMain(); j++) {
+							System.out.println("\t" + (j+1) + this.plateau.getJoueur(i).getMain().get(j).getNom());
+						}
+
+						choixQuartier = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain());
+						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+					}
+				} else {
+					// Dans le cas où le joueur est un robot
+					this.plateau.getJoueur(i).getPersonnage().utiliserPouvoirAvatar();
+					choix = Interaction.randomizerBoolean();
+
+					if (choix) {
+						choixQuartier = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
+						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+					}
+				}
+			}
+		}
 	}
 
 	private void choixPersonnages() {
@@ -182,6 +238,6 @@ public class Jeu {
 	}
 
 	private void calculDesPoints () {
-
+		// calcul et affiche les points de chaque joueurs : acclame le vainqueur
 	}
 }
