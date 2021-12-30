@@ -133,6 +133,20 @@ public class Joueur {
 		}
 	}
 
+	public Quartier retirerQuartierDansMain(Quartier q) {
+		// on récupère le rang du quartier dans la main
+		int rangQ = 0;
+
+		for (int a = 0; a < this.nbQuartiersDansMain(); a++) {
+			if (this.main.get(a).equals(q)) {
+				rangQ = a;
+			}
+		}
+
+		this.main.remove(rangQ);
+		return q;
+	}
+
 	public void reinitialiser() {
 		this.tresor = 0;
 
