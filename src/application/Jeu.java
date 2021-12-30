@@ -70,9 +70,9 @@ public class Jeu {
 			System.out.println("\n\t\t--------------------------------------");
 			System.out.println("\n\t\t\t    TOUR " + numeroDuTour + " DE JEU");
 			System.out.println("\n\t\t--------------------------------------");
-			
+
 			tourDeJeu();
-			
+
 			System.out.println("\n\t\t--------------------------------------");
 			System.out.println("\n\t\t\t    TOUR " + numeroDuTour + " TERMINÉ");
 
@@ -119,7 +119,32 @@ public class Jeu {
 	}
 
 	private void reinitialisationPersonnages() {
+		this.plateau.setListePersonnages(new Personnage[8]);
 
+		// Ajout des 8 personnages
+		Assassin assassin = new Assassin();
+		plateau.ajouterPersonnage(assassin);
+
+		Voleur voleur = new Voleur();
+		plateau.ajouterPersonnage(voleur);
+
+		Magicienne magicienne = new Magicienne();
+		plateau.ajouterPersonnage(magicienne);
+
+		Roi roi = new Roi();
+		plateau.ajouterPersonnage(roi);
+
+		Eveque eveque = new Eveque();
+		plateau.ajouterPersonnage(eveque);
+
+		Marchande marchande = new Marchande();
+		plateau.ajouterPersonnage(marchande);
+
+		Architecte architecte = new Architecte();
+		plateau.ajouterPersonnage(architecte);
+
+		Condottiere condottiere = new Condottiere();
+		plateau.ajouterPersonnage(condottiere);
 	}
 
 	private boolean partieFinie() {
@@ -127,23 +152,23 @@ public class Jeu {
 		boolean partieFinie = true;
 		int nb = this.plateau.getNombreJoueurs();
 		
-		// for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
-		// 	int nbQuartier = 0;
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			int nbQuartier = 0;
 			
-		// 	try {
-		// 		for (int j = 0; j < 8; j++) {
-		// 			if (!this.plateau.getJoueur(i).getCite()[j].equals(null)) {
-		// 				nbQuartier ++;
-		// 			}
-		// 		}
-		// 	} catch (NullPointerException npe) {};
+			try {
+				for (int j = 0; j < 8; j++) {
+					if (!this.plateau.getJoueur(i).getCite()[j].equals(null)) {
+						nbQuartier ++;
+					}
+				}
+			} catch (NullPointerException npe) {};
 
-		// 	if ((((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)))) {
-		// 		partieFinie = true;
-		// 	} else {
-		// 		partieFinie = false;
-		// 	}
-		// }
+			if ((((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)))) {
+				partieFinie = true;
+			} else {
+				partieFinie = false;
+			}
+		}
 
 		return partieFinie;
 	}
@@ -261,7 +286,7 @@ public class Jeu {
 			}
 			System.out.println();
 
-			choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages())-1;
+			choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages()+1)-1;
 			this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
 			System.out.println("Vous avez choisi de jouer le personnage " + this.plateau.getJoueur(0).getPersonnage().getNom() + ".\n");
 		} else {
