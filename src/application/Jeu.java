@@ -61,8 +61,11 @@ public class Jeu {
 
 	private void jouerPartie() {
 		initialisation();
+		int numeroDuTour = 1;
 
 		do {
+			System.out.println("Tour " + numeroDuTour + " de jeu.");
+			numeroDuTour ++;
 			tourDeJeu();
 			gestionCouronne();
 			reinitialisationPersonnages();
@@ -137,18 +140,17 @@ public class Jeu {
 					// System.out.println("vous êtes un " + this.plateau.getPersonnage(i).getNom());
 					this.plateau.getJoueur(0).getPersonnage().utiliserPouvoir();
 
+					System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
+
+					System.out.println("\nVotre main :\n");
+
+					for (int z = 0; z < this.plateau.getJoueur(0).getMain().size(); z++) {
+						System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(0).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(0).getMain().get(z).getCout() + " PO");
+					}
 
 					System.out.println("\nVoulez-vous construire ?");
 					choix = Interaction.lireOuiOuNon();
 					if (choix) {
-						System.out.println("\nVotre main :\n");
-
-						for (int z = 0; z < this.plateau.getJoueur(0).getMain().size(); z++) {
-							System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(0).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(0).getMain().get(z).getCout() + " PO");
-						}
-
-						System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
-
 						choixQuartier = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1)-1;
 						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 
@@ -164,6 +166,8 @@ public class Jeu {
 								}
 							} catch (NullPointerException npe) {};
 						}
+
+						System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
 					}
 				} else {
 					// Dans le cas où le joueur est un robot
