@@ -115,7 +115,15 @@ public class Jeu {
 	}
 
 	private void gestionCouronne() {
+		// on commence par enlever la couronne au précédent possesseur
+		this.plateau.getJoueur(rangRoi).setPossedeCouronne(false);
 
+		// si c'est le dernier joueur qui a la couronne alors on la donne au premier
+		if (rangRoi == this.plateau.getNombreJoueurs()-1) {
+			this.plateau.getJoueur(0).setPossedeCouronne(true);
+		} else {
+			this.plateau.getJoueur(rangRoi+1).setPossedeCouronne(true);
+		}
 	}
 
 	private void reinitialisationPersonnages() {
@@ -180,6 +188,10 @@ public class Jeu {
 		// appeler les personnages un par un pour les faire jouer
 
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			for (int w = 0; w < this.plateau.getNombreJoueurs(); w++) {
+				this.plateau.getJoueur(i).ajouterPieces(2);
+			}
+			
 			System.out.println("-------------------");
 			System.out.println("\nC'est au tour de " + this.plateau.getJoueur(i).getNom() + " qui joue " + this.plateau.getJoueur(i).getPersonnage().getNom() + ".\n");
 
@@ -187,7 +199,7 @@ public class Jeu {
 			if (!this.plateau.getJoueur(i).getPersonnage().getAssassine()) {
 				// donner à chacun ses ressources
 				// donner à ceux concernés les ressources spécifiques
-				percevoirRessources();
+				percevoirRessources(this.plateau.getJoueur(i).getPersonnage());
 
 				boolean choix;
 				int choixQuartier;
@@ -329,8 +341,8 @@ public class Jeu {
 		}
 	}
 
-	private void percevoirRessources() {
-
+	private void percevoirRessources(Personnage p) {
+		p.percevoirRessourcesSpecifiques();
 	}
 
 	private void calculDesPoints () {
