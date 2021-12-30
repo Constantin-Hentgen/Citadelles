@@ -182,21 +182,64 @@ public class Jeu {
 	}
 
 	private void tourDeJeu() {
+		
 		choixPersonnages();
 		System.out.println();
-		
+		  
+		// affiche les caracteristiques des différents joueurs par joueurs
+		// for (int w = 0; w < this.plateau.getNombreJoueurs(); w++) {
+			// 	System.out.println(this.plateau.getJoueur(w).getNom() + " | " + this.plateau.getJoueur(w).getPersonnage().getNom() + " | " + this.plateau.getJoueur(w).tresor() + " PO.");
+			// System.out.println(this.plateau.getJoueur(w).nbQuartiersDansMain());
+		// }
+
 		// appeler les personnages un par un pour les faire jouer
 
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
-			for (int w = 0; w < this.plateau.getNombreJoueurs(); w++) {
-				this.plateau.getJoueur(i).ajouterPieces(2);
-			}
 
 			System.out.println("-------------------");
 			System.out.println("\nC'est au tour de " + this.plateau.getJoueur(i).getNom() + " qui joue " + this.plateau.getJoueur(i).getPersonnage().getNom() + ".\n");
-
+ 
 			// checker si il est assassiné
 			if (!this.plateau.getJoueur(i).getPersonnage().getAssassine()) {
+
+				// si il n'a pas 4 cartes alors on lui on donne une
+				if (this.plateau.getJoueur(i).nbQuartiersDansMain() < 4) {					
+					this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+				} else {
+					// si il en a 4 alors on demande si il veut en échanger une
+					System.out.println("Voulez-vous échanger une carte ?");
+
+					boolean choixEchange = Interaction.lireOuiOuNon();
+
+					if (choixEchange) {
+						System.out.println("\nVotre main :\n");
+
+						for (int z = 0; z < this.plateau.getJoueur(i).getMain().size(); z++) {
+							System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(i).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(i).getMain().get(z).getCout() + " PO");
+						}
+
+						System.out.println("\nIndiquer la carte à échanger :");
+						int choixCarteAEchanger = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1) - 1;
+
+						// défausser celle que je veux remplacer
+						plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+
+						// enlever la carte de la main du joueur
+						plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+
+						// pioche d'une nouvelle carte
+						this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+						
+						System.out.println("\nNouvelle main :\n");
+
+						for (int z = 0; z < this.plateau.getJoueur(i).getMain().size(); z++) {
+							System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(i).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(i).getMain().get(z).getCout() + " PO");
+						}
+
+						System.out.println();
+					}
+				}
+
 				// donner à chacun ses ressources
 				// donner à ceux concernés les ressources spécifiques
 				percevoirRessources(this.plateau.getJoueur(i).getPersonnage());
@@ -221,6 +264,7 @@ public class Jeu {
 						choixQuartier = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1)-1;
 						this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
 						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+						this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 
 						// faire un affichage de retour pour le joueur
 						System.out.println("\nVotre cité :\n");
@@ -246,6 +290,7 @@ public class Jeu {
 						choixQuartier = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
 						this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
 						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+						this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 
 
 						System.out.println("\nCité de " + this.plateau.getJoueur(i).getNom() + "\n");

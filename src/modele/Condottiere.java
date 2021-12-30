@@ -130,7 +130,6 @@ public class Condottiere extends Personnage {
 									plateau.getPioche().ajouter(quartierADetruire);
 								}
 							} catch (IndexOutOfBoundsException ibe) {};
-							
 						}
 					}
 				}				
