@@ -191,7 +191,7 @@ public class Jeu {
 			for (int w = 0; w < this.plateau.getNombreJoueurs(); w++) {
 				this.plateau.getJoueur(i).ajouterPieces(2);
 			}
-			
+
 			System.out.println("-------------------");
 			System.out.println("\nC'est au tour de " + this.plateau.getJoueur(i).getNom() + " qui joue " + this.plateau.getJoueur(i).getPersonnage().getNom() + ".\n");
 
@@ -343,6 +343,7 @@ public class Jeu {
 
 	private void percevoirRessources(Personnage p) {
 		p.percevoirRessourcesSpecifiques();
+		System.out.println();
 	}
 
 	private void calculDesPoints () {
