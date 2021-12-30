@@ -64,7 +64,9 @@ public class Jeu {
 		int numeroDuTour = 1;
 
 		do {
-			System.out.println("Tour " + numeroDuTour + " de jeu.");
+			System.out.println("\n\t\t--------------------------------------");
+			System.out.println("\n\t\t\t    TOUR " + numeroDuTour + " DE JEU");
+			System.out.println("\n\t\t--------------------------------------");
 			numeroDuTour ++;
 			tourDeJeu();
 			gestionCouronne();
@@ -111,37 +113,54 @@ public class Jeu {
 
 	private boolean partieFinie() {
 		// verifie si un joueur a une cité complète
-		return true;
+		boolean partieFinie = true;
+		int nb = this.plateau.getNombreJoueurs();
+		
+		// for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+		// 	int nbQuartier = 0;
+			
+		// 	try {
+		// 		for (int j = 0; j < 8; j++) {
+		// 			if (!this.plateau.getJoueur(i).getCite()[j].equals(null)) {
+		// 				nbQuartier ++;
+		// 			}
+		// 		}
+		// 	} catch (NullPointerException npe) {};
+
+		// 	if ((((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)))) {
+		// 		partieFinie = true;
+		// 	} else {
+		// 		partieFinie = false;
+		// 	}
+		// }
+
+		return partieFinie;
 	}
 
 	private void tourDeJeu() {
-		// TOUS LES JOUEURS SONT BIEN CRÉÉS : VÉRIFIER QUE LES PERSONNAGES LE SONT BIEN
-		// VERIFIER QUE TOUS LES PERSONNAGES SONT BIEN AFFILIÉS AUX JOUEURS CORRESPONDANTS
 
 		choixPersonnages();
 		System.out.println();
 		
 		// appeler les personnages un par un pour les faire jouer
 		for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+			System.out.println("-------------------");
+			System.out.println("\nC'est au tour de " + this.plateau.getJoueur(i).getNom() + " qui joue " + this.plateau.getJoueur(i).getPersonnage().getNom() + ".\n");
+
 			// checker si il est assassiné
 			if (!this.plateau.getPersonnage(i).getAssassine()) {
 				// donner à chacun ses ressources
 				// donner à ceux concernés les ressources spécifiques
 				percevoirRessources();
 
-				// faire un petit affichage récapitulatif ??
-
 				boolean choix;
 				int choixQuartier;
 
 				// Dans le cas où le joueur est humain
 				if (i == 0) {
-					// System.out.println("Vous êtes " + this.plateau.getPersonnage(i).getJoueur().getNom() + " et vous jouez " + this.plateau.getPersonnage(i).getNom());
-					// System.out.println("vous êtes un " + this.plateau.getPersonnage(i).getNom());
 					this.plateau.getJoueur(0).getPersonnage().utiliserPouvoir();
 
 					System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
-
 					System.out.println("\nVotre main :\n");
 
 					for (int z = 0; z < this.plateau.getJoueur(0).getMain().size(); z++) {
@@ -152,6 +171,7 @@ public class Jeu {
 					choix = Interaction.lireOuiOuNon();
 					if (choix) {
 						choixQuartier = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1)-1;
+						this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
 						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 
 						// faire un affichage de retour pour le joueur
@@ -173,10 +193,27 @@ public class Jeu {
 					// Dans le cas où le joueur est un robot
 					this.plateau.getJoueur(i).getPersonnage().utiliserPouvoirAvatar();
 					choix = Interaction.randomizerBoolean();
+					choix = true;
 
 					if (choix) {
 						choixQuartier = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
+						this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
 						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+
+
+						System.out.println("\nCité de " + this.plateau.getJoueur(i).getNom() + "\n");
+						
+						int counterQuartierDansCite = 1;
+						for (int c = 0; c < this.plateau.getJoueur(i).getCite().length; c++) {
+							try {
+								if (!this.plateau.getJoueur(i).getCite()[c].equals(null)) {
+									System.out.println("\t"+ (counterQuartierDansCite) + " | " + this.plateau.getJoueur(i).getCite()[c].getNom());
+									counterQuartierDansCite ++;
+								}
+							} catch (NullPointerException npe) {};
+						}
+
+						System.out.println("\nTrésor de " + this.plateau.getJoueur(i).getNom() + " est de " + this.plateau.getJoueur(i).tresor() + " PO.");
 					}
 				}
 			}
@@ -209,6 +246,7 @@ public class Jeu {
 			for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
 				System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
 			}
+			System.out.println();
 
 			choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages())-1;
 			this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
@@ -235,6 +273,8 @@ public class Jeu {
 					for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
 						System.out.println("\t" + (i+1) + " | " + this.plateau.getPersonnage(i).getNom());
 					}
+
+					System.out.println();
 					
 					choix = Interaction.lireUnEntier(1, this.plateau.getNombrePersonnages()+1)-1;
 					this.plateau.getPersonnage(choix).setJoueur(this.plateau.getJoueur(0));
