@@ -9,13 +9,20 @@ public class Eveque extends Personnage {
         if (!assassine) {
             Quartier[] c = this.joueur.getCite();
             int recevoir = 0;
-            for(int i = 0; i<this.joueur.nbQuartiersDansCite();i++) {
+
+            for (int i = 0; i<this.joueur.nbQuartiersDansCite();i++) {
                 if( c[i].getType().equals(Quartier.TYPE_QUARTIERS[0])) {
                     recevoir = recevoir +1;
                 }
             }
-        this.joueur.ajouterPieces(recevoir);
-        System.out.println("L'évêque a reçu " + recevoir + " pièce(s)");
+
+        	this.joueur.ajouterPieces(recevoir);
+			
+			if (recevoir > 0) {
+				System.out.println("L'évêque a reçu " + recevoir + " pièce(s)");
+			} else {
+				System.out.println("L'évêque n'a pas reçu de ressources spécifiques.");
+			}
         }
     }
 
