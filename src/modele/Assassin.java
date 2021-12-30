@@ -14,6 +14,7 @@ public class Assassin extends Personnage {
         for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 			System.out.println((i+1)+"   "+plateau.getJoueur(i).getPersonnage().getNom());
         }
+		System.out.println();
 		
 		int rangPersonnageATuer = 0;
 
