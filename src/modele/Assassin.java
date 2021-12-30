@@ -9,7 +9,7 @@ public class Assassin extends Personnage {
 
     public void utiliserPouvoir() {
 		// affichage de tous les personnages
-        System.out.println("Quel personnage voulez-vous assassiner ?");
+        System.out.println("Quel personnage voulez-vous assassiner ?\n");
 
         for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 			System.out.println((i+1)+"   "+plateau.getJoueur(i).getPersonnage().getNom());
