@@ -153,7 +153,7 @@ public class Jeu {
 						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 
 						// faire un affichage de retour pour le joueur
-						System.out.println("Votre cité :");
+						System.out.println("\nVotre cité :\n");
 						
 						int counterQuartierDansCite = 1;
 						for (int c = 0; c < this.plateau.getJoueur(0).getCite().length; c++) {
