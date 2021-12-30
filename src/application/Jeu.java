@@ -64,23 +64,27 @@ public class Jeu {
 	private void jouerPartie() {
 		initialisation();
 		int numeroDuTour = 1;
+		boolean partieFinie = true;
 
 		do {
 			System.out.println("\n\t\t--------------------------------------");
 			System.out.println("\n\t\t\t    TOUR " + numeroDuTour + " DE JEU");
 			System.out.println("\n\t\t--------------------------------------");
-			numeroDuTour ++;
-
+			
 			tourDeJeu();
+			
+			System.out.println("\n\t\t--------------------------------------");
+			System.out.println("\n\t\t\t    TOUR " + numeroDuTour + " TERMINÉ");
 
-			System.out.println("\n\t\t--------------------------------------");
-			System.out.println("\n\t\t\t     TOUR TERMINÉ");
-			System.out.println("\n\t\t--------------------------------------");
+			numeroDuTour ++;
+			
+			// actualisation de l'état de la partie
+			partieFinie = partieFinie();
 			gestionCouronne();
 			reinitialisationPersonnages();
 
 			// on joue le tour
-		} while (!partieFinie());
+		} while (!partieFinie);
 
 		calculDesPoints();
 
@@ -200,7 +204,6 @@ public class Jeu {
 					// Dans le cas où le joueur est un robot
 					this.plateau.getJoueur(i).getPersonnage().utiliserPouvoirAvatar();
 					choix = Interaction.randomizerBoolean();
-					choix = true;
 
 					if (choix) {
 						choixQuartier = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
@@ -225,7 +228,7 @@ public class Jeu {
 				}
 			}
 			try {
-				TimeUnit.SECONDS.sleep(3);
+				TimeUnit.SECONDS.sleep(2);
 			} catch (InterruptedException e) {}
 		}
 	}
