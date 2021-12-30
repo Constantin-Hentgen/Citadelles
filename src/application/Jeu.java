@@ -68,7 +68,12 @@ public class Jeu {
 			System.out.println("\n\t\t\t    TOUR " + numeroDuTour + " DE JEU");
 			System.out.println("\n\t\t--------------------------------------");
 			numeroDuTour ++;
+
 			tourDeJeu();
+
+			System.out.println("\n\t\t--------------------------------------");
+			System.out.println("\n\t\t\t     TOUR TERMINÉ");
+			System.out.println("\n\t\t--------------------------------------");
 			gestionCouronne();
 			reinitialisationPersonnages();
 
@@ -138,17 +143,17 @@ public class Jeu {
 	}
 
 	private void tourDeJeu() {
-
 		choixPersonnages();
 		System.out.println();
 		
 		// appeler les personnages un par un pour les faire jouer
-		for (int i = 0; i < this.plateau.getNombrePersonnages(); i++) {
+
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
 			System.out.println("-------------------");
 			System.out.println("\nC'est au tour de " + this.plateau.getJoueur(i).getNom() + " qui joue " + this.plateau.getJoueur(i).getPersonnage().getNom() + ".\n");
 
 			// checker si il est assassiné
-			if (!this.plateau.getPersonnage(i).getAssassine()) {
+			if (!this.plateau.getJoueur(i).getPersonnage().getAssassine()) {
 				// donner à chacun ses ressources
 				// donner à ceux concernés les ressources spécifiques
 				percevoirRessources();
