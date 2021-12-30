@@ -172,6 +172,7 @@ public class Jeu {
 			} catch (NullPointerException npe) {};
 
 			if ((((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)))) {
+				System.out.println("\nFélicitation au " + this.plateau.getJoueur(i).getNom() + " qui a gagné cette partie.");
 				partieFinie = true;
 			} else {
 				partieFinie = false;
@@ -205,40 +206,7 @@ public class Jeu {
 				// si il n'a pas 4 cartes alors on lui on donne une
 				if (this.plateau.getJoueur(i).nbQuartiersDansMain() < 4) {					
 					this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
-				} else {
-					// si il en a 4 alors on demande si il veut en échanger une
-					System.out.println("Voulez-vous échanger une carte ?");
-
-					boolean choixEchange = Interaction.lireOuiOuNon();
-
-					if (choixEchange) {
-						System.out.println("\nVotre main :\n");
-
-						for (int z = 0; z < this.plateau.getJoueur(i).getMain().size(); z++) {
-							System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(i).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(i).getMain().get(z).getCout() + " PO");
-						}
-
-						System.out.println("\nIndiquer la carte à échanger :");
-						int choixCarteAEchanger = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1) - 1;
-
-						// défausser celle que je veux remplacer
-						plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
-
-						// enlever la carte de la main du joueur
-						plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
-
-						// pioche d'une nouvelle carte
-						this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
-						
-						System.out.println("\nNouvelle main :\n");
-
-						for (int z = 0; z < this.plateau.getJoueur(i).getMain().size(); z++) {
-							System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(i).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(i).getMain().get(z).getCout() + " PO");
-						}
-
-						System.out.println();
-					}
-				}
+				} 
 
 				// donner à chacun ses ressources
 				// donner à ceux concernés les ressources spécifiques
@@ -249,6 +217,60 @@ public class Jeu {
 
 				// Dans le cas où le joueur est humain
 				if (i == 0) {
+					if (this.plateau.getJoueur(i).nbQuartiersDansMain() == 4) {
+						// si il en a 4 alors on demande si il veut en échanger une
+						System.out.println("\nVotre main :\n");
+
+						for (int z = 0; z < this.plateau.getJoueur(i).getMain().size(); z++) {
+							System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(i).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(i).getMain().get(z).getCout() + " PO");
+						}
+						
+						System.out.println("\nVoulez-vous échanger une carte ?\n");
+	
+						boolean choixEchange;
+						if (i == 0) {
+							choixEchange = Interaction.lireOuiOuNon();
+	
+							if (choixEchange) {
+		
+								System.out.println("\nIndiquer la carte à échanger :");
+								int choixCarteAEchanger = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1) - 1;
+		
+								// défausser celle que je veux remplacer
+								plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+		
+								// enlever la carte de la main du joueur
+								plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+		
+								// pioche d'une nouvelle carte
+								this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+								
+								System.out.println("\nNouvelle main :\n");
+		
+								for (int z = 0; z < this.plateau.getJoueur(i).getMain().size(); z++) {
+									System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(i).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(i).getMain().get(z).getCout() + " PO");
+								}
+		
+								System.out.println();
+							}
+						} else {
+							choixEchange = Interaction.randomizerBoolean();
+						}
+						if (choixEchange) {
+							int choixCarteAEchanger = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain());
+	
+							// défausser celle que je veux remplacer
+							plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+	
+							// enlever la carte de la main du joueur
+							plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+	
+							// pioche d'une nouvelle carte
+							this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+						}
+					}
+
+
 					this.plateau.getJoueur(0).getPersonnage().utiliserPouvoir();
 
 					System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
@@ -258,30 +280,102 @@ public class Jeu {
 						System.out.println("\t" + (z+1) + " | " + this.plateau.getJoueur(0).getMain().get(z).getNom() + " | " + this.plateau.getJoueur(0).getMain().get(z).getCout() + " PO");
 					}
 
-					System.out.println("\nVoulez-vous construire ?");
-					choix = Interaction.lireOuiOuNon();
-					if (choix) {
-						choixQuartier = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1)-1;
-						this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
-						this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
-						this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+					if (this.plateau.getJoueur(0).getPersonnage().getNom().equals("Architecte")) {
+						System.out.println("\nVoulez-vous construire ?");
+						choix = Interaction.lireOuiOuNon();
+						if (choix) {
+							System.out.println("\nCombien de construction voulez-vous faire ?");
+							int nbDeConstruction = Interaction.lireUnEntier(1, 3);
 
-						// faire un affichage de retour pour le joueur
-						System.out.println("\nVotre cité :\n");
-						
-						int counterQuartierDansCite = 1;
-						for (int c = 0; c < this.plateau.getJoueur(0).getCite().length; c++) {
-							try {
-								if (!this.plateau.getJoueur(0).getCite()[c].equals(null)) {
-									System.out.println("\t"+ (counterQuartierDansCite) + " | " + this.plateau.getJoueur(0).getCite()[c].getNom());
-									counterQuartierDansCite ++;
+							// ça me demande en boucle puis ça déconne
+							// y a que 4 qui passe et qui fait infinite
+							
+							for (int c = 0; c < nbDeConstruction; c++) {
+								int choixQuartierConstruction = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1)-1;
+								if (this.plateau.getJoueur(i).getMain().get(choixQuartierConstruction).getCout() <= this.plateau.getJoueur(i).tresor()) {
+									this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartierConstruction).getCout());
+									this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartierConstruction));
+									this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartierConstruction));
+
+									// faire un affichage de retour pour le joueur
+									System.out.println("\nVotre cité :\n");
+										
+									int counterQuartierDansCite = 1;
+									for (int o = 0; o < this.plateau.getJoueur(0).getCite().length; c++) {
+										try {
+											if (!this.plateau.getJoueur(0).getCite()[o].equals(null)) {
+												System.out.println("\t"+ (counterQuartierDansCite) + " | " + this.plateau.getJoueur(0).getCite()[o].getNom());
+												counterQuartierDansCite ++;
+											}
+										} catch (NullPointerException npe) {};
+									}	
+									System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
 								}
-							} catch (NullPointerException npe) {};
+							}
 						}
+					} else {
+						System.out.println("\nVoulez-vous construire ?");
+						choix = Interaction.lireOuiOuNon();
+						if (choix) {
+							choixQuartier = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain()+1)-1;
 
-						System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
+							if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor()) {
+								this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
+								this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+								this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+		
+								// faire un affichage de retour pour le joueur
+								System.out.println("\nVotre cité :\n");
+								
+								int counterQuartierDansCite = 1;
+								for (int c = 0; c < this.plateau.getJoueur(0).getCite().length; c++) {
+									try {
+										if (!this.plateau.getJoueur(0).getCite()[c].equals(null)) {
+											System.out.println("\t"+ (counterQuartierDansCite) + " | " + this.plateau.getJoueur(0).getCite()[c].getNom());
+											counterQuartierDansCite ++;
+										}
+									} catch (NullPointerException npe) {};
+								}	
+								System.out.println("\nVotre trésor : " + this.plateau.getJoueur(0).tresor() + " PO.");
+							}								
+						}
 					}
 				} else {
+					if (this.plateau.getJoueur(i).nbQuartiersDansMain() == 4) {
+						// si il en a 4 alors on demande si il veut en échanger une	
+						boolean choixEchange;
+						if (i == 0) {
+							choixEchange = Interaction.randomizerBoolean();
+	
+							if (choixEchange) {
+								int choixCarteAEchanger = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain());
+		
+								// défausser celle que je veux remplacer
+								plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+		
+								// enlever la carte de la main du joueur
+								plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+		
+								// pioche d'une nouvelle carte
+								this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+							}
+						} else {
+							choixEchange = Interaction.randomizerBoolean();
+						}
+						if (choixEchange) {
+							int choixCarteAEchanger = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain());
+	
+							// défausser celle que je veux remplacer
+							plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+	
+							// enlever la carte de la main du joueur
+							plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixCarteAEchanger));
+	
+							// pioche d'une nouvelle carte
+							this.plateau.getJoueur(i).ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+						}
+					}
+
 					// Dans le cas où le joueur est un robot
 					this.plateau.getJoueur(i).getPersonnage().utiliserPouvoirAvatar();
 					choix = Interaction.randomizerBoolean();
