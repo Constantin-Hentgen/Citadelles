@@ -29,7 +29,6 @@ public class Interaction {
 	public static int lireUnEntier(int borneMin, int borneMax) {
 		int i = 0;
 		do{
-			System.out.println("\nCet entier naturel doit être compris entre " + borneMin + " et " + (borneMax-1) + ".\n");
 			i = lireUnEntier();
 		} while ( i < borneMin || i >= borneMax);
 		return i;
