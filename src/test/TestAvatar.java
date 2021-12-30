@@ -1,7 +1,6 @@
 package test;
 
 import modele.*;
-
 public class TestAvatar {
 
 	public static void main(String[] args) {
@@ -158,5 +157,5 @@ public class TestAvatar {
 		eveque.utiliserPouvoirAvatar();
 
 		System.out.println();
-	}	
+	}
 }
