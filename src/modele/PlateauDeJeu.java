@@ -34,6 +34,10 @@ public class PlateauDeJeu {
 		return this.nombrePersonnages;
 	}
 
+	public void setPioche(Pioche p) {
+		this.pioche = p;
+	}
+
 	public Pioche getPioche() {
 		return this.pioche;
 	}
