@@ -1,5 +1,7 @@
 package application;
 
+import java.util.concurrent.TimeUnit;
+
 import controleur.*;
 import modele.*;
 
@@ -222,6 +224,9 @@ public class Jeu {
 					}
 				}
 			}
+			try {
+				TimeUnit.SECONDS.sleep(3);
+			} catch (InterruptedException e) {}
 		}
 	}
 
