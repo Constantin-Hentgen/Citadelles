@@ -41,12 +41,13 @@ public class Condottiere extends Personnage {
 				Quartier[] cite = joueur.getCite();
 				
 				// on affiche tous les joueurs et personnages associés
-				System.out.println((i+1) + " | " + joueur.getNom() + " | " + joueur.getPersonnage().getNom());
+				System.out.println((i+1) + " | " + joueur.getNom() + " | " + joueur.getPersonnage().getNom() + "\n");
 				
 				// on vient chercher les cités correspondantes et on affiche leurs infos
 				for ( int j = 0; j < joueur.nbQuartiersDansCite(); j++) {
 					System.out.println("\t" + (j+1) + " | " + cite[j].getNom() + " | coût = " + cite[j].getCout());
 				}
+				System.out.println();
 			}
 			
 			Joueur condottiere = new Joueur("condottiere");
