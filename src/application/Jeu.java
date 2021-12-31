@@ -1,6 +1,8 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -356,9 +358,9 @@ public class Jeu {
 					}
 				}
 			}
-			try {
-				TimeUnit.SECONDS.sleep(2);
-			} catch (InterruptedException e) {}
+			// try {
+			// 	TimeUnit.SECONDS.sleep(2);
+			// } catch (InterruptedException e) {}
 		}
 	}
 
@@ -444,9 +446,11 @@ public class Jeu {
 		// calcul et affiche les points de chaque joueurs : acclame le vainqueur
 		// affiche le score POUR CHAQUE JOUEUR
 
-		System.out.println("le premier à avoir fini sa cité : " + this.plateau.getJoueur(rangPremierATerminerCite).getNom().toUpperCase());
+		// System.out.println("le premier à avoir fini sa cité : " + this.plateau.getJoueur(rangPremierATerminerCite).getNom().toUpperCase());
 		int nbPoints;
 		List<String> typeQuartiers = new ArrayList<String>();
+		ArrayList<Integer> tableauScores = new ArrayList<>();
+		ArrayList<String> tableauJoueurs = new ArrayList<>();
 
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
 			nbPoints = 0;
@@ -456,7 +460,7 @@ public class Jeu {
 				nbPoints += 4;
 			} else if (i != rangPremierATerminerCite && this.plateau.getJoueur(i).nbQuartiersDansCite() == 7) {
 				// + 2 points si il a fini sa cité mais il est pas le premier
-				System.out.println("ce joueur a fini mais pas en premier : " + this.plateau.getJoueur(i).getNom().toUpperCase());
+				// System.out.println("ce joueur a fini mais pas en premier : " + this.plateau.getJoueur(i).getNom().toUpperCase());
 				nbPoints += 2;
 			}
 			
@@ -467,23 +471,51 @@ public class Jeu {
 				typeQuartiers.add(this.plateau.getJoueur(i).getCite()[j].getType());
 				
 				// ajouter les bonus des différentes merveilles
-			};			
+			};
 			
 			// je fais une liste de tous les types puis je supprime les doublons : si la taille finale = 5 alors + 3
 			Set<String> typeQuartiersWithoutDuplicates = new LinkedHashSet<String>(typeQuartiers); 
 			
 			// + 3 points si il y a un quartier de chaque section
-			System.out.println("La variété des quartiers : " + typeQuartiersWithoutDuplicates + " | " + typeQuartiersWithoutDuplicates.size());
+			// System.out.println("La variété des quartiers : " + typeQuartiersWithoutDuplicates + " | " + typeQuartiersWithoutDuplicates.size());
 			if (typeQuartiersWithoutDuplicates.size() == 5) {
 				nbPoints += 3;
 			}
-			
-			// on affiche le nombre de points
-			// le vainqueur est celui qui a le plus de points
-			// si il y a égalité alors c'est celui qui avait le personnage de rang le plus élevé
-			System.out.println(this.plateau.getJoueur(i).getNom().toUpperCase() + " a terminé la partie avec un total de " + nbPoints + " points.\n");
 
-			// FAIRE UN CLASSEMENT ORDONNÉ
+			tableauScores.add(nbPoints);
+			tableauJoueurs.add(this.plateau.getJoueur(i).getNom());
+
+			
+			// System.out.println(this.plateau.getJoueur(i).getNom().toUpperCase() + " a terminé la partie avec un total de " + nbPoints + " points.\n");
+		}
+		
+		sortList(tableauJoueurs, tableauScores);
+		
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			System.out.println("\n\t\t" + (i+1) + " | " + tableauJoueurs.get(i) + " | " + tableauScores.get(i) + " points.");
+		}
+
+		// si il y a égalité alors c'est celui qui avait le personnage de rang le plus élevé
+	}
+
+	private void sortList(ArrayList<String> stringList, ArrayList<Integer> integerList) {
+		int tempInt = 0;
+		String tempString = "";
+		
+		for (int j = 0; j < integerList.size(); j++) {
+			for (int i = 0; i < integerList.size(); i++) {
+				try {
+					if (integerList.get(i) < integerList.get(i+1)) {
+						tempInt = integerList.get(i);
+						integerList.set(i, integerList.get(i+1));
+						integerList.set(i+1, tempInt);
+
+						tempString = stringList.get(i);
+						stringList.set(i, stringList.get(i+1));
+						stringList.set(i+1, tempString);
+					}
+				} catch (IndexOutOfBoundsException ibe) {};
+			}
 		}
 	}
 }
