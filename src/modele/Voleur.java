@@ -8,6 +8,7 @@ public class Voleur extends Personnage {
 
     public void utiliserPouvoir() {
 		// affichage des différents personnages volables
+		System.out.println();
 		for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 			System.out.println((i+1) + " | " + plateau.getJoueur(i).getPersonnage().getNom().toUpperCase());
 		}
