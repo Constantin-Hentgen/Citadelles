@@ -16,7 +16,7 @@ public class TestConfiguration {
 
 		Test.test(pioche.nombreElements() == 54, "test du nombre d'éléments dans la pioche après ajout des quartiers de bases");
 
-		plateau = Configuration.configurationDeBase(pioche);
+		plateau = Configuration.configurationDeBase();
 
 		Test.test(pioche.nombreElements() == 68, "test du nombre d'éléments dans la pioche après ajout des merveilles");
 
