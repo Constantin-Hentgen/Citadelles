@@ -16,7 +16,9 @@ public class Marchande extends Personnage {
             }
 
             joueur.ajouterPieces(recevoir);
-            System.out.println(recevoir+" pièces données au joueur");
+			if (recevoir > 0) {
+				System.out.println(recevoir+" pièces données au joueur");
+			}
         } else {
             System.out.println("Le joueur a été assassiné");
         }
@@ -26,7 +28,7 @@ public class Marchande extends Personnage {
         if (!assassine) {
 			// vérifier si il y a un un quartier commerçant dans la cité du joueur
             joueur.ajouterPieces(1);
-            System.out.println("Le joueur récupère une pièce supplémentaire."); 
+            System.out.println("Le joueur récupère une pièce supplémentaire.\n"); 
 			
 			try {
 				for (int a = 0; a < this.getJoueur().getCite().length; a++) {

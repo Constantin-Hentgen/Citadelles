@@ -95,7 +95,7 @@ public class Condottiere extends Personnage {
 							"\n\t- Le quartier " +  
 							nomQuartierADetruire +
 							" possédé par " +  
-							plateau.getJoueur(choixJoueur).getNom() + " a été détruit."
+							plateau.getJoueur(choixJoueur).getNom().toUpperCase() + " a été détruit."
 							);
 							
 							int nb = plateau.getNombreJoueurs();
