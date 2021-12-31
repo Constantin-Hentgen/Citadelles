@@ -16,7 +16,9 @@ public class Marchande extends Personnage {
             }
 
             joueur.ajouterPieces(recevoir);
-            System.out.println(recevoir+" pièces données au joueur");
+			if (recevoir > 0) {
+				System.out.println(recevoir+" pièces données au joueur");
+			}
         } else {
             System.out.println("Le joueur a été assassiné");
         }
