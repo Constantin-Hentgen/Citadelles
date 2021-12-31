@@ -27,7 +27,7 @@ public class Assassin extends Personnage {
         } while (plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().equals("Assassin"));
 
 		plateau.getJoueur(rangPersonnageATuer).getPersonnage().setAssassine();
-		System.out.println("Le personnage " + plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom() + " a été assassiné.");
+		System.out.println("Le personnage " + plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().toUpperCase() + " a été assassiné.");
     }
 
     public void utiliserPouvoirAvatar() {
@@ -38,6 +38,6 @@ public class Assassin extends Personnage {
         } while (plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().equals("Assassin"));
 
 		plateau.getJoueur(rangPersonnageATuer).getPersonnage().setAssassine();
-		System.out.println("Le personnage " + plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom() + " a été assassiné.");
+		System.out.println("Le personnage " + plateau.getJoueur(rangPersonnageATuer).getPersonnage().getNom().toUpperCase() + " a été assassiné.");
     }
 }
