@@ -8,8 +8,9 @@ public class Voleur extends Personnage {
 
     public void utiliserPouvoir() {
 		// affichage des différents personnages volables
+		System.out.println();
 		for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
-			System.out.println((i+1) + " | " + plateau.getJoueur(i).getPersonnage().getNom());
+			System.out.println((i+1) + " | " + plateau.getJoueur(i).getPersonnage().getNom().toUpperCase());
 		}
 		
 		// initialisation de la variable contenant le nombre correspondant au personnage à voler
@@ -38,7 +39,7 @@ public class Voleur extends Personnage {
 		// on retire le total de l'argent du joueur volé
 		plateau.getJoueur(selection).retirerPieces(plateau.getJoueur(selection).nbPieces());
 
-		System.out.println("Le joueur " + plateau.getJoueur(selection).getNom() + " a été volé.");
+		System.out.println("Le joueur " + plateau.getJoueur(selection).getNom().toUpperCase() + " a été volé.");
 		
 		// on cherche le voleur dans la liste puis on atteint le joueur correspondant
 		for (int k = 0; k < plateau.getNombreJoueurs(); k++) {
@@ -68,7 +69,7 @@ public class Voleur extends Personnage {
 		// on retire le total de l'argent du joueur volé
 		plateau.getJoueur(selection).retirerPieces(plateau.getJoueur(selection).nbPieces());
 
-		System.out.println("Le joueur " + plateau.getJoueur(selection).getNom() + " a été volé.");
+		System.out.println("Le joueur " + plateau.getJoueur(selection).getNom().toUpperCase() + " a été volé.");
 		
 		// on cherche le voleur dans la liste puis on atteint le joueur correspondant
 		for (int k = 0; k < plateau.getNombreJoueurs(); k++) {

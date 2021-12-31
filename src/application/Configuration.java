@@ -79,12 +79,28 @@ public class Configuration {
 			p.ajouter(manoir);
 			p.ajouter(taverne);
 		}
-		
+
+		// Ajout des 14 quartiers merveille à la pioche		
+		p.ajouter(bibliotheque);
+		p.ajouter(forge);
+		p.ajouter(carriere);
+		p.ajouter(laboratoire);
+		p.ajouter(courDesMiracles);
+		p.ajouter(manufacture);
+		p.ajouter(donjon);
+		p.ajouter(salleDesCartes);
+		p.ajouter(dracoport);
+		p.ajouter(statueEquestre);
+		p.ajouter(ecoleDeMagie);
+		p.ajouter(tresorImperial);
+		p.ajouter(fontaineAuxSouhaits);
+		p.ajouter(tripot);
+
 		p.melanger();
 		return p;
 	}
-	
-	public static PlateauDeJeu configurationDeBase(Pioche p) {
+
+	public static PlateauDeJeu configurationDeBase() {
 		PlateauDeJeu plateau = new PlateauDeJeu();
 
 		// Ajout des 4 joueurs
@@ -124,24 +140,6 @@ public class Configuration {
 
 		Condottiere condottiere = new Condottiere();
 		plateau.ajouterPersonnage(condottiere);
-
-		// Ajout des 14 quartiers merveille à la pioche		
-		p.ajouter(bibliotheque);
-		p.ajouter(forge);
-		p.ajouter(carriere);
-		p.ajouter(laboratoire);
-		p.ajouter(courDesMiracles);
-		p.ajouter(manufacture);
-		p.ajouter(donjon);
-		p.ajouter(salleDesCartes);
-		p.ajouter(dracoport);
-		p.ajouter(statueEquestre);
-		p.ajouter(ecoleDeMagie);
-		p.ajouter(tresorImperial);
-		p.ajouter(fontaineAuxSouhaits);
-		p.ajouter(tripot);
-
-		p.melanger();
 
 		return plateau;
 	}
