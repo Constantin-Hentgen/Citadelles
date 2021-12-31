@@ -492,7 +492,7 @@ public class Jeu {
 		sortList(tableauJoueurs, tableauScores);
 		
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
-			System.out.println("\n\t\t" + (i+1) + " | " + tableauJoueurs.get(i) + " | " + tableauScores.get(i) + " points.");
+			System.out.println("\n\t\t\t" + (i+1) + " | " + tableauJoueurs.get(i) + " | " + tableauScores.get(i) + " points.");
 		}
 
 		// si il y a égalité alors c'est celui qui avait le personnage de rang le plus élevé
