@@ -331,7 +331,7 @@ public class Jeu {
 
 						afficheCiteJoueur(i);
 
-						System.out.println("Trésor de " + this.plateau.getJoueur(i).getNom() + " est de " + this.plateau.getJoueur(i).tresor() + " PO.");
+						System.out.println("Trésor de " + this.plateau.getJoueur(i).getNom() + " est de " + this.plateau.getJoueur(i).tresor() + " PO.\n");
 					}
 				}
 			}
