@@ -12,7 +12,7 @@ public class Voleur extends Personnage {
 		for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
 			System.out.println((i+1) + " | " + plateau.getJoueur(i).getPersonnage().getNom().toUpperCase());
 		}
-		
+
 		// initialisation de la variable contenant le nombre correspondant au personnage à voler
 		int selection = 0;
 

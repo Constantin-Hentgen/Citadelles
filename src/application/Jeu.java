@@ -241,11 +241,41 @@ public class Jeu {
 		}
 	}
 
-	private void tourDeJeu() {
-		choixPersonnages();
+	private void sortJoueurSelonRangPersonnage() {
 		System.out.println();
 
-		// on appelle les personnages un par un pour les faire jouer
+		ArrayList<Joueur> tempJoueur = new ArrayList<>();
+		ArrayList<Integer> tempRang = new ArrayList<>();
+
+		Joueur[] listeJoueurRemplacable = new Joueur[4];
+
+		// j'alimente les arraylist
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			Joueur j = this.plateau.getJoueur(i);
+			tempJoueur.add(j);
+			tempRang.add(j.getPersonnage().getRang());
+		}
+
+		sortListJoueur(tempJoueur, tempRang);
+
+		// puis stocker cette ordre dans la vraie liste
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			Joueur j = tempJoueur.get(3-i);
+			listeJoueurRemplacable[i] = j;
+		}
+
+		this.plateau.setListeJoueurs(listeJoueurRemplacable);
+
+		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+			Joueur j = this.plateau.getJoueur(i);
+			System.out.println(j.getNom() + " | " + j.getPersonnage().getNom() + " | " + j.getPersonnage().getRang());
+		}
+	}
+
+	private void tourDeJeu() {
+		choixPersonnages();
+		sortJoueurSelonRangPersonnage();
+
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
 
 			System.out.println("-----------------------------");
@@ -261,8 +291,8 @@ public class Jeu {
 				int choixQuartier;
 
 				// Dans le cas où le joueur est humain
-				if (i == 0) {
-					this.plateau.getJoueur(0).getPersonnage().utiliserPouvoir();
+				if (this.plateau.getJoueur(i).getNom().equals("joueur1")) {
+					this.plateau.getJoueur(i).getPersonnage().utiliserPouvoir();
 					afficheJeuJoueur();
 
 					int nbConstruction = 1;
@@ -283,10 +313,6 @@ public class Jeu {
 
 							if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor()) {
 								construireQuartier(i, choixQuartier);
-								// this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
-								// this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
-								// this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
-				
 								afficheCiteJoueur(i);
 							} else {
 								System.out.println("\nVous n'avez pas les moyens de construire ce quartier.");
@@ -322,15 +348,8 @@ public class Jeu {
 
 					if (choix) {
 						choixQuartier = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
-						
 						construireQuartier(i, choixQuartier);
-
-						// this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
-						// this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
-						// this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
-
 						afficheCiteJoueur(i);
-
 						System.out.println("Trésor de " + this.plateau.getJoueur(i).getNom() + " est de " + this.plateau.getJoueur(i).tresor() + " PO.\n");
 					}
 				}
@@ -341,7 +360,7 @@ public class Jeu {
 		}
 	}
 
-	private void construireQuartier(int i,int choixQuartier) {
+	private void construireQuartier(int i, int choixQuartier) {
 		this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
 		this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 		this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
@@ -424,7 +443,7 @@ public class Jeu {
 		this.plateau.getJoueur(i).getPersonnage().percevoirRessourcesSpecifiques();
 		System.out.println();
 
-		if (i == 0) {
+		if (this.plateau.getJoueur(i).getNom().equals("joueur1")) {
 			afficheJeuJoueur();
 	
 			System.out.println("\nVoulez-vous une nouvelle carte ?");
@@ -547,6 +566,27 @@ public class Jeu {
 						tempString = stringList.get(i);
 						stringList.set(i, stringList.get(i+1));
 						stringList.set(i+1, tempString);
+					}
+				} catch (IndexOutOfBoundsException ibe) {};
+			}
+		}
+	}
+
+	private void sortListJoueur(ArrayList<Joueur> joueurList, ArrayList<Integer> integerList) {
+		int tempInt = 0;
+		Joueur tempJoueur;
+		
+		for (int j = 0; j < integerList.size(); j++) {
+			for (int i = 0; i < integerList.size(); i++) {
+				try {
+					if (integerList.get(i) < integerList.get(i+1)) {
+						tempInt = integerList.get(i);
+						integerList.set(i, integerList.get(i+1));
+						integerList.set(i+1, tempInt);
+
+						tempJoueur = joueurList.get(i);
+						joueurList.set(i, joueurList.get(i+1));
+						joueurList.set(i+1, tempJoueur);
 					}
 				} catch (IndexOutOfBoundsException ibe) {};
 			}
