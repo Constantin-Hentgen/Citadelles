@@ -80,21 +80,42 @@ public class Configuration {
 			p.ajouter(taverne);
 		}
 
-		// Ajout des 14 quartiers merveille à la pioche		
-		p.ajouter(bibliotheque);
-		p.ajouter(forge);
-		p.ajouter(carriere);
-		p.ajouter(laboratoire);
-		p.ajouter(courDesMiracles);
-		p.ajouter(manufacture);
-		p.ajouter(donjon);
-		p.ajouter(salleDesCartes);
-		p.ajouter(dracoport);
-		p.ajouter(statueEquestre);
-		p.ajouter(ecoleDeMagie);
-		p.ajouter(tresorImperial);
-		p.ajouter(fontaineAuxSouhaits);
-		p.ajouter(tripot);
+		// Ajout des 14 quartiers merveille à la pioche	
+			
+		p.ajouter(bibliotheque); // si on choisit les cartes plutot que les pièces on garde les deux
+
+		p.ajouter(forge); // on peut payer 2pièces pour piocher 3 cartes une fois par tour
+
+		p.ajouter(carriere); /* Vous pouvez bâtir des quartiers identiques à d’autres quartiers de votre cité. Le propriétaire
+		de la carrière peut bâtir autant de quartiers identiques qu’il le souhaite*/
+
+		p.ajouter(laboratoire); // Une fois par tour, vous pouvez défausser 1 carte pour recevoir 2 pièces d’or.
+
+		p.ajouter(courDesMiracles); /* Pour le calcul du score final, la Cour des Miracles est considérée comme un quartier de type
+		(couleur) de votre choix. Dans la cas où le propriétaire la considère comme un quartier noble,
+		militaire, marchant ou religieux, la Cour des Miracles ne peut plus être considérée comme
+		une merveille */
+
+		p.ajouter(manufacture); // Payez 1 pièce d’or de moins lorsque vous bâtissez une autre merveille.
+
+		p.ajouter(donjon); // Le Donjon ne peut être affecté par les pouvoirs des personnages de rang 8.
+
+		p.ajouter(salleDesCartes); // À la fin de la partie, marquez 1 point supplémentaire par carte dans votre main.
+
+		p.ajouter(dracoport); // Marquez 2 points supplémentaires à la fin de la partie.
+
+		p.ajouter(statueEquestre); // Si vous détenez le Couronne à la fin de la partie, marquez 5 points supplémentaires.
+
+		p.ajouter(ecoleDeMagie); /* Pour la perception des revenus des personnages, l’École de Magie est considérée comme un
+		quartier du type (couleur) de votre choix. */
+
+		p.ajouter(tresorImperial); // À la fin de la partie, marquez 1 point supplémentaire par pièce d’or dans votre trésor.
+
+		p.ajouter(fontaineAuxSouhaits); /* À la fin de la partie, marquez 1 point supplméntaire par merveille dans votre cité, 
+		y compris la Fontaine aux Souhaits. */
+
+		p.ajouter(tripot); /* Vous pouvez payer tout ou partie du coût de construction du Tripot en cartes de votre main,
+		au prix de 1 carte pour 1 pièce d’or. */
 
 		p.melanger();
 		return p;
