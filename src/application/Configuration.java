@@ -2,7 +2,7 @@ package application;
 
 import modele.*;
 
-public class Configuration {	
+public class Configuration {
 	// Quartiers Religieux
 	private static Quartier temple = new Quartier("temple",Quartier.TYPE_QUARTIERS[0],1);
 	private static Quartier eglise = new Quartier("église",Quartier.TYPE_QUARTIERS[0],2);
@@ -14,7 +14,7 @@ public class Configuration {
 	private static Quartier prison = new Quartier("prison",Quartier.TYPE_QUARTIERS[1],2);
 	private static Quartier caserne = new Quartier("caserne",Quartier.TYPE_QUARTIERS[1],3);
 	private static Quartier forteresse = new Quartier("forteresse",Quartier.TYPE_QUARTIERS[1],5);
-	
+
 	// Quartiers Nobles
 	private static Quartier manoir = new Quartier("manoir",Quartier.TYPE_QUARTIERS[2],3);
 	private static Quartier chateau = new Quartier("château",Quartier.TYPE_QUARTIERS[2],4);
