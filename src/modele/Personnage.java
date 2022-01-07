@@ -79,14 +79,14 @@ public abstract class Personnage {
 		}
 	}
 
-	void percevoirRessourcesSpecifiques() {
+	public void percevoirRessourcesSpecifiques() {
 		if (this.joueur != null && this.assassine == false) {
 			System.out.println("Aucune ressource spécifique.");
 		}
 	}
 
-	abstract void utiliserPouvoir();
-	abstract void utiliserPouvoirAvatar();
+	public abstract void utiliserPouvoir();
+	public abstract void utiliserPouvoirAvatar();
 
 	public void reinitialiser() {
 		this.joueur = null;
