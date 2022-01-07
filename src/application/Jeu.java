@@ -553,7 +553,14 @@ public class Jeu {
 
 				typeQuartiers.add(this.plateau.getJoueur(i).getCite()[j].getType());
 				
+
+
+
+
 				// ajouter les bonus des différentes merveilles
+
+
+
 
 
 				// POUVOIR DE LA BASILIQUE
@@ -568,6 +575,29 @@ public class Jeu {
 
 
 
+				// POUVOIR DU CAPITOLE
+				if (this.plateau.getJoueur(i).getCite()[j].getNom().equals("capitole")) {
+					int quartierDeMemeCouleur = 0;
+
+					// le joueur a dans sa cité la CAPITOLE
+					for (int k = 0; k < this.plateau.getJoueur(i).nbQuartiersDansCite()-1; k++) {
+						if (this.plateau.getJoueur(i).getCite()[k].getType().equals(this.plateau.getJoueur(i).getCite()[k+1].getType())) {
+							quartierDeMemeCouleur ++;
+						}
+					}
+
+					if (quartierDeMemeCouleur >= 3) {
+						nbPoints += 3;
+					}
+				}
+
+
+
+				// POUVOIR DE LA CARRIÈRE ****** A RELOCALISER DANS TOUR DE JEU LORS DE LA CONSTRUCTION
+				if (this.plateau.getJoueur(i).getCite()[j].getNom().equals("carrière")) {
+
+				// je peux construire autant de bâtiments identiques que je souhaite
+				}
 
 
 
