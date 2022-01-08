@@ -109,27 +109,46 @@ public class Condottiere extends Personnage {
 								// message d'erreur dans le cas d'une cité complète :
 								// cité de 7 quartiers ou plus pour les parties de 4 à 7 joueurs, 
 								// ou une cité de 8 quartiers pour les parties à 2, 3 ou 8 joueurs.
-								if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)) || cible.getPersonnage().getNom().equals("Eveque")) {
-									System.out.println("\nCité protégée : impossible de détruire un quartier");
+								if (((nb == 2 || nb == 3 || nb == 8 ) && (nbQuartier == 8)) || ((nb >= 4 && nb <= 7) && (nbQuartier == 7)) || cible.getPersonnage().getNom().equals("Eveque") || quartierADetruire.getNom().equals("donjon")) {
+									System.out.println("\nQuartier protégé");
 								} else {
-									System.out.println("\n\t- Félicitations ! Vous êtes solvable, vous pouvez donc détruire ce quartier l'esprit tranquille.");
-									
-									// destruction
-									cible.getCite()[choixQuartier-1].getNom();
-									cible.retirerQuartierDansCite(nomQuartierADetruire);
-									
-									condottiere.retirerPieces(prixAPayer);
-									System.out.println("\n\t- Il vous reste " + condottiere.tresor() + " pièces d'or.\n");
-									
-									// mettre le quartier à la fin de la pioche = défausse
-									plateau.getPioche().ajouter(quartierADetruire);
-
-									System.out.println(
-									"\n\t- Le quartier " +  
-									nomQuartierADetruire +
-									" possédé par " +  
-									plateau.getJoueur(choixJoueur).getNom().toUpperCase() + " a été détruit."
-									);
+									if (cible.quartierPresentDansCite("grande muraille")) {
+										// destruction
+										cible.getCite()[choixQuartier-1].getNom();
+										cible.retirerQuartierDansCite(nomQuartierADetruire);
+										System.out.println("\n\tLe quartier " + nomQuartierADetruire + " a été détruit.");
+										
+										condottiere.retirerPieces(prixAPayer+1);
+										System.out.println("\n\t- Il vous reste " + condottiere.tresor() + " pièces d'or.\n");
+										
+										// mettre le quartier à la fin de la pioche = défausse
+										plateau.getPioche().ajouter(quartierADetruire);
+	
+										System.out.println(
+										"\n\t- Le quartier " +  
+										nomQuartierADetruire +
+										" possédé par " +  
+										plateau.getJoueur(choixJoueur).getNom().toUpperCase() + " a été détruit."
+										);
+									} else {
+										// destruction
+										cible.getCite()[choixQuartier-1].getNom();
+										cible.retirerQuartierDansCite(nomQuartierADetruire);
+										System.out.println("\n\tLe quartier " + nomQuartierADetruire + " a été détruit.");
+										
+										condottiere.retirerPieces(prixAPayer);
+										System.out.println("\n\t- Il vous reste " + condottiere.tresor() + " pièces d'or.\n");
+										
+										// mettre le quartier à la fin de la pioche = défausse
+										plateau.getPioche().ajouter(quartierADetruire);
+	
+										System.out.println(
+										"\n\t- Le quartier " +  
+										nomQuartierADetruire +
+										" possédé par " +  
+										plateau.getJoueur(choixJoueur).getNom().toUpperCase() + " a été détruit."
+										);
+									}
 								}
 							} catch (IndexOutOfBoundsException ibe) {};
 						}

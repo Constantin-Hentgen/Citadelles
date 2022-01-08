@@ -553,6 +553,8 @@ public class Jeu {
 		ArrayList<Integer> tableauScores = new ArrayList<>();
 		ArrayList<String> tableauJoueurs = new ArrayList<>();
 
+
+		// ITÉRATION PAR JOUEUR
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
 			nbPoints = 0;
 			
@@ -565,6 +567,7 @@ public class Jeu {
 				nbPoints += 2;
 			}
 			
+			// ITÉRATION PAR QUARTIER
 			for (int j = 0; j < this.plateau.getJoueur(i).nbQuartiersDansCite(); j++) {
 				// + somme des couts de construction
 				nbPoints += this.plateau.getJoueur(i).getCite()[j].getCout();
@@ -589,8 +592,42 @@ public class Jeu {
 						}
 					}
 				}
-			};
 
+				// POUVOIR COUR DES MIRACLES
+				if (this.plateau.getJoueur(i).equals(moi()) && this.plateau.getJoueur(i).quartierPresentDansCite("cour des miracles")) {
+					System.out.println();
+
+					// on demande au joueur de donner un type pour la cour des miracles
+					for (int w = 0; w < Quartier.TYPE_QUARTIERS.length; w ++) {
+						System.out.println("\t" + (w + 1) + " | " + Quartier.TYPE_QUARTIERS[w].toLowerCase());
+					}
+
+					System.out.println();
+					int choixTypeQuartier = Interaction.lireUnEntier(1, Quartier.TYPE_QUARTIERS.length) - 1;
+
+					for (int aie = 0; aie < this.plateau.getJoueur(i).nbQuartiersDansCite(); aie ++) {
+						if (this.plateau.getJoueur(i).getCite()[aie].getNom().equals("cour des miracles")) {
+							this.plateau.getJoueur(i).getCite()[aie].setType(Quartier.TYPE_QUARTIERS[choixTypeQuartier]);
+						}
+					}
+				} else {
+					int choixTypeQuartier = Interaction.randomizer(Quartier.TYPE_QUARTIERS.length-1);
+
+					for (int aie = 0; aie < this.plateau.getJoueur(i).nbQuartiersDansCite(); aie ++) {
+						if (this.plateau.getJoueur(i).getCite()[aie].getNom().equals("cour des miracles")) {
+							this.plateau.getJoueur(i).getCite()[aie].setType(Quartier.TYPE_QUARTIERS[choixTypeQuartier]);
+						}
+					}
+				}
+				
+				
+				// POUVOIR FONTAINE AUX SOUHAITS
+				if (this.plateau.getJoueur(i).quartierPresentDansCite("fontaine aux souhaits")) {
+					if (this.plateau.getJoueur(i).getCite()[j].getType().equals("MERVEILLE")) {
+						nbPoints ++;
+					}
+				}
+			};
 
 			// POUVOIR DE LA BASILIQUE
 			if (this.plateau.getJoueur(i).quartierPresentDansCite("basilique")) {
@@ -600,6 +637,28 @@ public class Jeu {
 						nbPoints ++;
 					}
 				}
+			}
+
+			// POUVOIR DU DRACOPORT
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("dracoport")) {
+				nbPoints += 2;
+			}
+
+			// POUVOIR TRÉSOR IMPÉRIAL
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("trésor impérial")) {
+				nbPoints += this.plateau.getJoueur(i).tresor();
+			}
+
+			// POUVOIR STATUE ÉQUESTRE
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("statue équestre")) {
+				if (this.plateau.getJoueur(i).getPossedeCouronne()) {
+					nbPoints += 5;
+				}
+			}
+
+			// POUVOIR SALLE DES CARTES
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("salle des cartes")) {
+				nbPoints += this.plateau.getJoueur(i).nbQuartiersDansMain();
 			}
 
 
