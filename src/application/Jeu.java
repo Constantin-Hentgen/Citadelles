@@ -487,8 +487,27 @@ public class Jeu {
 		this.plateau.getJoueur(i).getPersonnage().percevoirRessourcesSpecifiques();
 		System.out.println();
 
-		if (this.plateau.getJoueur(i).getNom().equals("joueur1")) {
+		if (this.plateau.getJoueur(i).equals(moi())) {
 			afficheJeuJoueur();
+
+			// POUVOIR ÉCOLE DE MAGIE
+			if (moi().quartierPresentDansCite("école de magie")) {
+				System.out.println("\nVous possédez une école de magie, choisissez son type pour ce tour.\n");
+
+				// on demande au joueur de donner un type pour l'école de magie
+				for (int w = 0; w < Quartier.TYPE_QUARTIERS.length; w ++) {
+					System.out.println("\t" + (w + 1) + " | " + Quartier.TYPE_QUARTIERS[w].toLowerCase());
+				}
+
+				System.out.println();
+				int choixTypeQuartier = Interaction.lireUnEntier(1, Quartier.TYPE_QUARTIERS.length) - 1;
+
+				for (int aie = 0; aie < this.plateau.getJoueur(i).nbQuartiersDansCite(); aie ++) {
+					if (this.plateau.getJoueur(i).getCite()[aie].getNom().equals("école de magie")) {
+						this.plateau.getJoueur(i).getCite()[aie].setType(Quartier.TYPE_QUARTIERS[choixTypeQuartier]);
+					}
+				}
+			}
 	
 			System.out.println("\nVoulez-vous une nouvelle carte ?");
 			boolean isNouvelleCarte = Interaction.lireOuiOuNon();
@@ -517,9 +536,36 @@ public class Jeu {
 				this.plateau.getJoueur(i).ajouterPieces(2);
 				System.out.println("\n2 pièces ont été ajoutées au trésor du joueur.");
 			}
+
+			// POUVOIR FORGE
+			if (moi().quartierPresentDansCite("forge")) {
+				System.out.println("\nVoulez-vous payer 2 PO pour piocher 3 cartes ?\n");
+				boolean choixForge = Interaction.lireOuiOuNon();
+
+				if (choixForge && moi().tresor() >= 2) {
+					moi().ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+					moi().ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+					moi().ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+				}
+			}
+
 		} else {
 			boolean isNouvelleCarte = Interaction.randomizerBoolean();
 	
+			// POUVOIR ÉCOLE DE MAGIE
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("école de magie")) {
+
+				// on demande au joueur de donner un type pour l'école de magie
+
+				int choixTypeQuartier = Interaction.randomizer(Quartier.TYPE_QUARTIERS.length-1);
+
+				for (int aie = 0; aie < this.plateau.getJoueur(i).nbQuartiersDansCite(); aie ++) {
+					if (this.plateau.getJoueur(i).getCite()[aie].getNom().equals("école de magie")) {
+						this.plateau.getJoueur(i).getCite()[aie].setType(Quartier.TYPE_QUARTIERS[choixTypeQuartier]);
+					}
+				}
+			}
+
 			if (isNouvelleCarte) {
 				Quartier a = this.plateau.getPioche().piocher();
 				Quartier b = this.plateau.getPioche().piocher();
@@ -539,6 +585,18 @@ public class Jeu {
 			} else {
 				this.plateau.getJoueur(i).ajouterPieces(2);
 				System.out.println("\n2 pièces ont été ajoutées au trésor du joueur.");
+			}
+
+
+			// POUVOIR FORGE
+			if (moi().quartierPresentDansCite("forge")) {
+				boolean choixForge = Interaction.randomizerBoolean();
+
+				if (choixForge && moi().tresor() >= 2) {
+					moi().ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+					moi().ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+					moi().ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+				}
 			}
 		}
 	}
@@ -597,7 +655,7 @@ public class Jeu {
 				if (this.plateau.getJoueur(i).equals(moi()) && this.plateau.getJoueur(i).quartierPresentDansCite("cour des miracles")) {
 					System.out.println();
 
-					// on demande au joueur de donner un type pour la cour des miracles
+					// on demande au joueur de donner un type pour l'école de magie
 					for (int w = 0; w < Quartier.TYPE_QUARTIERS.length; w ++) {
 						System.out.println("\t" + (w + 1) + " | " + Quartier.TYPE_QUARTIERS[w].toLowerCase());
 					}
