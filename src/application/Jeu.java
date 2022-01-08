@@ -343,8 +343,6 @@ public class Jeu {
 								System.out.println("Vous êtes sur le point de faire un doublon.");
 							}
 						
-							
-
 							// POUVOIR DE LA CARRIÈRE
 							// je peux construire autant de bâtiments identiques que je souhaite si je possède une carrière
 							if (this.plateau.getJoueur(i).quartierPresentDansCite("carrière")) {
@@ -362,6 +360,47 @@ public class Jeu {
 										construireQuartier(i, choixQuartier);
 										afficheCiteJoueur(i);	
 									}
+
+								// POUVOIR DU TRIPOT
+								} else if (quartierChoisi.getNom().equals("tripot")) {
+									// on demande les quantités de cartes et or à payer pour acheter
+									int prixEnPO = 0, prixEnCartes = 0;
+									
+									do {
+										System.out.println("Entrez la répartition du paiement :");
+										System.out.println("\tPrix en PO :");
+										prixEnPO = Interaction.lireUnEntier(0, moi().tresor());
+										System.out.println("\tPrix en Cartes :");
+										prixEnCartes = Interaction.lireUnEntier(0,moi().nbQuartiersDansMain());
+									} while ((prixEnPO + prixEnCartes) != quartierChoisi.getCout());
+									
+
+									// choix des cartes si il y a des cartes à choisir
+									// affichage de la main
+
+									afficherMaMain();
+
+									int[] CHOIXQUARTIERSAVENDRE = new int[prixEnCartes];
+
+									for (int iter = 0; iter < prixEnCartes; iter ++) {
+										System.out.println("Quelle cartes voulez vous troquer contre 1 PO ?");
+										CHOIXQUARTIERSAVENDRE[iter] = Interaction.lireUnEntier(1, moi().nbQuartiersDansMain())-1;
+									}
+
+									for (int iter = 0; iter < prixEnCartes; iter ++) {
+										// on retire les cartes de la main
+										moi().retirerQuartierDansMain(moi().getMain().get(CHOIXQUARTIERSAVENDRE[iter]));
+										
+										// on les ajoute à la pioche
+										this.plateau.getPioche().ajouter(moi().getMain().get(CHOIXQUARTIERSAVENDRE[iter]));
+									}
+										
+									// enlever l'argent
+									moi().retirerPieces(prixEnPO);
+									
+									// construire le tripot
+									moi().getPersonnage().construire(quartierChoisi);								
+									moi().retirerQuartierDansMain(quartierChoisi);
 								} else if (moi().getMain().get(choixQuartier).getCout() <= moi().tresor() && !moi().quartierPresentDansCite(quartierChoisi.getNom())) {
 									construireQuartier(i, choixQuartier);
 									afficheCiteJoueur(i);
@@ -414,13 +453,47 @@ public class Jeu {
 										System.out.println("Le joueur " + this.plateau.getJoueur(i).getNom() + " a construit le quartier " + quartierChoisi.getNom() + " à moindre coût grâce au pouvoir de la manufacture.");
 										afficheCiteJoueur(i);
 									}
-								} else if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
+
+							// POUVOIR DU TRIPOT
+							} else if (quartierChoisi.getNom().equals("tripot")) {
+								// on demande les quantités de cartes et or à payer pour acheter
+								int prixEnPO = 0, prixEnCartes = 0;
+								
+								do {
+									prixEnPO = Interaction.randomizer(this.plateau.getJoueur(i).tresor());
+									prixEnCartes = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain());
+								} while ((prixEnPO + prixEnCartes) != quartierChoisi.getCout());
+								
+
+								// choix des cartes si il y a des cartes à choisir
+								// affichage de la main
+
+								int[] CHOIXQUARTIERSAVENDRE = new int[prixEnCartes];
+
+								for (int iter = 0; iter < prixEnCartes; iter ++) {
+									CHOIXQUARTIERSAVENDRE[iter] = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain())-1;
+								}
+
+								for (int iter = 0; iter < prixEnCartes; iter ++) {
+									// on retire les cartes de la main
+									this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(CHOIXQUARTIERSAVENDRE[iter]));
+									
+									// on les ajoute à la pioche
+									this.plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(CHOIXQUARTIERSAVENDRE[iter]));
+								}
+									
+								// enlever l'argent
+								this.plateau.getJoueur(i).retirerPieces(prixEnPO);
+								
+								// construire le tripot
+								this.plateau.getJoueur(i).getPersonnage().construire(quartierChoisi);								
+								this.plateau.getJoueur(i).retirerQuartierDansMain(quartierChoisi);
+							} else if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
 									construireQuartier(i, choixQuartier);
 									System.out.println("Le joueur " + this.plateau.getJoueur(i).getNom() + " a construit " + quartierChoisi.getNom());
 									afficheCiteJoueur(i);
 								}
 							}
-
 						}
 					}
 				}
