@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import javax.print.attribute.standard.OutputDeviceAssigned;
+
 import controleur.*;
 import modele.*;
 
@@ -605,6 +607,27 @@ public class Jeu {
 					}
 				}
 			}
+
+			if (moi().quartierPresentDansCite("laboratoire")) {
+				System.out.println("LABO : Vous possédez un laboratoire, voulez défausser 1 carte pour recevoir 2 PO ?");
+				boolean choixLabo = Interaction.lireOuiOuNon();
+
+				if (choixLabo) {
+					// affichage de la main
+					afficherMaMain();
+					
+					System.out.println("LABO : Choisissez le quartier que vous voulez troquer :");
+					int choixQuartier = Interaction.lireUnEntier(1, moi().nbQuartiersDansMain()) - 1;
+
+					// défausse
+					this.plateau.getPioche().ajouter(moi().getMain().get(choixQuartier));
+					moi().retirerQuartierDansMain(moi().getMain().get(choixQuartier));
+
+					// ajout des PO
+					moi().ajouterPieces(2);
+					System.out.println("LABO : 2 pièces ajoutées au butin du joueur.");
+				}	
+			}
 	
 			System.out.println("\nVoulez-vous une nouvelle carte ?");
 			boolean isNouvelleCarte = Interaction.lireOuiOuNon();
@@ -677,6 +700,26 @@ public class Jeu {
 						this.plateau.getJoueur(i).getCite()[aie].setType(Quartier.TYPE_QUARTIERS[choixTypeQuartier]);
 					}
 				}
+			}
+
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("laboratoire")) {
+				System.out.println("LABO : Vous possédez un laboratoire, voulez défausser 1 carte pour recevoir 2 PO ?");
+				boolean choixLabo = Interaction.randomizerBoolean();
+
+				if (choixLabo) {
+					// affichage de la main
+					
+					System.out.println("LABO : Choisissez le quartier que vous voulez troquer :");
+					int choixQuartier = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
+
+					// défausse
+					this.plateau.getPioche().ajouter(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+					this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
+
+					// ajout des PO
+					this.plateau.getJoueur(i).ajouterPieces(2);
+					System.out.println("LABO : 2 pièces ajoutées au butin du joueur.");
+				}	
 			}
 
 			if (isNouvelleCarte) {
