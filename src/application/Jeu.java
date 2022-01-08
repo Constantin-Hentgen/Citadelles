@@ -317,7 +317,7 @@ public class Jeu {
 				int choixQuartier;
 
 				// Dans le cas où le joueur est humain
-				if (this.plateau.getJoueur(i).getNom().equals("joueur1")) {
+				if (this.plateau.getJoueur(i).equals(moi())) {
 					this.plateau.getJoueur(i).getPersonnage().utiliserPouvoir();
 					afficheJeuJoueur();
 
@@ -334,9 +334,9 @@ public class Jeu {
 						
 						System.out.println();
 						
-							if (choixQuartier > 0) {
-								choixQuartier --;
-								Quartier quartierChoisi = this.plateau.getJoueur(i).getMain().get(choixQuartier);
+						if (choixQuartier > 0) {
+							choixQuartier --;
+							Quartier quartierChoisi = this.plateau.getJoueur(i).getMain().get(choixQuartier);
 
 							// après sélection du quartier je vérifie qu'il n'existe pas déjà dans la cité
 							if (this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
@@ -355,17 +355,22 @@ public class Jeu {
 									System.out.println("\nVous n'avez pas les moyens de construire ce quartier.");
 								}
 							} else {
-								if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
+								// POUVOIR DE LA MANUFACTURE
+								if (moi().quartierPresentDansCite("manufacture") && quartierChoisi.getType().equals("MERVEILLE")) {
+									if (moi().getMain().get(choixQuartier).getCout() - 1 <= moi().tresor() && !moi().quartierPresentDansCite(quartierChoisi.getNom())) {
+										moi().ajouterPieces(1);
+										construireQuartier(i, choixQuartier);
+										afficheCiteJoueur(i);	
+									}
+								} else if (moi().getMain().get(choixQuartier).getCout() <= moi().tresor() && !moi().quartierPresentDansCite(quartierChoisi.getNom())) {
 									construireQuartier(i, choixQuartier);
 									afficheCiteJoueur(i);
-								} else if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() > this.plateau.getJoueur(i).tresor() ) {
+								} else if (moi().getMain().get(choixQuartier).getCout() > moi().tresor() ) {
 									System.out.println("\nVous n'avez pas les moyens de construire ce quartier.");
 								} else {
 									System.out.println("\nDoublon interdit.");
 								}
 							}
-
-
 						}
 						afficherMaMain();
 					}
@@ -392,11 +397,30 @@ public class Jeu {
 
 							// après sélection du quartier je vérifie qu'il n'existe pas déjà dans la cité
 
-							if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
-								construireQuartier(i, choixQuartier);
-								System.out.println("LE BOT A CONSTRUIT UN TRUC NORMALEMENT");
-								afficheCiteJoueur(i);
+
+							// POUVOIR DE LA CARRIÈRE
+							// je peux construire autant de bâtiments identiques que je souhaite si je possède une carrière
+							if (this.plateau.getJoueur(i).quartierPresentDansCite("carrière")) {
+								if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor()) {
+									construireQuartier(i, choixQuartier);
+									afficheCiteJoueur(i);
+								}
+							} else {
+								// POUVOIR DE LA MANUFACTURE
+								if (this.plateau.getJoueur(i).quartierPresentDansCite("manufacture") && quartierChoisi.getType().equals("MERVEILLE")) {
+									if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() - 1 <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
+										construireQuartier(i, choixQuartier);
+										this.plateau.getJoueur(i).ajouterPieces(1);
+										System.out.println("Le joueur " + this.plateau.getJoueur(i).getNom() + " a construit le quartier " + quartierChoisi.getNom() + " à moindre coût grâce au pouvoir de la manufacture.");
+										afficheCiteJoueur(i);
+									}
+								} else if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
+									construireQuartier(i, choixQuartier);
+									System.out.println("Le joueur " + this.plateau.getJoueur(i).getNom() + " a construit " + quartierChoisi.getNom());
+									afficheCiteJoueur(i);
+								}
 							}
+
 						}
 					}
 				}
@@ -516,6 +540,22 @@ public class Jeu {
 				Quartier a = this.plateau.getPioche().piocher();
 				Quartier b = this.plateau.getPioche().piocher();
 				// pioche d'une nouvelle carte
+
+
+				// POUVOIR BIBLIOTHÈQUE
+				if (moi().quartierPresentDansCite("bibliothèque")) {
+
+					moi().ajouterQuartierDansMain(a);
+					plateau.getPioche().ajouter(b);
+					
+					moi().ajouterQuartierDansMain(b);
+					plateau.getPioche().ajouter(a);
+
+					System.out.println(moi().getNom() + " a pioché 2 quartiers grâce au pouvoir de la Bibliothèque.");
+				}
+
+
+
 				System.out.println("Faites votre choix entre ces 2 cartes : ");
 
 				System.out.println("\n\t" + 1 + " | " + a.getNom() + " | " + a.getCout() + " PO | " + a.getType().toLowerCase());
@@ -524,16 +564,16 @@ public class Jeu {
 				int choixCarteQuartier = Interaction.lireUnEntier(1, 3);
 
 				if (choixCarteQuartier == 1) {
-					this.plateau.getJoueur(i).ajouterQuartierDansMain(a);
-					System.out.println(this.plateau.getJoueur(i).getNom() + " a pioché.");
+					moi().ajouterQuartierDansMain(a);
+					System.out.println(moi().getNom() + " a pioché.");
 					plateau.getPioche().ajouter(b);
 				} else {
-					this.plateau.getJoueur(i).ajouterQuartierDansMain(b);
-					System.out.println(this.plateau.getJoueur(i).getNom() + " a pioché.");
+					moi().ajouterQuartierDansMain(b);
+					System.out.println(moi().getNom() + " a pioché.");
 					plateau.getPioche().ajouter(a);
 				}
 			} else {
-				this.plateau.getJoueur(i).ajouterPieces(2);
+				moi().ajouterPieces(2);
 				System.out.println("\n2 pièces ont été ajoutées au trésor du joueur.");
 			}
 
@@ -677,8 +717,7 @@ public class Jeu {
 						}
 					}
 				}
-				
-				
+					
 				// POUVOIR FONTAINE AUX SOUHAITS
 				if (this.plateau.getJoueur(i).quartierPresentDansCite("fontaine aux souhaits")) {
 					if (this.plateau.getJoueur(i).getCite()[j].getType().equals("MERVEILLE")) {
