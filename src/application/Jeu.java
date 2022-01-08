@@ -293,6 +293,8 @@ public class Jeu {
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
 			System.out.println("-----------------------------------------------");
 			System.out.println("\nC'est au tour de " + this.plateau.getJoueur(i).getNom() + " qui joue " + this.plateau.getJoueur(i).getPersonnage().getNom() + ".");
+
+
  			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 			System.out.println(this.plateau.getJoueur(i).getNom() + " | nb de cartes dans sa main | " + this.plateau.getJoueur(i).nbQuartiersDansMain());
 			System.out.println();
@@ -302,6 +304,8 @@ public class Jeu {
 					System.out.println("\t\t"+this.plateau.getJoueur(i).getMain().get(l).getNom());
 				}
 			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+
+
 
 			// checker si il est assassiné
 			if (!this.plateau.getJoueur(i).getPersonnage().getAssassine()) {
@@ -335,19 +339,33 @@ public class Jeu {
 								Quartier quartierChoisi = this.plateau.getJoueur(i).getMain().get(choixQuartier);
 
 							// après sélection du quartier je vérifie qu'il n'existe pas déjà dans la cité
-
 							if (this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
 								System.out.println("Vous êtes sur le point de faire un doublon.");
 							}
+						
+							
 
-							if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
-								construireQuartier(i, choixQuartier);
-								afficheCiteJoueur(i);
-							} else if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() > this.plateau.getJoueur(i).tresor() ) {
-								System.out.println("\nVous n'avez pas les moyens de construire ce quartier.");
+							// POUVOIR DE LA CARRIÈRE
+							// je peux construire autant de bâtiments identiques que je souhaite si je possède une carrière
+							if (this.plateau.getJoueur(i).quartierPresentDansCite("carrière")) {
+								if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor()) {
+									construireQuartier(i, choixQuartier);
+									afficheCiteJoueur(i);
+								} else {
+									System.out.println("\nVous n'avez pas les moyens de construire ce quartier.");
+								}
 							} else {
-								System.out.println("\nDoublon interdit.");
+								if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() && !this.plateau.getJoueur(i).quartierPresentDansCite(quartierChoisi.getNom())) {
+									construireQuartier(i, choixQuartier);
+									afficheCiteJoueur(i);
+								} else if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() > this.plateau.getJoueur(i).tresor() ) {
+									System.out.println("\nVous n'avez pas les moyens de construire ce quartier.");
+								} else {
+									System.out.println("\nDoublon interdit.");
+								}
 							}
+
+
 						}
 						afficherMaMain();
 					}
@@ -553,64 +571,36 @@ public class Jeu {
 
 				typeQuartiers.add(this.plateau.getJoueur(i).getCite()[j].getType());
 				
-
-
-
-
-				// ajouter les bonus des différentes merveilles
-
-
-
-
-
-				// POUVOIR DE LA BASILIQUE
-				if (this.plateau.getJoueur(i).getCite()[j].getNom().equals("basilique")) {
-					// le joueur a dans sa cité la BASILIQUE ET que le quartier en question a un COUT impair
-					for (int k = 0; k < this.plateau.getJoueur(i).nbQuartiersDansCite(); k++) {
-						if (this.plateau.getJoueur(i).getCite()[k].getCout()%2 != 0) {
-							nbPoints ++;
-						}
-					}
-				}
-
-
-
 				// POUVOIR DU CAPITOLE
+				// le joueur a dans sa cité la CAPITOLE
 				if (this.plateau.getJoueur(i).getCite()[j].getNom().equals("capitole")) {
 					int quartierDeMemeCouleur = 0;
 
-					// le joueur a dans sa cité la CAPITOLE
-					for (int k = 0; k < this.plateau.getJoueur(i).nbQuartiersDansCite()-1; k++) {
-						if (this.plateau.getJoueur(i).getCite()[k].getType().equals(this.plateau.getJoueur(i).getCite()[k+1].getType())) {
-							quartierDeMemeCouleur ++;
+					for (int r = 0; r < this.plateau.getJoueur(i).nbQuartiersDansCite(); r++) {
+						quartierDeMemeCouleur = 0;
+						for (int k = 0; k < this.plateau.getJoueur(i).nbQuartiersDansCite(); k++) {
+							if (this.plateau.getJoueur(i).getCite()[r].getType().equals(this.plateau.getJoueur(i).getCite()[r].getType())) {
+								quartierDeMemeCouleur ++;
+							}
+							if (quartierDeMemeCouleur >= 3) {
+								nbPoints += 3;
+								break;
+							}
 						}
 					}
+				}
+			};
 
-					if (quartierDeMemeCouleur >= 3) {
-						nbPoints += 3;
+
+			// POUVOIR DE LA BASILIQUE
+			if (this.plateau.getJoueur(i).quartierPresentDansCite("basilique")) {
+				// le joueur a dans sa cité la BASILIQUE ET que le quartier en question a un COUT impair
+				for (int k = 0; k < this.plateau.getJoueur(i).nbQuartiersDansCite(); k++) {
+					if (this.plateau.getJoueur(i).getCite()[k].getCout()%2 != 0) {
+						nbPoints ++;
 					}
 				}
-
-
-
-				// POUVOIR DE LA CARRIÈRE ****** A RELOCALISER DANS TOUR DE JEU LORS DE LA CONSTRUCTION
-				if (this.plateau.getJoueur(i).getCite()[j].getNom().equals("carrière")) {
-
-				// je peux construire autant de bâtiments identiques que je souhaite
-				}
-
-
-
-
-
-
-
-
-
-
-
-
-			};
+			}
 
 
 
