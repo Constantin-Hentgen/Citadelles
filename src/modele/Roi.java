@@ -19,14 +19,14 @@ public class Roi extends Personnage {
 
 	public void utiliserPouvoir() {
 		if (this.joueur != null && this.assassine != true) {
-			System.out.println("Le joueur prend la couronne.");
+			System.out.println("\nLe joueur prend la couronne.");
 			joueur.setPossedeCouronne(true);
 		}
 	}
 
 	public void utiliserPouvoirAvatar() {
 		if (this.joueur != null && this.assassine != true) {
-			System.out.println("Le joueur prend la couronne.");
+			System.out.println("\nLe joueur prend la couronne.");
 			joueur.setPossedeCouronne(true);
 		}
 	}

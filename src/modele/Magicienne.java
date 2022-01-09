@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+
 import controleur.Interaction;
 
 public class Magicienne extends Personnage {
@@ -10,135 +11,175 @@ public class Magicienne extends Personnage {
     }
 
     public void utiliserPouvoir() {
-        Joueur joueur = this.getJoueur();
-        ArrayList<Quartier> copieMain = new ArrayList<>(joueur.getMain());
-        ArrayList<Joueur> listeJoueurs = new ArrayList<>();
-        Quartier q;
+		Joueur magicienne = this.getJoueur();
 
-        Joueur selected = null;
-        boolean continu = true;
+		// demander entre échanger cartes avec joueur ou pioche
+        // Boolean echangerCarteAvecJoueur = Interaction.randomizerBoolean();
+		System.out.println("Voulez-vous échanger vos cartes avec un joueur ?");
+		Boolean echangerCarteAvecJoueur = Interaction.lireOuiOuNon();
 
-        System.out.println("\nVoulez-vous échanger des cartes ?\n");
-        Boolean a = Interaction.lireOuiOuNon();
+        if (echangerCarteAvecJoueur) {
+			// demander le joueur avec lequel échanger les cartes
+			
+			System.out.println("Choisissez un joueur pour échanger vos mains : \n");
+			
+			// affichage des différents joueurs
+			for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+				System.out.println((i+1) + " | " + this.plateau.getJoueur(i).getNom() + " | " + this.plateau.getJoueur(i).getPersonnage().getNom());
+				if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("magicienne")) {
+				}
+			}
 
-        if (a) {
 			System.out.println();
+			int choixJoueurAEchanger = 0;
 
-            for (int i = 0; i < plateau.getNombreJoueurs(); i++) {                
-                System.out.println(i+" : "+plateau.getJoueur(i).getNom()+" --  Nombre de cartes : "+plateau.getJoueur(i).nbQuartiersDansMain());
-            }
+			do {
+				System.out.println("Choisissez un joueur :");
+				choixJoueurAEchanger = Interaction.lireUnEntier(1,this.plateau.getNombreJoueurs())-1;
+			} while (this.plateau.getJoueur(choixJoueurAEchanger) == magicienne);
 
-            System.out.println("\nAvec quel joueur voulez-vous échanger vos cartes ?");
-            do {
-                int b = Interaction.lireUnEntier(0,plateau.getNombreJoueurs());
-                if (plateau.getJoueur(b) == joueur) {
-                    System.out.println("\nVous ne pouvez pas échanger des cartes avec vous-mêmes !");
-                } else {
-                    for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
-                        listeJoueurs.add(plateau.getJoueur(i));
-                    }
+			Joueur cible = this.plateau.getJoueur(choixJoueurAEchanger);
 
-                    selected = listeJoueurs.get(b);
-                    ArrayList<Quartier> copieMainSelected = new ArrayList<>(selected.getMain());
+			System.out.println("Vous avez choisi " + cible.getNom().toUpperCase());
 
-                    for (int i = 0; i <= selected.getMain().size() + 1; i++) {
-                        selected.retirerQuartierDansMain();
-                    }
+			System.out.println("\nla main de ce joueur est : \n");
 
-                    for (int i = 0; i <= joueur.getMain().size() + 1; i++) {
-                        joueur.retirerQuartierDansMain();
-                    }
+			for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + cible.getMain().get(i).getNom());
+			}
 
-                    for (int i = 0; i < copieMainSelected.size(); i++) {
-                        joueur.ajouterQuartierDansMain(copieMainSelected.get(i));
-                    }
+			System.out.println("\nvotre main pour rappel est : \n");
 
-                    for (int i = 0; i < copieMain.size(); i++) {
-                        selected.ajouterQuartierDansMain(copieMain.get(i));
-                    }
-                    
-					System.out.println("Cartes échangées avec le joueur " + plateau.getJoueur(b).getNom().toUpperCase() + ".");					
-					continu = false;
-                }             
-            } while (continu);
+
+			for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + magicienne.getMain().get(i).getNom());
+			}
+
+			ArrayList<Quartier> TEMP = magicienne.getMain();
+
+			magicienne.setMain(cible.getMain());
+			cible.setMain(TEMP);
+
+			System.out.println("Les mains ont été échangées.");
+
+			System.out.println("\n\nLA PREUVE EN IMAGE");
+
+			System.out.println("\nla main de la cible est devenue \n");
+
+			for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + cible.getMain().get(i).getNom());
+			}
+
+			System.out.println("\nvotre main maintenant est : \n");
+
+			for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + magicienne.getMain().get(i).getNom());
+			}
+
         } else {
-            System.out.println("\nCombien de cartes de votre main voulez-vous échanger avec la pioche ?\n");
-            System.out.println("Taille de votre main : "+joueur.getMain().size());
+			System.out.println("Combien de cartes voulez-vous échanger avec la pioche ?");
 
-            do {
-                int c = Interaction.lireUnEntier();
+			int nombreDeCarteAEchanger = Interaction.lireUnEntier(0, magicienne.nbQuartiersDansMain());
 
-                if (c <= joueur.getMain().size()) {
-                    for (int i = 0; i < c; i++) {
-                        joueur.retirerQuartierDansMain();
-                        joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
-                        q = new Quartier();
-                        plateau.getPioche().ajouter(q);
-                    }
-                    continu = false;
-					System.out.println("\n\t"+c+" cartes échangées avec la pioche.\n");
-                }
-            } while (continu);
+			for (int i = 0; i < nombreDeCarteAEchanger; i++) {
+				for (int j = 0; j < magicienne.nbQuartiersDansMain(); j++) {
+					System.out.println("\t" + (j+1) + " | " + magicienne.getMain().get(j).getNom());
+				}
+				
+				// il choisit la carte à dégager
+				int choixCarteAEcarter = Interaction.lireUnEntier(1,magicienne.nbQuartiersDansMain()+1)-1;
+
+				System.out.println("Le quartier a dégager est : " + magicienne.getMain().get(choixCarteAEcarter).getNom());
+				// on vire la carte et une autre est piochée
+				magicienne.retirerQuartierDansMain(magicienne.getMain().get(choixCarteAEcarter));
+				magicienne.ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+			}
         }
     }
 
-	public void utiliserPouvoirAvatar() {        
-        Joueur joueur = this.getJoueur();
-        ArrayList<Quartier> copieMain = new ArrayList<>(joueur.getMain());
-        ArrayList<Joueur> listeJoueurs = new ArrayList<>();
-        Quartier q;
+	public void utiliserPouvoirAvatar() {
+		
+		Joueur magicienne = this.getJoueur();
 
-        Joueur selected = null;
-        boolean continu = true;
+		// demander entre échanger cartes avec joueur ou pioche
+        // Boolean echangerCarteAvecJoueur = Interaction.randomizerBoolean();
+		Boolean echangerCarteAvecJoueur = Interaction.randomizerBoolean();
 
-        Boolean a = Interaction.randomizerBoolean();
+        if (echangerCarteAvecJoueur) {
+			// demander le joueur avec lequel échanger les cartes
+			
+			System.out.println("Choisissez un joueur pour échanger vos mains : \n");
+			
+			// affichage des différents joueurs
+			for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {
+				System.out.println((i+1) + " | " + this.plateau.getJoueur(i).getNom() + " | " + this.plateau.getJoueur(i).getPersonnage().getNom());
+				if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("magicienne")) {
+				}
+			}
 
-        if (a) {
-            do {
-                int b = Interaction.randomizer(plateau.getNombreJoueurs());
-                if (plateau.getJoueur(b) != joueur) {
-                    for (int i = 0; i < plateau.getNombreJoueurs(); i++) {
-                        listeJoueurs.add(plateau.getJoueur(i));
-                    }
+			System.out.println();
+			int choixJoueurAEchanger = 0;
 
-                    selected = listeJoueurs.get(b);
-                    ArrayList<Quartier> copieMainSelected = new ArrayList<>(selected.getMain());
+			do {
+				choixJoueurAEchanger = Interaction.randomizer(this.plateau.getNombreJoueurs()-1);
+			} while (this.plateau.getJoueur(choixJoueurAEchanger) == magicienne);
 
-                    for (int i = 0; i <= selected.getMain().size() + 1; i++) {
-                        selected.retirerQuartierDansMain();
-                    }
+			Joueur cible = this.plateau.getJoueur(choixJoueurAEchanger);
 
-                    for (int i = 0; i <= joueur.getMain().size() + 1; i++) {
-                        joueur.retirerQuartierDansMain();
-                    }
+			System.out.println("Vous avez choisi " + cible.getNom().toUpperCase());
 
-                    for (int i = 0; i < copieMainSelected.size(); i++) {
-                        joueur.ajouterQuartierDansMain(copieMainSelected.get(i));
-                    }
+			System.out.println("\nla main de ce joueur est : \n");
 
-                    for (int i = 0; i < copieMain.size(); i++) {
-                        selected.ajouterQuartierDansMain(copieMain.get(i));
-                    }
-                    
-					continu = false;
-					System.out.println("Cartes échangées avec le joueur " + plateau.getJoueur(b).getNom().toUpperCase() + ".");
-                }             
-            } while (continu);
+			for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + cible.getMain().get(i).getNom());
+			}
+
+			System.out.println("\nvotre main pour rappel est : \n");
+
+
+			for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + magicienne.getMain().get(i).getNom());
+			}
+
+			ArrayList<Quartier> TEMP = magicienne.getMain();
+
+			magicienne.setMain(cible.getMain());
+			cible.setMain(TEMP);
+
+			System.out.println("Les mains ont été échangées.");
+
+			System.out.println("\n\nLA PREUVE EN IMAGE");
+
+			System.out.println("\nla main de la cible est devenue \n");
+
+			for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + cible.getMain().get(i).getNom());
+			}
+
+			System.out.println("\nvotre main maintenant est : \n");
+
+			for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
+				System.out.println("\t" + magicienne.getMain().get(i).getNom());
+			}
+
         } else {
-            do {
-                int c = Interaction.randomizer();
+			System.out.println("Combien de cartes voulez-vous échanger avec la pioche ?");
 
-                if (c <= joueur.getMain().size()) {
-                    for (int i = 0; i < c; i++) {
-                        joueur.retirerQuartierDansMain();
-                        joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
-                        q = new Quartier();
-                        plateau.getPioche().ajouter(q);
-                    }
-                    continu = false;
-					System.out.println("\t"+c+" cartes échangées avec la pioche.");
-                }
-            } while (continu);
+			int nombreDeCarteAEchanger = Interaction.randomizer(magicienne.nbQuartiersDansMain());
+
+			for (int i = 0; i < nombreDeCarteAEchanger; i++) {
+				for (int j = 0; j < magicienne.nbQuartiersDansMain(); j++) {
+					System.out.println("\t" + (j+1) + " | " + magicienne.getMain().get(j).getNom());
+				}
+				
+				// il choisit la carte à dégager
+				int choixCarteAEcarter = Interaction.randomizer(magicienne.nbQuartiersDansMain());
+
+				System.out.println("Le quartier a dégager est : " + magicienne.getMain().get(choixCarteAEcarter).getNom());
+				// on vire la carte et une autre est piochée
+				magicienne.retirerQuartierDansMain(magicienne.getMain().get(choixCarteAEcarter));
+				magicienne.ajouterQuartierDansMain(this.plateau.getPioche().piocher());
+			}
         }
     }    
 }
