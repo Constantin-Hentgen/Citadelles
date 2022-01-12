@@ -27,9 +27,13 @@ public class Voyante extends Personnage {
         for(Joueur j :restants ){
             int n = j.nbQuartiersDansMain();
             int i = r.nextInt(n);
-            ArrayList<Quartier> main = j.getMain();
-            pris.add(main.get(i));
-            j.retirerQuartierDansMain(main.get(i));
+            try {
+                ArrayList<Quartier> main = j.getMain();
+                pris.add(main.get(i));
+                j.retirerQuartierDansMain(main.get(i));
+            } catch (NullPointerException e){
+                System.out.println("Un joueur a une main vide");
+            }
         }
 
         // Affichage des cartes
@@ -82,9 +86,13 @@ public class Voyante extends Personnage {
          for(Joueur j :restants ){
              int n = j.nbQuartiersDansMain();
              int i = r.nextInt(n);
-             ArrayList<Quartier> main = j.getMain();
-             pris.add(main.get(i));
-             j.retirerQuartierDansMain(main.get(i));
+             try {
+                ArrayList<Quartier> main = j.getMain();
+                pris.add(main.get(i));
+                j.retirerQuartierDansMain(main.get(i));
+                }catch(NullPointerException e){
+                    //Vide
+                }
          }
         
          while(pris.size()!=0){

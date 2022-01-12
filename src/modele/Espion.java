@@ -23,7 +23,7 @@ public class Espion extends Personnage {
             int c = j.lireUnEntier(0,5);
             String choix = Quartier.TYPE_QUARTIERS[c];
 
-            System.out.println("Veuillez choisir un joueur pour reagrder sa main :");
+            System.out.println("Veuillez choisir un joueur pour regarder sa main :");
             System.out.println();
             for (int i = 0; i < plateau.getNombreJoueurs(); i++) {                
                 System.out.println(i+" : "+plateau.getJoueur(i).getNom());
@@ -48,6 +48,7 @@ public class Espion extends Personnage {
                     ajout = ajout +1;
                 }
             }
+            if(choisi.nbQuartiersDansMain() == 0){ System.out.println("Ce joueur ne possede pas de carte");}
             System.out.println();
             System.out.println("Vous avez gagner "+ajout+" pieces");
             this.joueur.ajouterPieces(ajout);
@@ -61,7 +62,7 @@ public class Espion extends Personnage {
             String choix = Quartier.TYPE_QUARTIERS[c];
             Joueur choisi = this.joueur;
 
-            while(choisi.equals(this.joueur)){
+            while(choisi.equals(this.joueur) && plateau.getNombreJoueurs() > 1){
                 c = r.nextInt(plateau.getNombreJoueurs());
                 choisi = plateau.getJoueur(c);
             }
