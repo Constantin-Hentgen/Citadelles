@@ -307,8 +307,10 @@ public class Jeu {
 
 						if (choixQuartier > 0) {
 							choixQuartier --;
+							// test de la présence du quartier choisi dans la cite
 
-							if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor()) {
+							if (this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout() <= this.plateau.getJoueur(i).tresor() // on ne peut pas construire deux fois le meme quartier sauf si on est sorcier
+							&& (!(this.plateau.getJoueur(i).quartierPresentDansCite(this.plateau.getJoueur(i).getMain().get(choixQuartier).getNom())) || this.plateau.getJoueur(i).getPersonnage().getNom().equals("Sorcier"))) {
 								this.plateau.getJoueur(i).retirerPieces(this.plateau.getJoueur(i).getMain().get(choixQuartier).getCout());
 								this.plateau.getJoueur(i).getPersonnage().construire(this.plateau.getJoueur(i).getMain().get(choixQuartier));
 								this.plateau.getJoueur(i).retirerQuartierDansMain(this.plateau.getJoueur(i).getMain().get(choixQuartier));
