@@ -15,13 +15,19 @@ public class Sorcier extends Personnage{
         System.out.println("Veuillez choisir un joueur :");
         System.out.println();
         for(int i = 0; i<plateau.getNombreJoueurs();i++){
-            System.out.println(i+" | "+ plateau.getJoueur(i));
+            System.out.println(i+" | "+ plateau.getJoueur(i).getNom());
         }
         //Choix du joueur
         System.out.println();
+
+        Joueur j = this.joueur;
         Interaction inter = new Interaction();
-        int choix = inter.lireUnEntier(0, plateau.getNombreJoueurs());
-        Joueur j = plateau.getJoueur(choix);
+        while (j.equals(this.joueur)){   
+            int choix = inter.lireUnEntier(0, plateau.getNombreJoueurs());
+            j = plateau.getJoueur(choix);
+            if(j.equals(this.joueur)){System.out.println("Vous ne puvez pas choisir vous meme");}
+        }
+
 
         //Choix de la carte ( à l'aveugle par interpretation de la carte)
         System.out.println("Quelle carte voulez vous ?");
@@ -31,7 +37,7 @@ public class Sorcier extends Personnage{
             System.out.println(i+" | Carte "+i);
         }
         System.out.println();
-        choix = inter.lireUnEntier(0, main.size());
+        int choix = inter.lireUnEntier(0, main.size());
         Quartier q = main.get(choix);
         j.getMain().remove(q);
         System.out.println("La carte est : "+q.getNom());
@@ -41,6 +47,7 @@ public class Sorcier extends Personnage{
         if(this.joueur.tresor() < q.getCout()){
             System.out.println("Vous n'avez pas assez d'or dans votre trésor pour construire");
             System.out.println("La carte est ajoutée a votre main");
+            this.joueur.ajouterQuartierDansMain(q);
         }
         else{
             System.out.println("Voulez vons contruire ou ajouter a votre main ?");
@@ -61,7 +68,7 @@ public class Sorcier extends Personnage{
     }
 
     public void utiliserPouvoirAvatar(){
-        
+
     }
     
 }
