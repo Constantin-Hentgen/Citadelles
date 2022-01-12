@@ -5,8 +5,8 @@ public class TestSorcier {
     public static void main(String[] args){
         TestSorcier test = new TestSorcier();
         //test.test1();
-        //test.test2();
-        test.test3();
+        test.test2();
+        //test.test3();
     }
 
     public void test1(){
@@ -52,7 +52,7 @@ public class TestSorcier {
         joueur3.ajouterQuartierDansMain(q);
 
         int taille = sorcier.getJoueur().getMain().size();
-        sorcier.utiliserPouvoir();
+        sorcier.utiliserPouvoirAvatar();
         
 
 
@@ -92,7 +92,7 @@ public class TestSorcier {
         joueur3.ajouterPieces(10);
         int taille = sorcier.getJoueur().getMain().size();
         int tresor = joueur3.tresor();
-        sorcier.utiliserPouvoir();
+        sorcier.utiliserPouvoirAvatar();
 
 
 
