@@ -297,6 +297,9 @@ public class Jeu {
 					if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("Architecte")) {
 						nbConstruction = 3;
 					}
+					if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("Voyante")){ 
+						nbConstruction = 2; // La voyante peut construire 2 quartiers
+					}
 
 					for (int x = 0; x < nbConstruction; x++) {
 						System.out.println("\nQuel quartier voulez-vous construire ? (0 pour ne rien faire )");
