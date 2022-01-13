@@ -53,15 +53,15 @@ public class TestVoyante {
 		q = new Quartier("palais",Quartier.TYPE_QUARTIERS[2],5);
         joueur3.ajouterQuartierDansMain(q);
 
-        voyante.utiliserPouvoirAvatar();
+        voyante.utiliserPouvoir();
 
         Test.test(joueur1.nbQuartiersDansMain()==1,"le joueur 1 a toujours sa carte dans sa main");
         Test.test(joueur2.nbQuartiersDansMain()==1,"le joueur 2 a toujours sa carte dans sa main");
-        Test.test(joueur3.getMain().get(0).equals(q),"la voyante a la meme main");
+        Test.test(joueur3.getMain().get(0).equals(q),"la voyante a la meme main(passed si elle garde le palais)");
         ArrayList<Quartier> mainVoyante = new ArrayList<Quartier>();
         mainVoyante.add(q);
 
-        Test.test(joueur3.getMain().equals(mainVoyante),"la voyante a la meme main");
+        Test.test(joueur3.getMain().equals(mainVoyante),"la voyante a la meme main(passed si uniquement le palais en main)");
 
         
     }
