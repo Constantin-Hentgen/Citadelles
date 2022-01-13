@@ -70,6 +70,10 @@ public class PlateauDeJeu {
 		this.listePersonnages = p;
 	}
 
+	public void setListeJoueurs(Joueur[] j) {
+		this.listeJoueurs = j;
+	}
+
 	public void ecarterPersonnage(Personnage persoEcart) {
 		Personnage[] nouvelleListe = new Personnage[8];
 

@@ -21,16 +21,16 @@ public class Eveque extends Personnage {
 			if (recevoir > 0) {
 				System.out.println("L'évêque a reçu " + recevoir + " pièce(s)");
 			} else {
-				System.out.println("L'évêque n'a pas reçu de ressources spécifiques.");
+				System.out.println("\n\tL'évêque n'a pas reçu de ressources spécifiques.");
 			}
         }
     }
 
     public void utiliserPouvoir() {
-        System.out.println("Le joueur est protégé contre les attaques des personnages de rang 8.");
+        // Le joueur est protégé contre les attaques des personnages de rang 8.
     }
 
     public void utiliserPouvoirAvatar() {
-        System.out.println("Le joueur est protégé contre les attaques des personnages de rang 8.");
+        // Le joueur est protégé contre les attaques des personnages de rang 8.
     }
 }
