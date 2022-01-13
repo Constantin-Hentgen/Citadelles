@@ -297,8 +297,11 @@ public class Jeu {
 					if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("Architecte")) {
 						nbConstruction = 3;
 					}
-					if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("Voyante")){ 
+					else if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("Voyante")){ 
 						nbConstruction = 2; // La voyante peut construire 2 quartiers
+					}
+					else if (this.plateau.getJoueur(i).getPersonnage().getNom().equals("Navigatrice")){
+						nbConstruction = 0; // La navigatrice ne peut pas construire( meme avec les merveilles)
 					}
 
 					for (int x = 0; x < nbConstruction; x++) {
