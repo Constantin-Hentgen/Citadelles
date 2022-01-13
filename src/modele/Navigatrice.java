@@ -53,6 +53,7 @@ public class Navigatrice extends Personnage{
                         this.joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
                     } catch(NullPointerException e){
                         System.out.println("Pioche vide");
+                        break;
                     }
                 }
                 
