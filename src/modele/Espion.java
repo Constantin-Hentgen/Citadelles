@@ -40,18 +40,35 @@ public class Espion extends Personnage {
             System.out.println("La main de " + choisi.getNom());
             System.out.println();
             ArrayList<Quartier> main = choisi.getMain();
-            int ajout = 0;
-            for(int i = 0; i<choisi.nbQuartiersDansMain();i++){
+            int nbQuartierType = 0;
+            for(int i = 0; i<choisi.nbQuartiersDansMain();i++){ // Pas d'exception pour une main vide(On ne rentre pas dans la boucle)
                 Quartier q = main.get(i);
                 System.out.println(i + " | " +q.getNom() + " | " + q.getType());
                 if(q.getType().equals(choix)){
-                    ajout = ajout +1;
+                    nbQuartierType = nbQuartierType +1;
                 }
             }
-            if(choisi.nbQuartiersDansMain() == 0){ System.out.println("Ce joueur ne possede pas de carte");}
-            System.out.println();
-            System.out.println("Vous avez gagner "+ajout+" pieces");
-            this.joueur.ajouterPieces(ajout);
+            int tresorVole = choisi.tresor();
+            if(tresorVole >= nbQuartierType){
+                System.out.println();
+                System.out.println("Vous volez "+nbQuartierType+" pieces");
+                this.joueur.ajouterPieces(nbQuartierType);
+                choisi.retirerPieces(nbQuartierType);
+            }
+            else{
+                int nbPioche = nbQuartierType - tresorVole;
+                System.out.println("Vous volez "+ tresorVole+" pieces");
+                this.joueur.ajouterPieces(tresorVole);
+                choisi.retirerPieces(tresorVole);
+                System.out.println("Vous piochez "+nbPioche+" cartes");
+                for(int i =0;i<nbPioche ;i++ ){
+                    try{
+                        this.joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
+                    }catch(NullPointerException e){
+                        System.out.println("La pioche est vide.");
+                    }
+                }
+            }
         }
     }
 
