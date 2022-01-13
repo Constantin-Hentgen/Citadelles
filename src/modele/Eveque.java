@@ -21,7 +21,7 @@ public class Eveque extends Personnage {
 			if (recevoir > 0) {
 				System.out.println("L'évêque a reçu " + recevoir + " pièce(s)");
 			} else {
-				System.out.println("\nL'évêque n'a pas reçu de ressources spécifiques.");
+				System.out.println("\n\tL'évêque n'a pas reçu de ressources spécifiques.");
 			}
         }
     }
