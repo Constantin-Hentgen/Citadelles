@@ -4,7 +4,7 @@ public abstract class Personnage {
 	protected String nom, caracteristiques;
 	protected int rang;
 	protected Joueur joueur;
-	protected boolean vole, assassine;
+	protected boolean vole, assassine,ensorcele; //ajout d'ensorcele pour la sorciere
 	public PlateauDeJeu plateau;
 
 	public Personnage(String nom, String caracteristiques, int rang) {
@@ -14,6 +14,7 @@ public abstract class Personnage {
 		this.joueur = null;
 		this.vole = false;
 		this.assassine = false;
+		this.ensorcele = false;
 	}
 
 	public void setPlateau(PlateauDeJeu unPlateau) {
@@ -61,6 +62,14 @@ public abstract class Personnage {
 		this.assassine = true;
 	}
 
+	public void setEnsorcele(){
+		this.ensorcele = true;
+	}
+
+	public boolean getEnsorcele(){
+		return this.ensorcele;
+	}
+
 	public void ajouterPieces() {
 		if (this.joueur != null && this.assassine == false) {
 			this.joueur.ajouterPieces(2);
@@ -93,5 +102,6 @@ public abstract class Personnage {
 		this.vole =  false;
 		this.assassine = false;
 		this.joueur.monPersonnage = null;
+		this.ensorcele = false;
 	}
 }
