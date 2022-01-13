@@ -315,28 +315,15 @@ public class Jeu {
 	}
 
 	private void tourDeJeu() {
-		// System.out.println("\n\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
 		System.out.println("\n\t\t\tCHOIX PERSONNAGES\n");
 		choixPersonnages();
-		// System.out.println("\nCOMPOSITION DE LA PARTIE :");
 		sortJoueurSelonRangPersonnage();
-		// System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
 
 		for (int i = 0; i < this.plateau.getNombreJoueurs(); i++) {								
 			try {
 				TimeUnit.SECONDS.sleep(3);
-			} catch (InterruptedException e) {}
-
-			
-			
-			// System.out.println(this.plateau.getJoueur(i).getNom() + " | nb de cartes dans sa main | " + this.plateau.getJoueur(i).nbQuartiersDansMain() + "\n");
-			
-			// for (int l = 0; l<this.plateau.getJoueur(i).nbQuartiersDansMain();l++) {
-				// 	System.out.println("\t\t"+ (l+1) + " | " + this.plateau.getJoueur(i).getMain().get(l).getNom());
-				// }
-				
-				
+			} catch (InterruptedException e) {}				
 				
 				// checker si il est assassiné
 				if (!this.plateau.getJoueur(i).getPersonnage().getAssassine()) {
@@ -558,8 +545,6 @@ public class Jeu {
 				}
 			}
 
-			// System.out.println("\n\t\t--------------------------------------");
-
 			// nombre de cartes dans la pioche
 			// System.out.println("\n\t\tnb de quartiers dans la pioche : " + this.plateau.getPioche().nombreElements());
 			// nombre de cartes dans les mains
@@ -576,8 +561,6 @@ public class Jeu {
 			int total = this.plateau.getPioche().nombreElements() + cartesDansCites + cartesDansMains;
 			// System.out.println("\n\t\ttotal de cartes en jeu : " + total);
 			
-			// System.out.println("\n\t\t--------------------------------------");
-
 			if (total != 68) {
 				System.out.println("nombre total de carte en jeu a fluctué");
 				System.exit(0);
@@ -726,7 +709,6 @@ public class Jeu {
 				Quartier a = this.plateau.getPioche().piocher();
 				Quartier b = this.plateau.getPioche().piocher();
 				// pioche d'une nouvelle carte
-
 
 				// POUVOIR BIBLIOTHÈQUE
 				if (moi().quartierPresentDansCite("bibliothèque")) {
