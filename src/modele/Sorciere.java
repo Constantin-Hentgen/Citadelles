@@ -16,7 +16,7 @@ public class Sorciere extends Personnage {
         System.out.println();
 
         //Affichage des joueurs avec leurs personnages
-        for(int i = 0;i<plateau.getNombreJoueurs();i++){ // On commance a 1 pour ne pas afficher la sorciere(rang 1)
+        for(int i = 0;i<plateau.getNombreJoueurs();i++){ 
             System.out.println(i+" | "+plateau.getPersonnage(i));
         }
         //Choix du personnage

@@ -12,45 +12,44 @@ public class Voyante extends Personnage {
     }
 
     public void utiliserPouvoir(){
-        // Contruction de la liste des autres joueurs
+        // Contruction de la liste des autres joueurs avec une main non vide
         ArrayList<Joueur> restants = new ArrayList<Joueur>();
         for(int i=0;i< plateau.getNombreJoueurs();i++){
             Joueur j = plateau.getJoueur(i);
-            if(!j.equals(this.joueur)){
+            if(!j.equals(this.joueur) && j.getMain().size() != 0){
                 restants.add(j);
             }
         }
 
         // On prend les cartes au hasard
-        ArrayList<Quartier> pris = new ArrayList<Quartier>();
         Random r = new Random();
         for(Joueur j :restants ){
             int n = j.nbQuartiersDansMain();
             int i = r.nextInt(n);
             try {
                 ArrayList<Quartier> main = j.getMain();
-                pris.add(main.get(i));
+                this.joueur.ajouterQuartierDansMain(main.get(i)); //on ajaoute la carte a la main
                 j.retirerQuartierDansMain(main.get(i));
             } catch (NullPointerException e){
-                System.out.println("Un joueur a une main vide");
+                System.out.println("Un joueur a une main vide"); // Nomrmalent cette erreur ne devrait pas s'afficher
             }
         }
 
         // Affichage des cartes
         Interaction inter = new Interaction();
         Quartier q = new Quartier();
-        while(pris.size() != 0){
+        while(restants.size() != 0){
             // choix de la carte a donner
             System.out.println("Quelle carte souhaitez vous donner ?");
             System.out.println();
 
-            for(int i = 0;i<pris.size();i++){
-                System.out.println(i+" | "+pris.get(i).getNom());
+            for(int i = 0;i<this.joueur.getMain().size();i++){
+                System.out.println(i+" | "+this.joueur.getMain().get(i).getNom());
             }
             System.out.println();
-            int choix = inter.lireUnEntier(0, pris.size());
-            q = pris.get(choix);
-            pris.remove(q);
+            int choix = inter.lireUnEntier(0, this.joueur.getMain().size());
+            q = this.joueur.getMain().get(choix);
+            
             System.out.println();
 
             // Choix du joueur
@@ -63,6 +62,7 @@ public class Voyante extends Personnage {
 
             choix = inter.lireUnEntier(0,restants.size());
             Joueur receveur = restants.get(choix);
+            this.joueur.getMain().remove(q);
             receveur.ajouterQuartierDansMain(q);
             restants.remove(receveur);
             System.out.println();
@@ -75,33 +75,32 @@ public class Voyante extends Personnage {
          ArrayList<Joueur> restants = new ArrayList<Joueur>();
          for(int i=0;i< plateau.getNombreJoueurs();i++){
              Joueur j = plateau.getJoueur(i);
-             if(!j.equals(this.joueur)){
+             if(!j.equals(this.joueur) && j.getMain().size() !=0){
                  restants.add(j);
              }
          }
  
          // On prend les cartes au hasard
-         ArrayList<Quartier> pris = new ArrayList<Quartier>();
          Random r = new Random();
          for(Joueur j :restants ){
              int n = j.nbQuartiersDansMain();
              int i = r.nextInt(n);
              try {
                 ArrayList<Quartier> main = j.getMain();
-                pris.add(main.get(i));
+                this.joueur.ajouterQuartierDansMain(main.get(i));
                 j.retirerQuartierDansMain(main.get(i));
                 }catch(NullPointerException e){
-                    //Vide
+                    //Vide pas censé arriver
                 }
          }
         
-         while(pris.size()!=0){
-            int numeroCarte = r.nextInt(pris.size());
+         while(restants.size()!=0){
+            int numeroCarte = r.nextInt(this.joueur.getMain().size());
             int numeroJoueur = r.nextInt(restants.size());
-            Quartier q = pris.get(numeroCarte);
+            Quartier q = this.joueur.getMain().get(numeroCarte);
             Joueur j = restants.get(numeroJoueur);
             j.ajouterQuartierDansMain(q);
-            pris.remove(q);
+            this.joueur.retirerQuartierDansMain(q);
             restants.remove(j);
 
          }
