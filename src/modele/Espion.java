@@ -85,14 +85,26 @@ public class Espion extends Personnage {
             }
 
             ArrayList<Quartier> main = choisi.getMain();
-            int ajout = 0;
+            int nbQuartierType = 0;
             for(int i =0;i< choisi.nbQuartiersDansMain();i++){
                 if(main.get(i).getType().equals(choix)){
-                    ajout = ajout+1;
+                    nbQuartierType = nbQuartierType+1;
                 }
             }
 
-            this.joueur.ajouterPieces(ajout);
+            if(choisi.tresor() >= nbQuartierType){
+                this.joueur.ajouterPieces(nbQuartierType);
+                choisi.retirerPieces(nbQuartierType);
+            }
+            else{
+                int nbPioche = nbQuartierType - choisi.tresor();
+                this.joueur.ajouterPieces(choisi.tresor());
+                choisi.retirerPieces(choisi.tresor());
+                for(int i = 0; i<nbPioche;i++){
+                    this.joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
+                }
+            }
+            
 
         }
 
