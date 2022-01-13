@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controleur.Interaction;
 
@@ -51,4 +52,34 @@ public class Archiviste extends Personnage {
         }else{System.out.println("Le joueur a ete assassine");} 
 
     }
+
+    public void utiliserPouvoirAvatar(){
+        if(!assassine){
+            ArrayList<Quartier> selection = new ArrayList<Quartier>();
+            for(int i = 0; i<7;i++){
+                try{
+                    selection.add(plateau.getPioche().piocher());
+                }catch (NullPointerException e){
+                    System.out.println("Pioche Vide");
+                    break;
+                }
+            }
+
+            if(selection.size() > 0){
+                //Choix de la carte
+                Random random = new Random();
+                int aleatoire = random.nextInt(selection.size());
+                this.joueur.ajouterQuartierDansMain(selection.get(aleatoire));
+                selection.remove(aleatoire);
+                //Carte dans la pioche + melange
+                for(int i = 0;i<selection.size();i++){
+                    plateau.getPioche().ajouter(selection.get(i));
+                    selection.remove(i);
+                }
+                plateau.getPioche().melanger();
+
+            } else{System.out.println("Pioche Vide");}
+        }else{System.out.println("Le joueur a ete assassine");}
+    }
+    
 }
