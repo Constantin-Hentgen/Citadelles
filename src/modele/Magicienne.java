@@ -128,39 +128,39 @@ public class Magicienne extends Personnage {
 
 			System.out.println("Vous avez choisi " + cible.getNom().toUpperCase());
 
-			System.out.println("\nla main de ce joueur est : \n");
+			// System.out.println("\nla main de ce joueur est : \n");
 
-			for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
-				System.out.println("\t" + cible.getMain().get(i).getNom());
-			}
+			// for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
+			// 	System.out.println("\t" + cible.getMain().get(i).getNom());
+			// }
 
-			System.out.println("\nvotre main pour rappel est : \n");
+			// System.out.println("\nvotre main pour rappel est : \n");
 
 
-			for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
-				System.out.println("\t" + magicienne.getMain().get(i).getNom());
-			}
+			// for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
+			// 	System.out.println("\t" + magicienne.getMain().get(i).getNom());
+			// }
 
 			ArrayList<Quartier> TEMP = magicienne.getMain();
 
 			magicienne.setMain(cible.getMain());
 			cible.setMain(TEMP);
 
-			System.out.println("Les mains ont été échangées.");
+			// System.out.println("Les mains ont été échangées.");
 
-			System.out.println("\n\nLA PREUVE EN IMAGE");
+			// System.out.println("\n\nLA PREUVE EN IMAGE");
 
-			System.out.println("\nla main de la cible est devenue \n");
+			// System.out.println("\nla main de la cible est devenue \n");
 
-			for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
-				System.out.println("\t" + cible.getMain().get(i).getNom());
-			}
+			// for (int i = 0; i < cible.nbQuartiersDansMain(); i++) {
+			// 	System.out.println("\t" + cible.getMain().get(i).getNom());
+			// }
 
-			System.out.println("\nvotre main maintenant est : \n");
+			// System.out.println("\nvotre main maintenant est : \n");
 
-			for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
-				System.out.println("\t" + magicienne.getMain().get(i).getNom());
-			}
+			// for (int i = 0; i < magicienne.nbQuartiersDansMain(); i++) {
+			// 	System.out.println("\t" + magicienne.getMain().get(i).getNom());
+			// }
 
         } else {
 			System.out.println("Combien de cartes voulez-vous échanger avec la pioche ?");
