@@ -55,6 +55,10 @@ public class Joueur {
 		return this.main.size();
 	}
 
+	public void setMain(ArrayList<Quartier> nouvelleMain) {
+		this.main = nouvelleMain;
+	}
+
 	public boolean getPossedeCouronne() {
 		return this.possedeCouronne;
 	}
