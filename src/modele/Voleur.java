@@ -39,7 +39,7 @@ public class Voleur extends Personnage {
 		// on retire le total de l'argent du joueur volé
 		plateau.getJoueur(selection).retirerPieces(plateau.getJoueur(selection).nbPieces());
 
-		System.out.println("\nLe joueur " + plateau.getJoueur(selection).getNom().toUpperCase() + " a été volé.\n");
+		System.out.println("\n\t"+plateau.getJoueur(selection).getNom().toUpperCase() + " a été volé.\n");
 		
 		// on cherche le voleur dans la liste puis on atteint le joueur correspondant
 		for (int k = 0; k < plateau.getNombreJoueurs(); k++) {
@@ -69,7 +69,7 @@ public class Voleur extends Personnage {
 		// on retire le total de l'argent du joueur volé
 		plateau.getJoueur(selection).retirerPieces(plateau.getJoueur(selection).nbPieces());
 
-		System.out.println("Le joueur " + plateau.getJoueur(selection).getNom().toUpperCase() + " a été volé.");
+		System.out.println("\t" + plateau.getJoueur(selection).getNom().toUpperCase() + " a été volé.");
 		
 		// on cherche le voleur dans la liste puis on atteint le joueur correspondant
 		for (int k = 0; k < plateau.getNombreJoueurs(); k++) {
