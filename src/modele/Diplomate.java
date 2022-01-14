@@ -1,5 +1,7 @@
 package modele;
 
+import java.util.ArrayList;
+
 import controleur.Interaction;
 
 public class Diplomate extends Personnage {
@@ -38,66 +40,113 @@ public class Diplomate extends Personnage {
             
 
             if(oui){
-                boolean evequeMort = false; // On ne peut pas echanger avec l'eveaue Mort
-                boolean existeCiteConforme = false; // On ne peut pas  echanger avecune cite vide ou une cite complete
-                boolean citeDiplomateVide = (this.joueur.nbQuartiersDansCite() == 0);
-                //Eveque assassine ?
+                //Detection des personnes avec qui un echange est possible
+                ArrayList<Joueur> joueurEchangePossible = new ArrayList<Joueur>();
+
                 for(int i = 0;i<plateau.getNombreJoueurs();i++){
                     Joueur j = plateau.getJoueur(i);
-                    if(j.getPersonnage().getNom().equals("Eveque")){
-                        evequeMort = j.getPersonnage().getAssassine();
-                        if(!evequeMort){
-                            if(j.nbQuartiersDansCite()>0 && j.nbQuartiersDansCite()<8){
-                                existeCiteConforme =true;
-                            }
-                        }
-                    }else{
-                        if(j.nbQuartiersDansCite()>0 && j.nbQuartiersDansCite()<8){
-                            for(int k =0;k<j.nbQuartiersDansCite();k++){
-                                if(!this.joueur.quartierPresentDansCite(j.getCite()[k].getNom())){
-                                    existeCiteConforme = true;
-                                    break;
+                    if(!j.equals(this.joueur)){ // On ne veut pas de nous meme dans cette liste
+                        if(j.nbQuartiersDansCite()>0 && j.nbQuartiersDansCite()<8){ //Cite non vide et non pleine
+                            if(!j.getPersonnage().getNom().equals("Eveque") || j.getPersonnage().getAssassine()){ // Cas de perso non eveque ou mort
+                                boolean ajoutPresence = true; //Autorisatiion car aucune copie
+                                boolean ajoutCout = false; // Autorisation car peut s'offrir une carte
+                                for(int k = 0;k<j.nbQuartiersDansCite();k++){
+                                    if(j.quartierPresentDansCite(joueur.getCite()[k].getNom())){ //Si les deux joueurs possede le meme quartier on ne peut pas echanger avec lui 
+                                        ajoutPresence = false;
+                                        break;
+                                    }
+                                    else{ //Gestion du cout des cartes, possibilite de s'offrir une carte
+                                            for(int n = 0; n<this.joueur.nbQuartiersDansCite();n++){
+                                                if(j.getCite()[k].getCout() - this.getJoueur().getCite()[n].getCout() <= this.joueur.tresor()){ //Au mois une possible a s'offrir
+                                                    ajoutCout = true;
+                                                    break;
+                                                }
+                                            }
+                                    }
+                                }
+                                if(ajoutPresence&& ajoutCout){ 
+                                    joueurEchangePossible.add(j);
                                 }
                             }
-                            existeCiteConforme =true;
                         }
                     }
                 }
 
-                if(existeCiteConforme && !citeDiplomateVide){
-                    System.out.println("Avec qui voulez vous effectuer un echange ?");
-                    System.out.println();
-                    for(int i =0;i<plateau.getNombreJoueurs();i++){
-                        System.out.println(i+" | "+plateau.getJoueur(i)+ " | " + plateau.getJoueur(i).getPersonnage().getNom());
+                if(joueurEchangePossible.size()>0 && this.joueur.nbQuartiersDansCite() >0){ //Existe un echange et main diplomate non vide
+                    //Selection de la victime del'echange
+                    System.out.println("Avec quel joueur voulez vous echanger vos cartes ?");
+
+                    for(int i = 0;i<joueurEchangePossible.size();i++){
+                        System.out.println(i +" | " + joueurEchangePossible.get(i).getNom());
+                    }
+                    int choix = inter.lireUnEntier(0, joueurEchangePossible.size());
+                    Joueur victime = joueurEchangePossible.get(choix);
+
+                    //Reevaluation des possibilite d'echange pour le cout de la carte
+                    ArrayList<Quartier> donPossible = new ArrayList<Quartier>();
+                    ArrayList<Quartier> recevoirPossible = new ArrayList<Quartier>();
+
+                    for(int i = 0; i<this.joueur.nbQuartiersDansCite();i++){
+                        for(int k = 0;k<victime.nbQuartiersDansCite();k++){
+                            if(victime.getCite()[k].getCout() - this.getJoueur().getCite()[i].getCout() <= this.joueur.tresor()){
+                                if(!donPossible.contains(this.getJoueur().getCite()[i])){ // On ajoute pas deux fois le meme quartier
+                                    donPossible.add(this.joueur.getCite()[i]);
+                                }
+                                if(!recevoirPossible.contains(victime.getCite()[k])){
+                                    recevoirPossible.add(victime.getCite()[k]);
+                                }
+                            }
+                        }
+                            
                     }
 
-                    Joueur victime = this.joueur;
-                    
-                    while(victime.equals(this.joueur) || (victime.getPersonnage().getNom().equals("Eveque") && evequeMort )){
-                        int choix = inter.lireUnEntier(0, plateau.getNombreJoueurs());
-                        victime = plateau.getJoueur(choix);
-                        if(victime.equals(this.joueur)){
-                            System.out.println("Vous ne pouvez pas choisir vous meme");
-                        }
-                        if(victime.getPersonnage().getNom().equals("Eveque") && evequeMort){
-                            System.out.println("L'eveque est protégé de vos attaques");
+                    if(donPossible.size() > 0 && recevoirPossible.size() > 0){
+                        boolean echangeFait = false;
+                        System.out.println("");
+                            System.out.println("Quelle de vos carte voulez vous echanger ?");
+
+                            for(int i = 0;i<donPossible.size();){
+                                System.out.println(i +" | "+ donPossible.get(i).getNom() +" | "+ donPossible.get(i).getCout() + " PO");
+                            }
+                            choix = inter.lireUnEntier(0,donPossible.size());
+                            Quartier don = donPossible.get(choix);
+
+                        while(!echangeFait){
+                            System.out.println();
+                            System.out.println("Avec quelle carte ?");
+
+                            for(int i = 0;i<recevoirPossible.size();){
+                                System.out.println(i +" | "+ recevoirPossible.get(i).getNom() +" | "+ recevoirPossible.get(i).getCout() + " PO");
+                            }
+
+                            choix = inter.lireUnEntier(0,recevoirPossible.size());
+                            Quartier recevoir = donPossible.get(choix);
+
+                            if(recevoir.getCout() - don.getCout() <=this.joueur.tresor()){
+                                System.out.println("Vous echangez vos quartier !");
+                                victime.retirerQuartierDansCite(recevoir.getNom());
+                                victime.ajouterQuartierDansCite(don);
+                                this.joueur.retirerQuartierDansCite(don.getNom());
+                                this.joueur.ajouterQuartierDansCite(recevoir);
+                                if(recevoir.getCout() > don.getCout()){
+                                    System.out.println("Vous payez "+ (recevoir.getCout() - don.getCout()) +"PO pour l'echange");
+                                    this.joueur.retirerPieces(recevoir.getCout()-don.getCout());
+                                    victime.ajouterPieces(recevoir.getCout()-don.getCout());
+                                }
+                                echangeFait = true;
+                            }
+                            else{
+                                System.out.println("Fonds insuffisants");
+                            }
                         }
                     }
-                    //Choix de la carte du diplomate a echanger
-                    System.out.println("Quelle quartier de votre cité voulez-vous échanger ?");
-                    
-                    for(int i = 0;i<this.joueur.nbQuartiersDansCite();i++){
-                        System.out.println();
-                    } 
-                    
+                    else{ System.out.println("Echange impossible!!!(erreur)");}
 
-                }
-                
-                
 
+                }else{System.out.println("Aucune cite compatible pour echange.");}
             }
             
-        }
+        } else{System.out.println("Le joueur a ete assassine");}
     }
     
 }
