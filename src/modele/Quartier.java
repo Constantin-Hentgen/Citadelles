@@ -4,6 +4,7 @@ public class Quartier {
 	public static final String[] TYPE_QUARTIERS = {"RELIGIEUX", "MILITAIRE", "NOBLE", "COMMERCANT", "MERVEILLE"};
 	private String nom, type, caracteristique;
 	private int coutConstruction;
+	boolean embelli = false; //Existance artiste
 
 	public Quartier() {
 		nom = "";
@@ -67,5 +68,14 @@ public class Quartier {
 
 	public void setCaracteristiques(String caracteristiqueInput) {
 		this.caracteristique = caracteristiqueInput;
+	}
+
+	public boolean getEmbelli(){ // Existence artiste
+		return this.embelli;
+	}
+
+	public void setEmbelli(){ //Existance artiste
+		this.embelli = true;
+		this.coutConstruction = this.coutConstruction +1;
 	}
 }
