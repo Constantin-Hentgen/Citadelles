@@ -24,8 +24,7 @@ public class Abbe extends Personnage {
             System.out.println("Vous avez " + quartierReligieux + "dans votre cite");
             if(quartierReligieux > 0){
                 System.out.println("Combien voulez vous d'or ?(Maximum : " +quartierReligieux);
-                Interaction inter = new Interaction();
-                int choixPiece = inter.lireUnEntier(0, quartierReligieux+1);
+                int choixPiece = Interaction.lireUnEntier(0, quartierReligieux+1);
                 this.joueur.ajouterPieces(choixPiece);
                 System.out.println();
                 System.out.println("Vous piochez "+ (quartierReligieux-choixPiece)+" cartes");
@@ -82,10 +81,9 @@ public class Abbe extends Personnage {
                     }
                     System.out.println();
 
-                    Interaction inter = new Interaction();
                     Joueur victime = this.joueur;
                     while(victime.equals(this.joueur)){
-                        int choix = inter.lireUnEntier(0,plusRiche.size());
+                        int choix = Interaction.lireUnEntier(0,plusRiche.size());
                         victime = plusRiche.get(choix);
                         if(victime.equals(this.joueur)){
                             System.out.println("Vous ne pouvez pas vous cibler vous meme");

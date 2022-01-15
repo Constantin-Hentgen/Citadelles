@@ -9,15 +9,15 @@ public class TestRoi {
 
 	public static void main(String[] args) {
 		TestRoi testRoi= new TestRoi();
-		testRoi.test1();
-		testRoi.test2();
-		testRoi.test3();
-		testRoi.test4();
-		testRoi.test5();
-		testRoi.test6();
-		testRoi.test7();
-		testRoi.test8();
-		testRoi.test9();
+		//testRoi.test1();
+		//testRoi.test2();
+		//testRoi.test3();
+		//testRoi.test4();
+		//testRoi.test5();
+		//testRoi.test6();
+		//testRoi.test7();
+		//testRoi.test8();
+		//testRoi.test9();
 		testRoi.test10();
 	}
 	

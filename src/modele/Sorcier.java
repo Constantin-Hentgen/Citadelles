@@ -38,9 +38,8 @@ public class Sorcier extends Personnage{
                 System.out.println();
                 // Selection du joueur
                 Joueur j = this.joueur;
-                Interaction inter = new Interaction();
                 while (j.equals(this.joueur) && j.nbQuartiersDansMain() !=0 ){   
-                    int choix = inter.lireUnEntier(0, plateau.getNombreJoueurs());
+                    int choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
                     j = plateau.getJoueur(choix);
                     if(j.equals(this.joueur)){System.out.println("Vous ne puvez pas choisir vous meme");}
                     if(j.nbQuartiersDansMain() == 0 ){ System.out.println("Ce joueur n'as pas de carte dans sa main");}
@@ -53,7 +52,7 @@ public class Sorcier extends Personnage{
                     System.out.println(i+" | "+ main.get(i).getNom());
                 }
                 System.out.println();
-                int choix = inter.lireUnEntier(0, main.size());
+                int choix = Interaction.lireUnEntier(0, main.size());
                 Quartier q = main.get(choix);
                 j.getMain().remove(q);
                 System.out.println("La carte est : "+q.getNom());
@@ -71,7 +70,7 @@ public class Sorcier extends Personnage{
                     System.out.println("1 | Ajouter a la main");
                     System.out.println();
         
-                    choix = inter.lireUnEntier(0,2);
+                    choix = Interaction.lireUnEntier(0,2);
                     if(choix == 0){
                         this.joueur.ajouterQuartierDansCite(q);
                         this.joueur.retirerPieces(q.getCout());

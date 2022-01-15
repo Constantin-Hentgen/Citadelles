@@ -46,9 +46,8 @@ public class Empereur extends Personnage {
             System.out.println();
 
             Joueur j = this.joueur;
-            Interaction inter = new Interaction();
             while(j.equals(this.joueur) || j.equals(ancienCouronne)){
-                int choix = inter.lireUnEntier(0, plateau.getNombreJoueurs());
+                int choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
                 j = plateau.getJoueur(choix);
                 if(j.equals(this.joueur)){System.out.println("Vous ne pouvez pas vous donnez la couronne");}
                 if(j.equals(ancienCouronne)){System.out.println("Vous ne pouvez pas redonner la couronne a son ancien proprietaire");}
@@ -129,8 +128,7 @@ public class Empereur extends Personnage {
             j.setPossedeCouronne(true);
             System.out.println(j.getNom()+"recois la couronne");
             System.out.println();
-
-            Interaction inter = new Interaction();
+            
             //Si le joueur est humain paiement;
             if(plateau.getJoueur(0).equals(j)){
                 Joueur humain = plateau.getJoueur(0);
@@ -143,7 +141,7 @@ public class Empereur extends Personnage {
                     System.out.println("0 | 1 Piece");
                     System.out.println("1 | 1 Quatier alatoire de votre main");
                     System.out.println();
-                    int choix = inter.lireUnEntier(0, 2);
+                    int choix = Interaction.lireUnEntier(0, 2);
                     if(choix == 0){
                         humain.retirerPieces(1);
                         this.joueur.ajouterPieces(1);

@@ -36,7 +36,6 @@ public class Voyante extends Personnage {
         }
 
         // Affichage des cartes
-        Interaction inter = new Interaction();
         Quartier q = new Quartier();
         while(restants.size() != 0){
             // choix de la carte a donner
@@ -47,7 +46,7 @@ public class Voyante extends Personnage {
                 System.out.println(i+" | "+this.joueur.getMain().get(i).getNom());
             }
             System.out.println();
-            int choix = inter.lireUnEntier(0, this.joueur.getMain().size());
+            int choix = Interaction.lireUnEntier(0, this.joueur.getMain().size());
             q = this.joueur.getMain().get(choix);
             
             System.out.println();
@@ -60,7 +59,7 @@ public class Voyante extends Personnage {
                 
             }
 
-            choix = inter.lireUnEntier(0,restants.size());
+            choix = Interaction.lireUnEntier(0,restants.size());
             Joueur receveur = restants.get(choix);
             this.joueur.getMain().remove(q);
             receveur.ajouterQuartierDansMain(q);
