@@ -19,8 +19,7 @@ public class Espion extends Personnage {
             for(int i = 0; i<5;i++){
                 System.out.println(i+" | "+Quartier.TYPE_QUARTIERS[i]);
             }
-            Interaction j = new Interaction();
-            int c = j.lireUnEntier(0,5);
+            int c = Interaction.lireUnEntier(0,5);
             String choix = Quartier.TYPE_QUARTIERS[c];
 
             System.out.println("Veuillez choisir un joueur pour regarder sa main :");
@@ -31,7 +30,7 @@ public class Espion extends Personnage {
             
             Joueur choisi = this.joueur;
             do{
-                c = j.lireUnEntier(0,plateau.getNombreJoueurs());
+                c = Interaction.lireUnEntier(0,plateau.getNombreJoueurs());
                 choisi = plateau.getJoueur(c);
                 if ((choisi.equals(this.joueur))){ System.out.println("Vous ne pouvez pas vous choisir vous meme.");}
             } while ((choisi.equals(this.joueur)));

@@ -329,6 +329,11 @@ public class Jeu {
 						}
 						afficheMainJoueur();
 					}
+
+					if(plateau.getJoueur(i).getPersonnage().getNom().equals("Reine")){
+						plateau.getJoueur(i).getPersonnage().percevoirRessourcesSpecifiques();
+					}
+
 				} else {
 					boolean isNouvelleCarte = Interaction.randomizerBoolean();
 
@@ -364,6 +369,9 @@ public class Jeu {
 						afficheCiteJoueur(i);
 
 						System.out.println("\nTrésor de " + this.plateau.getJoueur(i).getNom() + " est de " + this.plateau.getJoueur(i).tresor() + " PO.");
+					}
+					if(plateau.getJoueur(i).getPersonnage().getNom().equals("Reine")){
+						plateau.getJoueur(i).getPersonnage().percevoirRessourcesSpecifiques();
 					}
 				}
 			}

@@ -98,10 +98,10 @@ public abstract class Personnage {
 	public abstract void utiliserPouvoirAvatar();
 
 	public void reinitialiser() {
+		this.joueur.monPersonnage = null;
 		this.joueur = null;
 		this.vole =  false;
 		this.assassine = false;
-		this.joueur.monPersonnage = null;
 		this.ensorcele = false;
 	}
 }

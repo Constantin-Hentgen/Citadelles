@@ -36,8 +36,7 @@ public class Diplomate extends Personnage {
         if(!assassine){
             System.out.println("Souhaitez vous echanger un des quartier de votre cite ? ");
             System.out.println();
-            Interaction inter = new Interaction();
-            boolean oui = inter.lireOuiOuNon();
+            boolean oui = Interaction.lireOuiOuNon();
             
 
             if(oui){
@@ -80,7 +79,7 @@ public class Diplomate extends Personnage {
                     for(int i = 0;i<joueurEchangePossible.size();i++){
                         System.out.println(i +" | " + joueurEchangePossible.get(i).getNom());
                     }
-                    int choix = inter.lireUnEntier(0, joueurEchangePossible.size());
+                    int choix = Interaction.lireUnEntier(0, joueurEchangePossible.size());
                     Joueur victime = joueurEchangePossible.get(choix);
 
                     //Reevaluation des possibilite d'echange pour le cout de la carte
@@ -109,7 +108,7 @@ public class Diplomate extends Personnage {
                             for(int i = 0;i<donPossible.size();){
                                 System.out.println(i +" | "+ donPossible.get(i).getNom() +" | "+ donPossible.get(i).getCout() + " PO");
                             }
-                            choix = inter.lireUnEntier(0,donPossible.size());
+                            choix = Interaction.lireUnEntier(0,donPossible.size());
                             Quartier don = donPossible.get(choix);
 
                         while(!echangeFait){
@@ -120,7 +119,7 @@ public class Diplomate extends Personnage {
                                 System.out.println(i +" | "+ recevoirPossible.get(i).getNom() +" | "+ recevoirPossible.get(i).getCout() + " PO");
                             }
 
-                            choix = inter.lireUnEntier(0,recevoirPossible.size());
+                            choix = Interaction.lireUnEntier(0,recevoirPossible.size());
                             Quartier recevoir = donPossible.get(choix);
 
                             if(recevoir.getCout() - don.getCout() <=this.joueur.tresor()){

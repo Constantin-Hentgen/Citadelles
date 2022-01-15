@@ -23,8 +23,7 @@ public class Artiste extends Personnage{
 
             if(quartierAEmbellir){
                 System.out.println("Souhaitez vous embellir un quartier ?");
-                Interaction inter = new Interaction();
-                boolean oui = inter.lireOuiOuNon();
+                boolean oui = Interaction.lireOuiOuNon();
 
                 if(oui){
                     System.out.println("Quel quartier voulez-vou embellir ?");
@@ -43,7 +42,7 @@ public class Artiste extends Personnage{
                     quartierChoisi.setEmbelli(); //force a entrer dans la boucle
                     int choix = 0;// Correspondra forcement aux choix du joueur car on rentre dans la boucle
                     while(quartierChoisi.getEmbelli()){
-                        choix = inter.lireUnEntier(0,joueur.nbQuartiersDansCite());
+                        choix = Interaction.lireUnEntier(0,joueur.nbQuartiersDansCite());
                         quartierChoisi = joueur.getCite()[choix];
                         if(quartierChoisi.getEmbelli()){
                             System.out.println("Ce quartier a deja ete embelli.");

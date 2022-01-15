@@ -21,9 +21,8 @@ public class Sorciere extends Personnage {
         }
         //Choix du personnage
         Personnage p = this;
-        Interaction inter = new Interaction();
         while(p.equals(this)){
-            int choix = inter.lireUnEntier(0, plateau.getNombreJoueurs());
+            int choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
             p = plateau.getPersonnage(choix);
             if(p.equals(this)){System.out.println("Vous ne pouvez pas vous ensorceler vous meme");}
         }

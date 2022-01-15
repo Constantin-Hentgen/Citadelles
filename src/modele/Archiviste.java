@@ -34,8 +34,7 @@ public class Archiviste extends Personnage {
                 System.out.println();
 
                 // Choix + addition de la carte a la main
-                Interaction inter = new Interaction();
-                int choix = inter.lireUnEntier(0, selection.size());
+                int choix = Interaction.lireUnEntier(0, selection.size());
                 System.out.println("Vous avez choisi : "+selection.get(choix).getNom());
                 this.joueur.ajouterQuartierDansMain(selection.get(choix));
                 selection.remove(choix);

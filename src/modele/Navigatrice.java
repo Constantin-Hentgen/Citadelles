@@ -19,8 +19,7 @@ public class Navigatrice extends Personnage{
             System.out.println("0 | 4 pieces d'or");
             System.out.println("1 | 4 quartiers");
             System.out.println();
-            Interaction inter = new Interaction();
-            int choixPiece = inter.lireUnEntier(0,2);
+            int choixPiece = Interaction.lireUnEntier(0,2);
             if(choixPiece == 0){
                 System.out.println("Vous recevez 4 pieces");
                 this.joueur.ajouterPieces(4);
