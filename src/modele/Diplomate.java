@@ -124,14 +124,14 @@ public class Diplomate extends Personnage {
 
                             if(recevoir.getCout() - don.getCout() <=this.joueur.tresor()){
                                 System.out.println("Vous echangez vos quartier !");
-                                victime.retirerQuartierDansCite(recevoir.getNom());
+                                victime.retirerQuartierDansCite(recevoir.getNom()); // Modifier pour cela affecte la vicime et non sa copie
                                 victime.ajouterQuartierDansCite(don);
                                 this.joueur.retirerQuartierDansCite(don.getNom());
                                 this.joueur.ajouterQuartierDansCite(recevoir);
                                 if(recevoir.getCout() > don.getCout()){
                                     System.out.println("Vous payez "+ (recevoir.getCout() - don.getCout()) +"PO pour l'echange");
                                     this.joueur.retirerPieces(recevoir.getCout()-don.getCout());
-                                    victime.ajouterPieces(recevoir.getCout()-don.getCout());
+                                    victime.ajouterPieces(recevoir.getCout()-don.getCout()); // Meme commentaire que plus haut
                                 }
                                 echangeFait = true;
                             }
