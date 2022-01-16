@@ -52,13 +52,13 @@ public class Espion extends Personnage {
                 System.out.println();
                 System.out.println("Vous volez "+nbQuartierType+" pieces");
                 this.joueur.ajouterPieces(nbQuartierType);
-                choisi.retirerPieces(nbQuartierType);
+                plateau.getJoueur(c).retirerPieces(nbQuartierType);
             }
             else{
                 int nbPioche = nbQuartierType - tresorVole;
                 System.out.println("Vous volez "+ tresorVole+" pieces");
                 this.joueur.ajouterPieces(tresorVole);
-                choisi.retirerPieces(tresorVole);
+                plateau.getJoueur(c).retirerPieces(tresorVole);
                 System.out.println("Vous piochez "+nbPioche+" cartes");
                 for(int i =0;i<nbPioche ;i++ ){
                     try{
@@ -93,12 +93,12 @@ public class Espion extends Personnage {
 
             if(choisi.tresor() >= nbQuartierType){
                 this.joueur.ajouterPieces(nbQuartierType);
-                choisi.retirerPieces(nbQuartierType);
+                plateau.getJoueur(c).retirerPieces(nbQuartierType);
             }
             else{
                 int nbPioche = nbQuartierType - choisi.tresor();
                 this.joueur.ajouterPieces(choisi.tresor());
-                choisi.retirerPieces(choisi.tresor());
+                plateau.getJoueur(c).retirerPieces(choisi.tresor());
                 for(int i = 0; i<nbPioche;i++){
                     this.joueur.ajouterQuartierDansMain(plateau.getPioche().piocher());
                 }
