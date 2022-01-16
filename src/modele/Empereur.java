@@ -46,14 +46,15 @@ public class Empereur extends Personnage {
             System.out.println();
 
             Joueur j = this.joueur;
+            int choix = 0;
             while(j.equals(this.joueur) || j.equals(ancienCouronne)){
-                int choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
+                choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
                 j = plateau.getJoueur(choix);
                 if(j.equals(this.joueur)){System.out.println("Vous ne pouvez pas vous donnez la couronne");}
                 if(j.equals(ancienCouronne)){System.out.println("Vous ne pouvez pas redonner la couronne a son ancien proprietaire");}
             }
             //Don de la couronne au dit joueur
-            j.setPossedeCouronne(true);
+            plateau.getJoueur(choix).setPossedeCouronne(true);
 
             //Paiement aleatoire(bots)
 
@@ -64,14 +65,14 @@ public class Empereur extends Personnage {
                 boolean paiementPiece = r.nextBoolean();
                 if(paiementPiece){
                     System.out.println(j.getNom() + " vous donne 1 piece pour la couronne");
-                    j.retirerPieces(1);
+                    plateau.getJoueur(choix).retirerPieces(1);
                     this.joueur.ajouterPieces(1);
                 }
                 else{
                     System.out.println(j.getNom()+" vous donne 1 quartier pour la couronne");
                     int aleatoire = r.nextInt(nbMain);
                     Quartier q = j.getMain().get(aleatoire);
-                    j.retirerQuartierDansMain(q);
+                    plateau.getJoueur(choix).retirerQuartierDansMain(q);
                     this.joueur.ajouterQuartierDansMain(q);
                     System.out.println();
                     System.out.println("Vous avez obtenu : " + q.getNom());
@@ -83,7 +84,7 @@ public class Empereur extends Personnage {
                         System.out.println(j.getNom()+" vous donne 1 quartier pour la couronne");
                         int aleatoire = r.nextInt(nbMain);
                         Quartier q = j.getMain().get(aleatoire);
-                        j.retirerQuartierDansMain(q);
+                        plateau.getJoueur(choix).retirerQuartierDansMain(q);
                         this.joueur.ajouterQuartierDansMain(q);
                         System.out.println();
                         System.out.println("Vous avez obtenu : " + q.getNom());
@@ -93,7 +94,7 @@ public class Empereur extends Personnage {
                 }
                 else{
                     System.out.println(j.getNom() + " vous donne 1 piece pour la couronne");
-                    j.retirerPieces(1);
+                    plateau.getJoueur(choix).retirerPieces(1);
                     this.joueur.ajouterPieces(1);
                 }
             }
@@ -120,12 +121,13 @@ public class Empereur extends Personnage {
         if(couronneExiste){
 
             Joueur j = this.joueur;
+            int aleatoire = 0;
             while(j.equals(this.joueur) || j.equals(ancienCouronne)){
-                int aleatoire = r.nextInt(plateau.getNombreJoueurs());
+                aleatoire = r.nextInt(plateau.getNombreJoueurs());
                 j = plateau.getJoueur(aleatoire);
             }
             //Don de la couronne au dit joueur
-            j.setPossedeCouronne(true);
+            plateau.getJoueur(aleatoire).setPossedeCouronne(true);
             System.out.println(j.getNom()+"recois la couronne");
             System.out.println();
             
@@ -143,14 +145,14 @@ public class Empereur extends Personnage {
                     System.out.println();
                     int choix = Interaction.lireUnEntier(0, 2);
                     if(choix == 0){
-                        humain.retirerPieces(1);
+                        plateau.getJoueur(aleatoire).retirerPieces(1);
                         this.joueur.ajouterPieces(1);
                     }
                     else{
                         try{
-                            int aleatoire = r.nextInt(humain.nbQuartiersDansMain());
+                            aleatoire = r.nextInt(humain.nbQuartiersDansMain());
                             Quartier retire = humain.getMain().get(aleatoire);
-                            humain.retirerQuartierDansMain(retire);
+                            plateau.getJoueur(aleatoire).retirerQuartierDansMain(retire);
                             this.joueur.ajouterQuartierDansMain(retire);
                         } catch (NullPointerException e){ System.out.println("Vous ne possedez pas de cartes");}
                     }
@@ -159,9 +161,9 @@ public class Empereur extends Personnage {
                 if(humain.tresor() == 0 && humain.nbQuartiersDansMain() != 0){
                     System.out.println("Vous pouvez uniquement payer avec un quartier.");
                     try{
-                        int aleatoire = r.nextInt(humain.nbQuartiersDansMain());
+                        aleatoire = r.nextInt(humain.nbQuartiersDansMain());
                         Quartier retire = humain.getMain().get(aleatoire);
-                        humain.retirerQuartierDansMain(retire);
+                        plateau.getJoueur(aleatoire).retirerQuartierDansMain(retire);
                         this.joueur.ajouterQuartierDansMain(retire);
                     } catch(NullPointerException e){
                         System.out.println("Vous ne possedez pas de quartiers.");
@@ -169,7 +171,7 @@ public class Empereur extends Personnage {
                 }
                 if(humain.tresor() != 0 && humain.nbQuartiersDansMain() == 0){
                     System.out.println("Vous pouvez uniquement payer en pièces");
-                    humain.retirerPieces(1);
+                    plateau.getJoueur(aleatoire).retirerPieces(1);
                     this.joueur.ajouterPieces(1);
                     System.out.println("Vous avez perdu une piece");
                 }
@@ -179,28 +181,28 @@ public class Empereur extends Personnage {
             if(tresor != 0 && nbMain != 0){
                 boolean paiementPiece = r.nextBoolean();
                 if(paiementPiece){
-                    j.retirerPieces(1);
+                    plateau.getJoueur(aleatoire).retirerPieces(1);
                     this.joueur.ajouterPieces(1);
                 }
                 else{
-                    int aleatoire = r.nextInt(nbMain);
-                    Quartier q = j.getMain().get(aleatoire);
-                    j.retirerQuartierDansMain(q);
+                    int aleatoireCarte = r.nextInt(nbMain);
+                    Quartier q = j.getMain().get(aleatoireCarte);
+                    plateau.getJoueur(aleatoire).retirerQuartierDansMain(q);
                     this.joueur.ajouterQuartierDansMain(q);
                 }
             }
             else {
                 if(tresor == 0){
                     try{
-                        int aleatoire = r.nextInt(nbMain);
-                        Quartier q = j.getMain().get(aleatoire);
-                        j.retirerQuartierDansMain(q);
+                        int aleatoireCarte = r.nextInt(nbMain);
+                        Quartier q = j.getMain().get(aleatoireCarte);
+                        plateau.getJoueur(aleatoire).retirerQuartierDansMain(q);
                         this.joueur.ajouterQuartierDansMain(q);
                     } catch(NullPointerException e){
                     }
                 }
                 else{
-                    j.retirerPieces(1);
+                    plateau.getJoueur(aleatoire).retirerPieces(1);
                     this.joueur.ajouterPieces(1);
                 }
             }
