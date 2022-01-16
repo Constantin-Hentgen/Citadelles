@@ -504,7 +504,7 @@ public class Jeu {
 									int[] CHOIXQUARTIERSAVENDRE = new int[prixEnCartes];
 
 									for (int iter = 0; iter < prixEnCartes; iter ++) {
-										CHOIXQUARTIERSAVENDRE[iter] = Interaction.lireUnEntier(1, this.plateau.getJoueur(i).nbQuartiersDansMain())-1;
+										CHOIXQUARTIERSAVENDRE[iter] = Interaction.randomizer(this.plateau.getJoueur(i).nbQuartiersDansMain()-1);
 									}
 
 									for (int iter = 0; iter < prixEnCartes; iter ++) {
