@@ -38,8 +38,9 @@ public class Sorcier extends Personnage{
                 System.out.println();
                 // Selection du joueur
                 Joueur j = this.joueur;
+                int choix = 0;
                 while (j.equals(this.joueur) && j.nbQuartiersDansMain() !=0 ){   
-                    int choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
+                    choix = Interaction.lireUnEntier(0, plateau.getNombreJoueurs());
                     j = plateau.getJoueur(choix);
                     if(j.equals(this.joueur)){System.out.println("Vous ne puvez pas choisir vous meme");}
                     if(j.nbQuartiersDansMain() == 0 ){ System.out.println("Ce joueur n'as pas de carte dans sa main");}
@@ -52,9 +53,9 @@ public class Sorcier extends Personnage{
                     System.out.println(i+" | "+ main.get(i).getNom());
                 }
                 System.out.println();
-                int choix = Interaction.lireUnEntier(0, main.size());
-                Quartier q = main.get(choix);
-                j.getMain().remove(q);
+                int choixCarte = Interaction.lireUnEntier(0, main.size());
+                Quartier q = main.get(choixCarte);
+                plateau.getJoueur(choix).getMain().remove(q);
                 System.out.println("La carte est : "+q.getNom());
                 System.out.println();
         
@@ -109,9 +110,9 @@ public class Sorcier extends Personnage{
                     aleatoire = r.nextInt(plateau.getNombreJoueurs());
                 }
 
-                aleatoire = r.nextInt(j.nbQuartiersDansMain());
-                Quartier q = j.getMain().get(aleatoire);
-                j.retirerQuartierDansMain(q);
+                int aleatoireCarte = r.nextInt(j.nbQuartiersDansMain());
+                Quartier q = j.getMain().get(aleatoireCarte);
+                plateau.getJoueur(aleatoire).retirerQuartierDansMain(q);
                 boolean alea = r.nextBoolean();
                 if(alea){
                     this.joueur.ajouterQuartierDansMain(q);
